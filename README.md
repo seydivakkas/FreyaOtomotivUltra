@@ -18,8 +18,8 @@ Yerel çalışan, Türkçe konuşan, telefon ve mikrofon üzerinden otomotiv iş
 | --- | --- | --- |
 | [F0](docs/stages/F0-audio-acquisition/spec.md) | Audio Acquisition & Enhancement | ✅ Plan hazır |
 | [F1](docs/stages/F1-voice-turn-detection/spec.md) | Voice Activity & Turn Detection | ✅ Plan hazır |
-| F2 | Speech Recognition & Understanding | ⏳ Planlanıyor |
-| F3 | Dialogue Intelligence | ⏳ Planlanacak |
+| [F2](docs/stages/F2-speech-recognition/spec.md) | Speech Recognition & Understanding | ✅ Plan hazır |
+| F3 | Dialogue Intelligence | ⏳ Planlanıyor |
 | F4 | Turkish Linguistic Frontend | ⏳ Planlanacak |
 | F5 | Neural Speech Synthesis | ⏳ Planlanacak |
 | F6 | Audio Rendering & Transport | ⏳ Planlanacak |
@@ -38,7 +38,7 @@ Her aşama klasöründe üç dosya bulunur:
 
 Belgelerdeki dosya yolları:
 
-- `backend/`, `frontend/`, `tests/`, `scripts/`, `data/` ile başlıyorsa → **PoC reposu**
+- `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/` ile başlıyorsa → **PoC reposu**
 - `docs/` ile başlıyorsa → **bu plan reposu**
 
 ## Ölçüm dürüstlüğü

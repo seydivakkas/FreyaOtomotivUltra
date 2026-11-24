@@ -10,7 +10,7 @@
 | GPU bütçesi | **0 MB** — F0 tamamen CPU üzerinde çalışır |
 | İlgili belgeler | [`tasks.md`](tasks.md) · [`acceptance.md`](acceptance.md) · [`../../01-architecture/interfaces.md`](../../01-architecture/interfaces.md) |
 
-> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/` ve `data/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
+> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/` ve `data/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
 
 ---
 
