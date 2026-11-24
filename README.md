@@ -21,8 +21,8 @@ Yerel çalışan, Türkçe konuşan, telefon ve mikrofon üzerinden otomotiv iş
 | [F2](docs/stages/F2-speech-recognition/spec.md) | Speech Recognition & Understanding | ✅ Plan hazır |
 | [F3](docs/stages/F3-dialogue-intelligence/spec.md) | Dialogue Intelligence & Multi-Agent Orchestration | ✅ Plan hazır |
 | [F4](docs/stages/F4-linguistic-frontend/spec.md) | Turkish Linguistic Frontend & Prosody Intelligence | ✅ Plan hazır |
-| F5 | Neural Speech Synthesis | ⏳ Planlanıyor |
-| F6 | Audio Rendering & Transport | ⏳ Planlanacak |
+| [F5](docs/stages/F5-neural-synthesis/spec.md) | Neural Speech Synthesis & Voice Identity Intelligence | ✅ Plan hazır |
+| F6 | Audio Rendering & Transport | ⏳ Planlanıyor |
 
 > Bu tablo **planlama** ilerlemesini gösterir; kod geliştirme veya test durumunu göstermez.
 
