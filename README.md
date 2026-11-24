@@ -20,8 +20,8 @@ Yerel çalışan, Türkçe konuşan, telefon ve mikrofon üzerinden otomotiv iş
 | [F1](docs/stages/F1-voice-turn-detection/spec.md) | Voice Activity & Turn Detection | ✅ Plan hazır |
 | [F2](docs/stages/F2-speech-recognition/spec.md) | Speech Recognition & Understanding | ✅ Plan hazır |
 | [F3](docs/stages/F3-dialogue-intelligence/spec.md) | Dialogue Intelligence & Multi-Agent Orchestration | ✅ Plan hazır |
-| F4 | Turkish Linguistic Frontend | ⏳ Planlanıyor |
-| F5 | Neural Speech Synthesis | ⏳ Planlanacak |
+| [F4](docs/stages/F4-linguistic-frontend/spec.md) | Turkish Linguistic Frontend & Prosody Intelligence | ✅ Plan hazır |
+| F5 | Neural Speech Synthesis | ⏳ Planlanıyor |
 | F6 | Audio Rendering & Transport | ⏳ Planlanacak |
 
 > Bu tablo **planlama** ilerlemesini gösterir; kod geliştirme veya test durumunu göstermez.
@@ -38,7 +38,7 @@ Her aşama klasöründe üç dosya bulunur:
 
 Belgelerdeki dosya yolları:
 
-- `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `automotive_voice/` ile başlıyorsa → **PoC reposu**
+- `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `experimental/`, `automotive_voice/` ile başlıyorsa → **PoC reposu**
 - `docs/` ile başlıyorsa → **bu plan reposu**
 
 ## Ölçüm dürüstlüğü
