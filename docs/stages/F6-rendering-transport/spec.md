@@ -10,7 +10,7 @@
 | GPU bütçesi | **0 MB** — F6 tamamen CPU'da |
 | İlgili belgeler | [`tasks.md`](tasks.md) · [`acceptance.md`](acceptance.md) · [`../F5-neural-synthesis/spec.md`](../F5-neural-synthesis/spec.md) §6 · [`../F1-voice-turn-detection/spec.md`](../F1-voice-turn-detection/spec.md) §5.9 |
 
-> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `experimental/`, `automotive_voice/` ve `asterisk/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
+> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
 
 ---
 
@@ -474,6 +474,8 @@ Mevcut `dsp.py`, `audio.py`, `audiosocket_server.py`, `telephony.py` ve AMI öze
 | `experimental/prosody_wsola_streamer.WSOLATimeStretch` | `audio_rendering/wsola.py` | Testleriyle taşınır |
 | `experimental/...ModelHashAndSeedGuard.get_conditioned_noise_seed` | — | **Taşınmaz:** denemeye göre seed değiştiriyor; F5 kurtarma kuralına aykırı |
 | `experimental/five_cuts_bargein_controller.AsteriskMediaBridge` (XOFF/XON) | `chan_websocket_adapter.py` | Fikir alınır; `RESUME_MEDIA` → `CONTINUE_MEDIA` |
+| `automotive_voice/audio/queue.MediaBuffer` (oturum başına sınırlı kuyruk, sıra ve generation kapıları, `MediaReceipt`) | `playback_queue.py` | **Temel olarak kullanılır** — milestone paketinde hazır ve test edilmiş, canlı yolda bağlı değil. Yerel kuyruk temizliğinin "PBX onayı değildir" ayrımı korunur |
+| `automotive_voice/telephony/transport.py` (`TransportPort`, `FakeTransport` XOFF/XON, `FlushAck` onayı, `AsteriskCommandEncoder`) | `media_transport/gateway.py` + testlerde sahte transport | Arayüz ve sahte transport alınır; `contracts/m06_flush_request` / `m06_flush_ack` şemaları korunur |
 | `audiosocket_server.AudioSocketOrchestrator` | `media_transport/audiosocket_adapter.py` | Yazma zaman aşımı; IP izin listesi |
 | `websocket_adapter.ChanWebSocketAdapter` | `media_transport/chan_websocket_adapter.py` | XOFF/XON, MARK_MEDIA, mesaj biçimi |
 | `ami.py`, `telephony.py`, `transfer.py`, `sip_trunk_failover.py` | `media_transport/` üzerinden | Mock/gerçek ayrımı korunur |

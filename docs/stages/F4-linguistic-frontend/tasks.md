@@ -4,7 +4,7 @@ Her görevin bir kimliği (`F4-Txx`), sprinti (`F4-Sxx`), dosyaları, bağımlı
 
 **Boyut:** S = yarım gün veya daha az · M = 1–2 gün · L = 3 gün veya daha fazla
 
-**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `experimental/`, `automotive_voice/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
+**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
 
 **Genel kurallar:**
 - Yeni hat `f4_pipeline_v2` bayrağı arkasında geliştirilir. Bayrak kapalıyken `text.normalize` / `clauses` davranışı değişmez.
@@ -187,7 +187,7 @@ Her görevin bir kimliği (`F4-Txx`), sprinti (`F4-Sxx`), dosyaları, bağımlı
 
 ### F4-T27 · Plan tüketimi · M
 - **Dosyalar:** `backend/models.py`, `backend/batched_ode.py`, `backend/session.py`
-- **Bağımlılık:** F4-T07; F5 ve F6 planlarındaki ilgili görevler
+- **Bağımlılık:** F4-T07. **F5-T09 ve F6-T08 ile karşılıklı bağımlıdır; üçü AIP-20'de birlikte birleştirilir.**
 - **İş:** F5 `model_text`'i dönüştürmeden kullanır (yalnızca sözlük kontrolü); sessizlik eklemez; F6 `post_pause_ms` uygular; `plan_id` önbellek anahtarı.
 - **Bitti:** T34 ve T36 geçer.
 

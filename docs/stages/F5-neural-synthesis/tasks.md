@@ -4,7 +4,7 @@ Her görevin bir kimliği (`F5-Txx`), sprinti (`F5-Sxx`), dosyaları, bağımlı
 
 **Boyut:** S = yarım gün veya daha az · M = 1–2 gün · L = 3 gün veya daha fazla
 
-**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `experimental/`, `automotive_voice/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
+**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
 
 **Genel kurallar:**
 - FreyaTTS ağırlıkları değiştirilmez (S26 hariç; o da ayrı model sürümü olarak).
@@ -69,7 +69,7 @@ Her görevin bir kimliği (`F5-Txx`), sprinti (`F5-Sxx`), dosyaları, bağımlı
 
 ### F5-T09 · F5'ten metin dönüşümünün ve sessizliğin kaldırılması · M
 - **Dosyalar:** `backend/models.py`, `backend/batched_ode.py`, `backend/neural_synthesis/pipeline.py`
-- **Bağımlılık:** F4-T07, F4-T27; F6'nın duraklama uygulayan görevi
+- **Bağımlılık:** F4-T07, F5-T08, F6-T05. **F4-T27 ve F6-T08 ile karşılıklı bağımlıdır; üçü aynı uygulama paketinde (AIP-20) birlikte birleştirilir.** Aksi halde ara sürümde duraklamalar kaybolur veya iki kez uygulanır.
 - **İş:** `normalize` / `clauses` / `prepare_tts_clause` çağrıları, duraklama sıfırları ve `apply_fade_and_comfort_noise` F5'ten çıkarılır. `models.synth(text)` uyumluluk için F4 planını üretip yeni hattı çağırır.
 - **Bitti:** T03 geçer; uçtan uca sessizlik süreleri plana eşit (F4 T34).
 
@@ -121,7 +121,7 @@ Her görevin bir kimliği (`F5-Txx`), sprinti (`F5-Sxx`), dosyaları, bağımlı
 
 ### F5-T16 · Ortak GPU yöneticisi · L
 - **Dosyalar:** `backend/runtime_resources/gpu_scheduler.py`, `memory_budget.py`, `priority_queue.py`, `cancellation.py`
-- **Bağımlılık:** F5-T01; F2-T07; F3-T33
+- **Bağımlılık:** F5-T01; F2-T07. F3-T33'ün LLM çağrı politikası yönetici kurulduktan sonra bağlanır (döngüsel bağımlılık kaldırıldı; [master plan](../../roadmap/master-plan.md) AIP-11).
 - **İş:** P0–P7 öncelikleri; bağımlılık ve deadline; VRAM bütçesi; kabul denetimi; iptal semantiği; mevcut `stt_lock` / `lock` / `worker_lock` yerine tek yönetim.
 - **Bitti:** T28–T31 geçer; ortak katman belgesi güncellenir.
 
@@ -253,7 +253,8 @@ flowchart LR
     T05 --> T12 & T18 & T23
     T06 --> T09
     T08 --> T12
-    F4T27["F4-T27"] --> T09 --> T26
+    F4T27["F4-T27 (AIP-20, birlikte)"] -.- T09 --> T26
+    T08 --> T09
     T28 --> T10 & T18
     T01 --> T16 --> T17
     T11 --> T13

@@ -10,7 +10,7 @@
 | GPU bütçesi | **0 MB** — F4 tamamen CPU'da, kural tabanlı |
 | İlgili belgeler | [`tasks.md`](tasks.md) · [`acceptance.md`](acceptance.md) · [`../F3-dialogue-intelligence/spec.md`](../F3-dialogue-intelligence/spec.md) §5.10 · [`../F2-speech-recognition/spec.md`](../F2-speech-recognition/spec.md) §5.8 |
 
-> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `experimental/` ve `automotive_voice/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
+> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
 
 ---
 
@@ -119,6 +119,21 @@ Toplu (batched) sentez yolu da (`backend/batched_ode.py`) kendi `normalize` / `c
 | Telefon | Rakam rakam, gruplama yok ("sıfır beş üç iki bir iki üç…") | Gruplu okuma | ✗ telefonda takibi zor |
 | e-208 / ID.4 | e-iki yüz sekiz / ID.dört | sözlükten | ✗ |
 | Planın birleşik örneği | "iki bin yirmi model Pejo üç bin sekiz için on dört otuzda iki bin beş yüz Türk lirası tutarında randevu." | aynı | ✓ |
+
+**L12 — Üçüncü bir normalizer ve prozodi planlayıcısı milestone paketinde duruyor (genel belgeler hazırlanırken eklendi).**
+`automotive_voice/nlp/normalizer.TurkishAutomotiveNormalizer` ve `automotive_voice/prosody/planner.ProsodyClausePlanner` yalnızca `backend/milestones.py` (milestone uçları) tarafından kullanılıyor; canlı yolda değiller. Doğrudan çalıştırma sonuçları:
+
+| Girdi | Çıktı | `review_required` / uyarı |
+| --- | --- | --- |
+| Peugeot 3008 için 2.500 TL. | Peugeot 3008 için iki bin beş yüz Türk lirası. | Evet · `unexpanded_numeric_token` |
+| Nissan Qashqai 2020 model | Nissan Qashqai iki bin yirmi model | Evet · `unsupported_freya_characters` |
+| Saat 14:30, 1.6 TDI | Saat on dört otuz, bir nokta altı TDI | Hayır |
+| Citroën C4 −5 °C | (değişmeden) | Evet · iki uyarı |
+| 1. seçenek 25 Kasım 10.00 | (değişmeden) | Evet · `ambiguous_numeric_notation` |
+
+Planlayıcı "Fiyat 1.250.000 TL, tamam mı?" için iki parça üretiyor: `PAUSE / 110 ms / continuation` ve `FINAL / 0 ms / question`. Çıktısı PoC'taki `contracts/tts_input.schema.json` şemasına uyuyor.
+
+Değerlendirme: Bu modül marka/model telaffuzunu çözmüyor (onaylanmamış sözlük adayını bilinçli olarak uygulamıyor), ama iki değerli davranışı var: (1) desteklenmeyen karakterde **çökmek yerine `review_required` ve uyarı kodu döndürüyor** (L5'in çözüm modeli), (2) parça başına `break_kind` / `pause_after_ms` / `delivery_hint` taşıyor (L2'nin çözüm modeli). F4 tek normalizasyon otoritesine geçerken bu iki davranış ve `tts_input` şeması korunur; modülün kendisi ayrı bir motor olarak yaşatılmaz.
 
 ### 3.3 Korunacak mevcut bileşenler
 
@@ -269,7 +284,7 @@ Büyük ve küçük ünlü uyumu, ünsüz yumuşaması/sertleşmesi, ünlü dü�
 
 - Mevcut heceleyici korunur. Geliştirmenin odağı otomotiv terimleri, özel kelimeler ve istisnalardır.
 - Vurgu motoru şunları üretir: hece yapısı, birincil vurgu adayı, istisna ve kaynağı, eklerin etkisi, cümle odağı, karşılaştırmalı/düzeltici vurgu.
-- **Cümle odağı F3'ten gelir:** `ResponseSegment.kind` ve odak varlıkları (`focus_entities`). Bu alanın F3 `ResponsePlan`'ına eklenmesi gerekir (F3 sözleşmesine ek; F4-T06).
+- **Cümle odağı F3'ten gelir:** `ResponseSegment.kind` ve odak varlıkları (`focus_entities`). Alan F3 sözleşmesinde `ResponseSegment.focus_entities` olarak tanımlıdır (F3 spec §5.10; F4-T06 tüketir).
 - Vurgu **hedefi** üretmek ile FreyaTTS'in bu hedefi akustik olarak **gerçekleştirmesi** ayrı kriterlerdir.
 
 ### 5.9 F4.09 — Clitic & Liaison Analyzer (`liaison.py`, `backend/morphology/clitics.py`)
@@ -500,6 +515,8 @@ Paralel çalışan yeni bir normalizasyon motoru oluşturulmaz. Mevcut özellikl
 | `emotion_prosody_adapter.py` | `prosody_planner.py` tarafından değerlendirilir | Canlıya alınmadan önce A7 ile ölçülür |
 | `experimental/streaming_chunker_guard.py` | `semantic_chunker.py` (token akışı modu) | F3 KNOWLEDGE yolu için |
 | `experimental/normalizer.py` | — | Arşiv; davranışı testlerle karşılaştırılıp kapatılır |
+| `automotive_voice/nlp/normalizer.TurkishAutomotiveNormalizer` (L12) | `linguistic_frontend/quality_gate.py` | Uyarı kodu ve `review_required` davranışı alınır; milestone uçları F4 `pipeline`'ı çağırır |
+| `automotive_voice/prosody/planner.ProsodyClausePlanner` (L12) | `semantic_chunker.py` + `prosody_planner.py` | `break_kind` / `pause_after_ms` / `delivery_hint` alanları `SynthesisPlan` parçalarına eşlenir; `contracts/tts_input.schema.json` sürümlenerek korunur |
 | `session.reply` içindeki normalize/clauses/prepare çağrıları | F4 `pipeline` → `SynthesisPlan` | Session yalnızca planı F5'e verir |
 | `models._synth` ve `batched_ode` içindeki normalize/clauses/sessizlik | F5 (yalnızca doğrulama) + F6 (duraklama) | F5 planındaki görevlerle birlikte |
 | `dialogue.format_options` içindeki `"{i+1}. seçenek"` | F3 `ResponsePlan` ORDINAL etiketi | F3 ile ortak düzeltme |

@@ -4,7 +4,7 @@ Her görevin bir kimliği (`F3-Txx`), sprinti (`F3-Sxx`), dosyaları, bağımlı
 
 **Boyut:** S = yarım gün veya daha az · M = 1–2 gün · L = 3 gün veya daha fazla
 
-**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `automotive_voice/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
+**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
 
 **Genel kurallar:**
 - Supervisor geçişi spec §6'daki sırayı izler; `supervisor_mode` varsayılanı her geçiş kapısı geçilmeden değişmez.
@@ -18,9 +18,9 @@ Her görevin bir kimliği (`F3-Txx`), sprinti (`F3-Sxx`), dosyaları, bağımlı
 ## F3-S01 — Supervisor ve Dialogue envanteri
 
 ### F3-T01 · Hermetik test altyapısı (LLM fake) · M
-- **Dosyalar:** `tests/fakes/fake_llm.py`, `tests/conftest.py`
-- **İş:** `models.chat` yerine senaryo bazında JSON döndüren sahte; canlı Ollama gerektiren testlerin (ör. `test_multi_vehicle_preplanned_booking`) fake'e geçirilmesi; gerçek LLM testleri için `llm` işareti.
-- **Bitti:** `pytest -m "not llm"` Ollama kapalıyken tamamen geçer.
+- **Dosyalar:** `tests/fakes/fake_llm.py`, `tests/conftest.py`, `backend/sft_leyla.py`, `backend/routers/text_speech.py`
+- **İş:** `models.chat` yerine senaryo bazında JSON döndüren sahte; canlı Ollama gerektiren testlerin (ör. `test_multi_vehicle_preplanned_booking`) fake'e geçirilmesi; gerçek LLM testleri için `llm`, GPU testleri için `gpu`, Asterisk testleri için `pbx` işareti. **Ek (genel belgeler hazırlanırken bulundu — X8):** `sft_leyla.py` modül düzeyinde `import torch` yaptığı için `backend.main`'i içe aktaran 43 test dosyası torch olmadan toplanamıyor; torch içe aktarması fonksiyon içine taşınır (tembel), router yalnızca SFT uçları çağrıldığında yükler.
+- **Bitti:** `pytest -m "not llm and not gpu and not pbx"` torch, CUDA ve Ollama kurulu olmayan bir ortamda toplama hatası olmadan tamamen geçer.
 
 ### F3-T02 · Karakterizasyon testleri · M
 - **Dosyalar:** `tests/supervisor/test_poc_characterization.py`
@@ -41,7 +41,7 @@ Her görevin bir kimliği (`F3-Txx`), sprinti (`F3-Sxx`), dosyaları, bağımlı
 
 ### F3-T05 · Kimlik doğrulamasız özel kayıt paylaşımının kapatılması (güvenlik düzeltmesi) · M
 - **Dosyalar:** `backend/dialogue.py`, `backend/caller_memory.py`, `docs/01-architecture/adr/ADR-F3-01-customer-verification.md`
-- **İş:** Garanti ve geçmiş bakım yanıtlarının doğrulama iş akışına bağlanması; ikinci etkenin ADR ile seçilmesi; arama başında otomatik profil oluşturmanın kaldırılması (P5).
+- **İş:** Garanti ve geçmiş bakım yanıtlarının doğrulama iş akışına bağlanması; ikinci etkenin ADR ile seçilmesi; arama başında otomatik profil oluşturmanın kaldırılması (P5). **ADR kararı verilene kadar güvenli varsayılan:** ikinci etken yoksa özel kayıt içeriği söylenmez, müşteriye operatöre aktarım veya şubeye başvuru önerilir. Bu varsayılan ilk PR'da canlıya alınır; ikinci etken ADR sonrası eklenir.
 - **Bitti:** T19 geçer; doğrulanmamış arayana özel kayıt içeriği hiçbir yoldan söylenmez.
 
 ## F3-S02 — F2–F3–F4 veri sözleşmeleri

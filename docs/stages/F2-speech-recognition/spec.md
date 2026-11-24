@@ -10,7 +10,7 @@
 | GPU bütçesi | Mevcut tek Faster-Whisper Large V3 Turbo örneği (FP16). **Yeni model yüklenmez.** STT, TTS ve LLM ile aynı GPU'yu paylaşır |
 | İlgili belgeler | [`tasks.md`](tasks.md) · [`acceptance.md`](acceptance.md) · [`../F1-voice-turn-detection/spec.md`](../F1-voice-turn-detection/spec.md) |
 
-> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/` ve `data/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
+> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
 
 ---
 

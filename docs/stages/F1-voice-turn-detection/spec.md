@@ -10,7 +10,7 @@
 | GPU bütçesi | **0 MB** — Silero VAD CPU'da çalışır. Spekülatif STT (§5.7) F2'nin GPU bütçesinden kullanır |
 | İlgili belgeler | [`tasks.md`](tasks.md) · [`acceptance.md`](acceptance.md) · [`../F0-audio-acquisition/spec.md`](../F0-audio-acquisition/spec.md) |
 
-> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/` ve `data/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
+> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
 
 ---
 

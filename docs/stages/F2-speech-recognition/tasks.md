@@ -4,7 +4,7 @@ Her görevin bir kimliği (`F2-Txx`), sprinti (`F2-Sxx`), dosyaları, bağımlı
 
 **Boyut:** S = yarım gün veya daha az · M = 1–2 gün · L = 3 gün veya daha fazla
 
-**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
+**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
 
 **Genel kurallar:**
 - Yeni hat `f2_pipeline_v2` bayrağı arkasında geliştirilir. Bayrak kapalıyken `models.transcribe` davranışı değişmez.

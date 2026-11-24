@@ -4,7 +4,7 @@ Bu dosya F0'ın uygulanabilir iş listesidir. Her görevin bir kimliği (`F0-Txx
 
 **Boyut:** S = yarım gün veya daha az · M = 1–2 gün · L = 3 gün veya daha fazla
 
-**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
+**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
 
 **Genel kurallar:**
 - Mevcut testler her görevden sonra geçmeye devam etmelidir (`pytest tests/`).
@@ -106,8 +106,8 @@ Bu dosya F0'ın uygulanabilir iş listesidir. Her görevin bir kimliği (`F0-Txx
 - **Bitti:** Ardışık iki örnek arasındaki kazanç değişimi 0,1 dB'yi aşmaz (zipper testi); T09 geçer.
 
 ### F0-T16 · Peak limiter ve giriş kırpılma algılayıcı · M
-- **Dosyalar:** `backend/audio_frontend/limiter.py`, `input_adapter.py`
-- **İş:** spec §5.7 ve §5.1 madde 7.
+- **Dosyalar:** `backend/dsp_common/limiter.py` (ortak çekirdek), `backend/audio_frontend/limiter.py` (F0 sarmalayıcısı), `input_adapter.py`
+- **İş:** spec §5.7 ve §5.1 madde 7. Zarf tabanlı limiter çekirdeği F6 ile ortaktır (F6-T11 aynı çekirdeği kullanır — [master plan](../../roadmap/master-plan.md) §6).
 - **Bitti:** T10 geçer (tavan −1 dBFS ± 0,1 dB; kırpılmış çerçevelerin en az %95'i işaretlenir).
 
 ## F0-S05 — AEC ve alternatif RNNoise adaptörü
@@ -136,8 +136,8 @@ Bu dosya F0'ın uygulanabilir iş listesidir. Her görevin bir kimliği (`F0-Txx
 ## F0-S06 — Yeniden örnekleme ve düşük gecikmeli tampon
 
 ### F0-T21 · Durumlu resampler · S
-- **Dosyalar:** `backend/audio_frontend/resampler.py`
-- **İş:** spec §5.8.
+- **Dosyalar:** `backend/dsp_common/resampler.py` (ortak durumlu çekirdek), `backend/audio_frontend/resampler.py`
+- **İş:** spec §5.8. Durumlu yeniden örnekleme çekirdeği F6 ile ortaktır (F6-T13, ADR-F6-01).
 - **Bitti:** T12 geçer.
 
 ### F0-T22 · Çerçeve süresinin küçültülmesi ve olay döngüsü yükü · M

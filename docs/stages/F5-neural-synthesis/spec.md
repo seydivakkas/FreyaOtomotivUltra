@@ -10,7 +10,7 @@
 | GPU bütçesi | Mevcut tek FreyaTTS (DiT + AudioVAE) örneği. **Model ikinci kez yüklenmez.** Konuşmacı gömüsü (speaker embedding) analizi CPU'da ve yalnızca laboratuvar/örneklem düzeyinde |
 | İlgili belgeler | [`tasks.md`](tasks.md) · [`acceptance.md`](acceptance.md) · [`../F4-linguistic-frontend/spec.md`](../F4-linguistic-frontend/spec.md) §6 |
 
-> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `experimental/` ve `automotive_voice/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
+> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
 
 ---
 

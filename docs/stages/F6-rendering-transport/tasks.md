@@ -4,7 +4,7 @@ Her görevin bir kimliği (`F6-Txx`), sprinti (`F6-Sxx`), dosyaları, bağımlı
 
 **Boyut:** S = yarım gün veya daha az · M = 1–2 gün · L = 3 gün veya daha fazla
 
-**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `experimental/`, `automotive_voice/`, `asterisk/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
+**Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` → PoC reposu ([`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC)). `docs/` → bu plan reposu.
 
 **Genel kurallar:**
 - Yeni hat `f6_pipeline_v2` bayrağı arkasında geliştirilir. Mevcut çalışan AudioSocket yolu kaldırılmaz.
@@ -65,7 +65,7 @@ Her görevin bir kimliği (`F6-Txx`), sprinti (`F6-Sxx`), dosyaları, bağımlı
 
 ### F6-T08 · Duraklama uygulama · S
 - **Dosyalar:** `pause_renderer.py`
-- **Bağımlılık:** F5-T09 (F5'in sessizlik eklememesi)
+- **Bağımlılık:** F6-T05. **F4-T27 ve F5-T09 ile karşılıklı bağımlıdır; üçü AIP-20'de birlikte birleştirilir** (F5 sessizlik eklemeyi bıraktığı anda F6 duraklamayı uygulamaya başlamalı).
 - **İş:** spec §5.4; parça içi sessizliğin düşülmesi.
 - **Bitti:** T11, T12.
 
@@ -86,7 +86,8 @@ Her görevin bir kimliği (`F6-Txx`), sprinti (`F6-Sxx`), dosyaları, bağımlı
 
 ### F6-T11 · Loudness ve zarf tabanlı limiter · M
 - **Dosyalar:** `loudness.py`, `limiter.py`
-- **İş:** spec §5.5 ve §5.7; `tanh` doygunlaştırıcısının kaldırılması (R3); F0 limiter'ı ile ortak yardımcılar.
+- **Bağımlılık:** F0-T16 (ortak limiter çekirdeği `backend/dsp_common/`)
+- **İş:** spec §5.5 ve §5.7; `tanh` doygunlaştırıcısının kaldırılması (R3); limiter F0 ile aynı çekirdeği kullanır, yalnızca kanal profili farklıdır.
 - **Bitti:** T16, T17.
 
 ## F6-S10 — Comfort Noise
@@ -100,7 +101,8 @@ Her görevin bir kimliği (`F6-Txx`), sprinti (`F6-Sxx`), dosyaları, bağımlı
 
 ### F6-T13 · Akış boyunca durumlu yeniden örnekleme · M
 - **Dosyalar:** `resampler.py`, `docs/01-architecture/adr/ADR-F6-01-output-resampler.md`
-- **İş:** soxr ve durumlu polifaz karşılaştırması; seçim.
+- **Bağımlılık:** F0-T21 (ortak durumlu çekirdek `backend/dsp_common/`)
+- **İş:** soxr ve durumlu polifaz karşılaştırması; seçim. Seçilen yöntem F0 ile ortak çekirdekte uygulanır.
 - **Bitti:** T19–T22; ADR.
 
 ## F6-S12 — PCM ve codec laboratuvarı
@@ -222,7 +224,7 @@ Her görevin bir kimliği (`F6-Txx`), sprinti (`F6-Sxx`), dosyaları, bağımlı
 ```mermaid
 flowchart LR
     T04 --> T05 --> T06 --> T08
-    F5T09["F5-T09"] --> T08
+    F5T09["F5-T09 (AIP-20, birlikte)"] -.- T08
     T05 --> T10 --> T11 --> T13
     T13 --> T15 --> T16 --> T17 --> T18
     F1T20["F1-T20"] --> T18

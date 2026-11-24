@@ -10,7 +10,7 @@
 | GPU bütçesi | Mevcut tek Qwen 2.5 7B (Ollama). **Ajan başına ayrı model yüklenmez.** RAG gömme (embedding) modeli CPU'da |
 | İlgili belgeler | [`tasks.md`](tasks.md) · [`acceptance.md`](acceptance.md) · [`../F2-speech-recognition/spec.md`](../F2-speech-recognition/spec.md) |
 
-> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/` ve `automotive_voice/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
+> **Yol kuralı:** `backend/`, `frontend/`, `tests/`, `scripts/`, `config/`, `data/`, `contracts/`, `experimental/`, `automotive_voice/`, `asterisk/` ile başlayan yollar **PoC reposundadır**. `docs/` ile başlayan yollar **bu plan reposundadır**.
 
 ---
 
@@ -398,6 +398,7 @@ class ResponseSegment:
     kind: Literal["info", "question", "confirmation", "safety", "filler"]
     interruptible: bool             # Güvenlik mesajları kesilemez olabilir
     cacheable: bool                 # Sabit metin → F5 önbelleği
+    focus_entities: tuple[int, ...] = ()  # tags içindeki odak varlıkların indeksleri → F4 cümle odağı ve vurgu (F4 spec §5, F4-T06)
 
 @dataclass(frozen=True)
 class ResponsePlan:
