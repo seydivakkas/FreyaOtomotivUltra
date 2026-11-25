@@ -32,12 +32,13 @@ Bir ADR, ölçüm veya kullanıcı kararı gerektiren bir mimari seçimi kayda g
 | [ADR-X-01](ADR-X-01-asterisk-dagitim.md) | Asterisk dağıtımı: pilot aynı makine, üretim ayrı sunucu — ADR-006 | F6-A, F6-D, G5 (F6-T20) | **Kullanıcı** | Kabul edildi (2026-11-26) |
 | [ADR-X-03](ADR-X-03-yapay-zeka-bildirimi.md) | Karşılamada yapay zekâ bildirimi — ADR-002 | H01, F3-A, G5, PILOT | **Kullanıcı** | Kabul edildi (2026-11-26) |
 | [ADR-X-04](ADR-X-04-sozluk-okunus-onayi.md) | Sözlük okunuş onayı: ürün sahibi + iş birimi — ADR-005 | M05, F4-B | **Kullanıcı** | Kabul edildi (2026-11-26) |
+| [ADR-X-05](ADR-X-05-belge-arsivi-onayi.md) | Belge arşivi lisans ve içerik onayı: iş sahibi / veri sahibi — ADR-008 | F3-C, F5-D | **Kullanıcı** | Kabul edildi (2026-11-26) |
 | [ADR-F3-02](ADR-F3-02-gomme-modeli.md) | RAG gömme modeli: yalnız bge-m3, CPU — ADR-007 | F3-C | **Kullanıcı** + lisans | Kabul edildi (revize, 2026-11-26) |
 | ADR-X-02 | Ortak GPU yöneticisi: VRAM bütçesi, STT/TTS eşzamanlılığı, Ollama `num_gpu` katman sayısı ([gpu-resource-manager](../../cross-cutting/gpu-resource-manager.md) §4) | F5-T16 (AIP-11) | Ölçüm | Ölçüm bekleniyor |
 
 ## Kullanıcı kararları (2026-11-26)
 
-Karar günlüğündeki yedi karar kabul edildi; özet ve etkilenen paketler: [ana plan §Verilen kararlar](../../execution/master-plan.md#verilen-kararlar).
+Karar günlüğündeki sekiz karar kabul edildi; özet ve etkilenen paketler: [ana plan §Verilen kararlar](../../execution/master-plan.md#verilen-kararlar).
 
 | Karar günlüğü | ADR |
 | --- | --- |
@@ -48,5 +49,6 @@ Karar günlüğündeki yedi karar kabul edildi; özet ve etkilenen paketler: [an
 | ADR-005 Sözlük okunuş onayı | [ADR-X-04](ADR-X-04-sozluk-okunus-onayi.md) |
 | ADR-006 Asterisk dağıtımı | [ADR-X-01](ADR-X-01-asterisk-dagitim.md) |
 | ADR-007 Gömme modeli | [ADR-F3-02](ADR-F3-02-gomme-modeli.md) |
+| ADR-008 Belge arşivi lisans ve içerik onayı | [ADR-X-05](ADR-X-05-belge-arsivi-onayi.md) |
 
-Kalan kullanıcı sorusu: belge derlemi lisans ve inceleme yetkilisi ([ana plan §Açık kararlar](../../execution/master-plan.md#açık-kararlar)).
+Kullanıcı tercihi bekleyen soru kalmadı. Kalan ADR'ler ölçümle (ve gerekiyorsa lisans incelemesiyle) karara bağlanır ([ana plan §Açık kararlar](../../execution/master-plan.md#açık-kararlar)).

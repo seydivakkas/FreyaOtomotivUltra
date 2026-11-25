@@ -87,7 +87,7 @@ Eski davranış → gölge (yan etkisiz) → korumalı salt okunur → korumalı
 
 ## Verilen kararlar
 
-Kullanıcı (ürün sahibi) kararları, 2026-11-26. Karar günlüğü numarası parantez içinde.
+Kullanıcı (ürün sahibi) kararları, 2026-11-26. Karar günlüğü numarası parantez içinde. Kullanıcı tercihi bekleyen karar kalmadı; aşağıdaki açık kararlar ölçümle verilir.
 
 | Karar | Özet | Etkilediği paket |
 | --- | --- | --- |
@@ -98,10 +98,11 @@ Kullanıcı (ürün sahibi) kararları, 2026-11-26. Karar günlüğü numarası 
 | [ADR-X-04](../01-architecture/adr/ADR-X-04-sozluk-okunus-onayi.md) (ADR-005) — Sözlük okunuş onayı | Ürün sahibi + ilgili iş birimi; ajan onaylamaz | M05, F4-B |
 | [ADR-X-01](../01-architecture/adr/ADR-X-01-asterisk-dagitim.md) (ADR-006) — Asterisk dağıtımı | Pilot/geliştirme aynı makine (WSL2/VM, loopback); üretim ayrı sunucu, özel ağ/şifreli tünel | F6-A, F6-D, G5, PILOT |
 | [ADR-F3-02](../01-architecture/adr/ADR-F3-02-gomme-modeli.md) (ADR-007) — Gömme modeli | Yalnız `bge-m3`, CPU'da, yerel yapıt; model yoksa yalnız BM25 | F3-C, M03 |
+| [ADR-X-05](../01-architecture/adr/ADR-X-05-belge-arsivi-onayi.md) (ADR-008) — Belge arşivi onayı | Lisans, kullanım hakkı, güncellik ve içerik doğruluğu için nihai onay iş sahibi / veri sahibinde; teknik ekip yalnız teknik doğrulama | F3-C, F5-D |
 
 ## Açık kararlar
 
-Ölçüm gerektirenler ilgili pakette ölçülür ve ADR taslağı yazılır; tercih gerektirenler kullanıcıya aittir. Karar verilene kadar paket güvenli varsayılanla ilerler ama ilgili kapı `HOLD` kalır.
+Hepsi ölçüm (ve gerekiyorsa lisans) gerektirir: ilgili pakette ölçülür, ADR taslağı yazılır, karar kullanıcıya sunulur. Karar verilene kadar paket güvenli varsayılanla ilerler ama ilgili kapı `HOLD` kalır.
 
 | Karar | Tür | Etkilediği paket | Öneri / güvenli varsayılan |
 | --- | --- | --- | --- |
@@ -113,6 +114,5 @@ Kullanıcı (ürün sahibi) kararları, 2026-11-26. Karar günlüğü numarası 
 | ADR-F2-01 — N-best desteği | Ölçüm | F2-B | Desteklenmiyorsa tek hipotez + alternatif çözme |
 | ADR-F5-01 — Konuşmacı kodlayıcı (ECAPA) yerel yapıtı ve lisansı | Ölçüm + lisans | F5-C, F5-D, G4, G5 | Lisanslı yerel yapıt yoksa benzerlik null |
 | ADR-F6-01…04 — Yeniden örnekleyici, hız sahibi, sessizlik/konfor gürültüsü, web oynatma | Ölçüm | F6-A, F6-B, F6-C | Pakette ölçümle |
-| Belge derlemi lisans ve inceleme yetkilisi | Kullanıcı | F3-C, F5-D | Kurum içi rol |
 
 ADR dizini: [docs/01-architecture/adr/](../01-architecture/adr/README.md).

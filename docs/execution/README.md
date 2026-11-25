@@ -13,6 +13,27 @@
 
 Her paket dosyasının sonundaki **§12 Başlatma komutu** ajana doğrudan verilebilecek kısa talimattır.
 
+## İlk kurulum (bir kez)
+
+1. Bu plan reposundaki PR birleştirilmiş olmalı; ajanlar `main` dalını okur.
+2. PoC reposunun köküne [`templates/poc-CLAUDE.md`](templates/poc-CLAUDE.md) içeriğini **`CLAUDE.md`** ve **`AGENTS.md`** adıyla ekleyin (PoC'ta zaten `CLAUDE.md` varsa en üste ekleyin). Böylece PoC reposunda açılan her ajan önce bu planı okur.
+3. Ajan oturumuna **iki repoyu birlikte** ekleyin: `seydivakkas/FreyaTTS_Automotive_PoC` (yazma) ve `seydivakkas/FreyaOtomotivUltra` (okuma).
+4. GPU, Ollama veya Asterisk gerektiren adımlar yerel makinede yapılır ([execution-order.md §Ortam gereksinimi](execution-order.md#ortam-gereksinimi)); bulut ajanı yalnız CPU işlerini yapabilir.
+
+## Ajana verilecek istem
+
+İlk paket her zaman M00'dır (salt okunur envanter; kod değişmez). Kopyalanabilir istem:
+
+```
+FreyaTTS_Automotive_PoC reposunda çalışıyorsun; plan FreyaOtomotivUltra reposunda.
+Önce FreyaOtomotivUltra/CLAUDE.md ve FreyaOtomotivUltra/docs/execution/README.md dosyalarını oku.
+Sonra <PAKET> paketini başlat: paket dosyasındaki "12. Başlatma komutu" bölümünü uygula.
+Başlamadan önce §2'deki kutuları doğrula; biri sağlanmıyorsa kod yazmadan dur ve nedenini yaz.
+Bitince paket/<PAKET> dalında PR aç, kanıtı evidence/<PAKET>/<run_id>/ altına yaz ve dur.
+```
+
+Sıradaki paket [execution-order.md](execution-order.md)'deki seri sıradır; bir paketin PR'ı birleştirilip kanıtı `PASS` olmadan sonraki başlatılmaz.
+
 ## Paket dosyasının bölümleri (hepsinde aynı)
 
 | Bölüm | İçerik |
@@ -43,7 +64,7 @@ Her paket dosyasının sonundaki **§12 Başlatma komutu** ajana doğrudan veril
 | [ownership.md](ownership.md) | Paket → dizin → tek yetki; sözleşme sınırları |
 | [risks.md](risks.md) | Entegrasyon (IR01–IR48), aşamalar arası (CS01–CS18) ve program riskleri |
 | [evidence.md](evidence.md) | Kanıt yolları, zorunlu dosyalar, kanıt sınıfları, ölçüm dürüstlüğü |
-| [templates/](templates/) | `manifest`, `decision`, `lab-report`, `contract-change`, `research-eligibility` şablonları |
+| [templates/](templates/) | `manifest`, `decision`, `lab-report`, `contract-change`, `research-eligibility` şablonları; PoC reposu için ajan rehberi şablonu `poc-CLAUDE.md` |
 | [registry.json](registry.json) | Tüm görev/test/kapı kimlikleri (üretilmiş) |
 | [legacy-mapping.md](legacy-mapping.md) | Eski görev (`F2-T15`) ve AIP → yeni paket eşlemesi (üretilmiş) |
 

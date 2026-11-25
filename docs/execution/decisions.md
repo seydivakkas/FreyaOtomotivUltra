@@ -68,7 +68,7 @@ Paket dosyalarındaki satırlar **plan** sayısıdır; çalıştırılmış test
 
 ## K-11 — Kullanıcı kararları (2026-11-26)
 
-Ana plandaki açık kararların yedisi kullanıcı tarafından karara bağlandı ve ADR olarak kaydedildi ([master-plan §Verilen kararlar](master-plan.md#verilen-kararlar)). Kullanıcının karar günlüğündeki numaralar (ADR-001…007) mevcut ADR kimlikleriyle eşlendi; her ADR dosyasının başlığında iki numara da var. Kararları uygulanabilir kılmak için eklenen kurallar ADR'lerin "Uygulama kuralları" bölümündedir ve kararı değiştirmez. Aynı gün iki karar revize edildi: telefon okuması ikişerli gruplardan `05xx xxx xx xx` gruplamasına (11 hane ikişerli eşit bölünemediği için), gömme modeli e5-large + bge-m3 alternatifinden yalnız `bge-m3`'e.
+Ana plandaki kullanıcı tercihi gerektiren sekiz karar kullanıcı tarafından karara bağlandı ve ADR olarak kaydedildi ([master-plan §Verilen kararlar](master-plan.md#verilen-kararlar)). Kullanıcının karar günlüğündeki numaralar (ADR-001…008) mevcut ADR kimlikleriyle eşlendi; her ADR dosyasının başlığında iki numara da var. Kararları uygulanabilir kılmak için eklenen kurallar ADR'lerin "Uygulama kuralları" bölümündedir ve kararı değiştirmez. Aynı gün iki karar revize edildi: telefon okuması ikişerli gruplardan `05xx xxx xx xx` gruplamasına (11 hane ikişerli eşit bölünemediği için), gömme modeli e5-large + bge-m3 alternatifinden yalnız `bge-m3`'e.
 
 Bu kararlar CLAUDE.md kural 4'e bir istisna getirir: ADR-F3-02 gömme modeli GPU'ya yüklenmeyen, CPU'da çalışan, yerel olarak sağlanan tek onaylı ek modeldir.
 

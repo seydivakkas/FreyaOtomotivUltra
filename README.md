@@ -94,5 +94,6 @@ Verilen kararlar (2026-11-26) — [ana plan §Verilen kararlar](docs/execution/m
 | Sözlük okunuş onayı | Ürün sahibi + ilgili iş birimi |
 | Asterisk | Pilot/geliştirme aynı makine; üretim ayrı sunucu |
 | Gömme modeli | Yalnız `bge-m3`, CPU'da |
+| Belge arşivi onayı | Lisans ve içerik onayı iş sahibi / veri sahibinde; teknik ekip yalnız teknik doğrulama |
 
-Bekleyen kararlar ve ölçümle verilecek ADR'ler: [ana plan §Açık kararlar](docs/execution/master-plan.md#açık-kararlar).
+Kullanıcı tercihi bekleyen karar kalmadı. Ölçümle verilecek ADR'ler: [ana plan §Açık kararlar](docs/execution/master-plan.md#açık-kararlar).

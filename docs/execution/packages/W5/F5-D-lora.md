@@ -291,7 +291,7 @@ Uyarlayıcı tanımlayıcısı geri alınır → yeni planlar tabana döner; tab
 
 - **Ana ürün:** G2–G5 ve PILOT_DECISION F5-D'den bağımsızdır; F5-D reddedilse de taban kabul kalır.
 - **R6:** aday sürüm ayrı kullanıcı kararı ve etkilenen ürün regresyonu (G4/G5 ilgili testleri) ister.
-- **Açık kararlar:** ECAPA değerlendirici yerel yapıt/lisansı; derlem lisans ve inceleme yetkilisi ([master plan §Açık kararlar](../../master-plan.md#açık-kararlar)).
+- **Açık kararlar:** ECAPA değerlendirici yerel yapıt/lisansı; veri kullanım hakkı onayı veri sahibindedir ([ADR-X-05](../../../01-architecture/adr/ADR-X-05-belge-arsivi-onayi.md) ilkesi) ([master plan §Açık kararlar](../../master-plan.md#açık-kararlar)).
 
 ## 12. Başlatma komutu
 

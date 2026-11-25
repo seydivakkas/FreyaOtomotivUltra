@@ -24,7 +24,7 @@
 - [ ] W2_GATE PASS (`w2_vertical_slice_accepted` gerçek WG kanıtıyla); F3-B kabul; onay. İzin yoksa yalnız planlama.
 - [ ] Mevcut Supervisor, araç rotaları, DB, müşteri hafızası, arama/bilgi kodu izlenmiş; eşdeğer bilgi adaptörü varsa yeniden kullanılır; politikayı atlayan eski uç nokta katı etkinleştirmeyi engeller.
 - [ ] **Model kuralı ([ADR-F3-02](../../../01-architecture/adr/ADR-F3-02-gomme-modeli.md), kabul edildi):** gömme modeli **yalnız `bge-m3`**, **CPU'da**; yapıt kullanıcı tarafından yerelde sağlanır ve M03 kaydına sürüm, SHA-256 ve lisansla girer (indirme yok). Yapıt yoksa veya yüklenemezse yoğun arama `HOLD`, yalnız BM25; başka modele geçilmez. Önek yok; azami 8192 belirteç, parça uzunluğu ölçümle seçilir.
-- [ ] Belge kaynağı ve lisans kaydı (eski F3-T20) için kullanıcının sağladığı belgeler; internetten içerik çekilmez.
+- [ ] Belge kaynağı ve lisans kaydı (eski F3-T20) için kullanıcının sağladığı belgeler; internetten içerik çekilmez. Onay sahibi iş sahibi / veri sahibidir ([ADR-X-05](../../../01-architecture/adr/ADR-X-05-belge-arsivi-onayi.md)); onaysız belgeler yalnız karantina fikstürü olarak kullanılır.
 
 ## 3. Kapsam
 
@@ -50,7 +50,7 @@ evidence/F3-C/<run_id>/
 
 ### 5.1 Korpus ve dizin
 
-- **Kayıt:** izin listeli belge kaydı; yerel kaynak kökeni, lisans, erişim ve inceleme durumu, içerik hash'i. Lisans/erişim incelemesi eksik belge karantinada ve aranamaz. Aynı belge kimliği + revizyon farklı baytla → çakışma/karantina. Farklı kapsamlı yinelenen bayt → kapsam içinde güvenli tekilleştirme (erişim genişlemez, çift doğrulama sayılmaz). Bilinmeyen pazar/yıl üst verisi joker değildir. Doğrulanmamış "yerini alır" beyanı eski sürümü otomatik emekliye ayırmaz.
+- **Kayıt:** izin listeli belge kaydı; yerel kaynak kökeni, belge sahibi, lisans ve kullanım hakkı, güncellik (yayın/son gözden geçirme, varsa geçerlilik sonu), erişim, **iş sahibi / veri sahibi onayı** (onaylayan, tarih, onaylanan revizyon) ve teknik doğrulama sonucu, içerik hash'i ([ADR-X-05](../../../01-architecture/adr/ADR-X-05-belge-arsivi-onayi.md)). Belge yalnız iş sahibi onayı + teknik doğrulama ile aranabilir olur; biri eksikse, onay süresi dolmuşsa veya içerik hash'i onaylanan revizyondan farklıysa karantinada ve aranamaz. Ajan onay alanını dolduramaz. Aynı belge kimliği + revizyon farklı baytla → çakışma/karantina. Farklı kapsamlı yinelenen bayt → kapsam içinde güvenli tekilleştirme (erişim genişlemez, çift doğrulama sayılmaz). Bilinmeyen pazar/yıl üst verisi joker değildir. Doğrulanmamış "yerini alır" beyanı eski sürümü otomatik emekliye ayırmaz.
 - **Ayıklama:** onaylı yerel ayrıştırıcı, sınırlı güvenli kök (yol geçişi/reparse point reddi), biçim kontrolü, yanıltıcı uzantı/aşırı boyut ret; özgün sayfa indeksleri ve basılı etiketler korunur; okunamaz pasaj kapsam uyarısıyla (bozuk metne dayalı iddia yok); başlığı/birimi eksik tablo veya gömülü dış talimat → güvensiz tablo bilgisi dışlanır, kod/ağ yürütmesi yok.
 - **Parçalama:** arama normalizasyonu kesin kaynak aralıklarına eşlenir (Türkçe I/İ/ı/i, NFC); `P0300`, `ID.4` parça sınırında bölünmez; uyarı ve koşullu niteleyici sınırda bölünmez (birlikte tutulur veya aranamaz işaretlenir); örtüşen parçalar kararlı kimlik ve ortak köken (bağımsız kanıt değil); çok uzun bölüm → açık atlama/HOLD.
 - **Dizin:** değiştirilemez anlık görüntü; hash, satır eşlemesi, revizyonlar, ACL; karşılaştır-değiştir ile değişim; kesilen yapım son iyi işaretçiyi değiştirmez; yanlış boyut/satır sayısı veya aynı boyut ama farklı model/havuzlama revizyonu reddedilir; okuyucu sabit görüntüyü kullanır (eski yapıt kirası tutulur); belge iptali sabit görüntüye rağmen kullanımı engeller; bozuk yoğun yapıt + geçerli sözcüksel görüntü → onaylıysa açık yalnız-sözcüksel, uydurma yoğun isabet yok.
@@ -81,7 +81,7 @@ Arayan numarası veya plaka tek başına geçmiş okumaz (varlık ifşası yok);
 | F3-C.01 | Ön kontrol ve soy | Kabul edilmiş F3-B, M00–M08, gerçek CG/WG kanıtı ve planlama bildirimi | `PRECHECK`; RW01–RW04 |
 | F3-C.02 | Envanter ve sahiplik | Mevcut Supervisor, araç rotaları, DB, müşteri hafızası, arama/bilgi kodu | `OWNERSHIP`; RW05–RW08 |
 | F3-C.03 | Sözleşme ve kapsam | M01/M02/M03/M05/M07 ve F3-A/B türleri; giriş talepleri, bağlam CAS, kapsam | RW09–RW14 |
-| F3-C.04 | Korpus bildirimi ve haklar | İzin listeli belge kaydı ve yerel kaynak kökeni; inceleme durumu | `CORPUS_MANIFEST`; RW15–RW20 |
+| F3-C.04 | Korpus bildirimi ve haklar | İzin listeli belge kaydı ve yerel kaynak kökeni; ADR-X-05 alanları (belge sahibi, iş sahibi onayı, lisans/kullanım hakkı, güncellik, teknik doğrulama) | `CORPUS_MANIFEST`; RW15–RW20 |
 | F3-C.05 | Çevrimdışı ayıklama | Onaylı yerel ayrıştırıcı, sınırlı güvenli kök, biçim kontrolü, bölüm/sayfa/satır çapaları | RW21–RW25 |
 | F3-C.06 | Parçalama ve ön işleme | Kaynak aralıkları ve niteleyiciler; tipli korumalı tanımlayıcılar; Unicode | RW26–RW30 |
 | F3-C.07 | Dizin kaydı ve etkinleştirme | Değiştirilemez görüntü sahnelenir; hash, satır eşlemesi, revizyon ve ACL; CAS değişimi | `INDEX_REGISTRY`; RW31–RW36 |
@@ -257,7 +257,7 @@ Arayan numarası veya plaka tek başına geçmiş okumaz (varlık ifşası yok);
 
 - **G2:** tam katman bütünleşmesi; RAG ve çoklu niyet yalnız onaylı profillerde.
 - **G3:** belge kaydı/inceleme ve iş akışı görünümü için arayüz (Studio) — salt okunur izdüşümlerden.
-- **Kararlar:** gömme modeli [ADR-F3-02](../../../01-architecture/adr/ADR-F3-02-gomme-modeli.md) (yalnız bge-m3, CPU). **Açık:** belge lisans/inceleme yetkilisi.
+- **Kararlar:** gömme modeli [ADR-F3-02](../../../01-architecture/adr/ADR-F3-02-gomme-modeli.md) (yalnız bge-m3, CPU); belge onayı [ADR-X-05](../../../01-architecture/adr/ADR-X-05-belge-arsivi-onayi.md) (iş sahibi / veri sahibi).
 
 ## 12. Başlatma komutu
 
