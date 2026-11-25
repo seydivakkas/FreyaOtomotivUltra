@@ -1,5 +1,7 @@
 # F0 — Görevler
 
+> **Yürütme notu (25.11.2026):** Bu dosya teknik görev ayrıntısıdır; **yürütme birimi değildir**. Ajan iş olarak paket alır ([yürütme planı](../../execution/README.md)). Bu aşamanın görevlerinin uygulandığı paketler: [H01](../../execution/packages/W0/H01-guvenli-zemin.md), [M01](../../execution/packages/W1/M01-cekirdek-sozlesmeler.md), [M08](../../execution/packages/W1/M08-test-altyapisi.md), [F0-A](../../execution/packages/W2/F0-A-ses-girisi.md), [F0-B](../../execution/packages/W4/F0-B-uyarlanir-dsp.md), [G3](../../execution/stages/G3-arayuz.md), [G4](../../execution/stages/G4-sentetik-kabul.md), [G5](../../execution/stages/G5-gercek-insan-sip.md). Görev başına eşleme: [legacy-mapping.md](../../execution/legacy-mapping.md). Bu dosyadaki AIP, faz ve sprint atıfları eski plana aittir.
+
 Bu dosya F0'ın uygulanabilir iş listesidir. Her görevin bir kimliği (`F0-Txx`), ait olduğu sprint (`F0-Sxx`), dokunacağı dosyalar, bağımlılıkları ve "bitti" tanımı vardır. Kodlama ajanı bir görevi alırken önce [`spec.md`](spec.md) dosyasının ilgili bölümünü okur.
 
 **Boyut:** S = yarım gün veya daha az · M = 1–2 gün · L = 3 gün veya daha fazla
@@ -107,7 +109,7 @@ Bu dosya F0'ın uygulanabilir iş listesidir. Her görevin bir kimliği (`F0-Txx
 
 ### F0-T16 · Peak limiter ve giriş kırpılma algılayıcı · M
 - **Dosyalar:** `backend/dsp_common/limiter.py` (ortak çekirdek), `backend/audio_frontend/limiter.py` (F0 sarmalayıcısı), `input_adapter.py`
-- **İş:** spec §5.7 ve §5.1 madde 7. Zarf tabanlı limiter çekirdeği F6 ile ortaktır (F6-T11 aynı çekirdeği kullanır — [master plan](../../roadmap/master-plan.md) §6).
+- **İş:** spec §5.7 ve §5.1 madde 7. Zarf tabanlı limiter çekirdeği F6 ile ortaktır (F6-T11 aynı çekirdeği kullanır — [ownership.md §Tekilleştirilmiş bileşenler](../../execution/ownership.md#tekilleştirilmiş-bileşenler)).
 - **Bitti:** T10 geçer (tavan −1 dBFS ± 0,1 dB; kırpılmış çerçevelerin en az %95'i işaretlenir).
 
 ## F0-S05 — AEC ve alternatif RNNoise adaptörü

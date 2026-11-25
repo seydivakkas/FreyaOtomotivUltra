@@ -56,6 +56,7 @@ Kimlik tipleri PoC'taki `automotive_voice/core/identifiers.py` dosyasından alı
 | C12 | F6 → F0 | Oynatma referansı (halka tampon) | süreç içi | F6 §5.15, F0 §5.2 | — |
 | C13 | Herkes → gözlem | `EventEnvelope` | mevcut `event.schema.json` | [observability](../cross-cutting/observability.md) | `event` |
 | C14 | Oturum → kalıcılık | Oturum anlık görüntüsü | mevcut | [session-and-state](../cross-cutting/session-and-state.md) | `session_snapshot`, `m10_durable_snapshot` |
+| C15 | F3 / M07 → F4, F6-D, UI | `ToolReceipt` | `f3.tool_receipt.v1` | §7 ve [M01 §5.6](../execution/packages/W1/M01-cekirdek-sozlesmeler.md) | `booking_receipt`, `m07_stream_receipt` |
 
 **PoC şemalarıyla ilişki:** Örtüşen mevcut şemalar silinmez. Yeni sözleşme ya mevcut şemanın yeni sürümüdür (`tts_input` → `f4.synthesis_plan.v1` parçası) ya da mevcut şemayı içerir (`AudioChunk` metadata'sı `m06_audio_chunk_metadata` alanlarını kapsar). Hangisinin seçildiği sözleşmenin `spec.md` bölümünde yazılır; milestone testleri (`tests/milestones/`) geçmeye devam eder.
 
@@ -103,3 +104,28 @@ Metadata + ikili 48 kHz float32 mono. `generation_id`, `plan_id`, `chunk_id`, `c
 - Geriye uyumlu ekleme (yeni opsiyonel alan): aynı ana sürüm, şema güncellenir.
 - Alan silme, tür veya anlam değişikliği: yeni ana sürüm (`v2`); üretici bir geçiş süresi boyunca iki sürümü de yayımlayabilir.
 - Her sözleşme değişikliği ilgili aşamanın regresyon testini ve uçtan uca regresyonu (F0-S10, F1-S13, …) yeniden çalıştırır.
+
+## 7. Paket planı ad eşlemesi (Freya 2.0)
+
+[Yürütme planı](../execution/README.md) paketleri (özellikle [M01](../execution/packages/W1/M01-cekirdek-sozlesmeler.md)) bazı sözleşmeleri farklı adlarla anar. Bu tablo tek eşlemedir; kod bu belgedeki kimlikleri (C1–C15) kullanır.
+
+| Paket planındaki ad | Bu belgedeki karşılığı | Not |
+| --- | --- | --- |
+| `SessionIdentity`, `TurnRef`, `GenerationRef`, `StreamRef` | §2 Kimlikler | Kapsamlı opak başvurular; tahsis ve iptal M02'de |
+| `AudioFormat`, `AudioFrame` | C1 `AudioFrame`, C2 `F0Output` | F0 çıkışı da `AudioFrame` biçimindedir (16 kHz mono); `F0Output` = `AudioFrame` + kalite/bayrak yan kaydı |
+| `SpeechEvent`, `Utterance` | C4, C3 | — |
+| `ASRResult` (kısmi / kararlı / son) | C5 | Kısmi ve kararlı sonuçlar özel kapsamlıdır; F3 yalnız kabul edilmiş SON sonucu tüketir |
+| Beklenen slot, bağlam ipuçları | C6 `TurnContext` | — |
+| `DialogueResponse` | C7 `ResponsePlan` | C7'nin `segments[]` alanı `DialogueResponse.segments`'tir; `DialogueResponse` ayrıca `display_text`, `speech_text`, doğrulanmış bilgi ve makbuz başvurularını taşır |
+| `ToolReceipt` | C15 (yeni) | `status`: `PENDING / COMMITTED / FAILED / UNKNOWN / BLOCKED`; `provider_mode`: `MOCK / REAL / UNKNOWN`; yalnız `COMMITTED` + `REAL` başarıdır |
+| `SynthesisPlan`, `ChunkPlan` | C8 | Sahibi F4; değiştirilemez |
+| `AudioChunk` | C9 | 48 kHz mono float32 LE ham ses; uygulanan ve istenen kontroller ayrı |
+| `RenderedFrame`, `PlaybackEvent`, `PauseRef` | C10, C11 | `PauseRef` C11 kontrol olaylarının parçasıdır (F1-B → M02 → F6-B) |
+| Oynatma referansı (talep edilmiş PCM) | C12 | Gönderilmemiş veya silinmiş PCM referans değildir |
+| `EventEnvelope`, `MetricSample` | C13 | Kayıplı gözlem; kalıcı iş denetimi M07'dedir |
+| `CancellationReference`, `ErrorInfo`, `CapabilityDescriptor` | §1 genel kurallar + M01 §5.2 | Ortak yardımcı türler |
+
+**Sürüm:** Bu belgenin sözleşme kümesi sürümü **2.0**'dır. Her nesnenin `schema_version` alanı §1 biçimini korur (`f2.asr_result.v1`); M01'in `ContractVersion` türü sözleşme kümesi sürümünü (`2.0`) ayrıca taşır ve bilinmeyen ana sürümü reddeder.
+
+**Kod yeri:** Kanonik tanımlar M01 paketinde `backend/core/contracts/` altında kodlanır. Aşama paketlerindeki `contracts.py` dosyaları ([code-layout](code-layout.md)) bu modülü yeniden dışa aktarır; aynı sözleşmenin ikinci tanımı yapılmaz.
+

@@ -1,34 +1,31 @@
 ---
-name: Görev
-about: Plandaki bir görevin (Fx-Txx veya CC-Txx) uygulanması
-title: "Fx-Txx · <görev adı>"
-labels: ["gorev"]
+name: Paket
+about: Yürütme planındaki bir paketin veya ürün aşamasının uygulanması
+title: "<PAKET> · <paket adı>"
+labels: ["paket"]
 ---
 
-## Görev
+## Paket
 
-- **Kimlik:** Fx-Txx
-- **Sprint:** Fx-Sxx
-- **Uygulama paketi:** AIP-xx · Faz x
-- **Görev kaydı:** `docs/stages/<aşama>/tasks.md#…`
-- **Spec bölümü:** `docs/stages/<aşama>/spec.md` §…
+- **Kimlik:** (ör. F2-B)
+- **Dalga / öncelik:** (ör. W3 · P0)
+- **Paket dosyası:** `docs/execution/packages/<dalga>/<ID>-*.md`
+- **Doğrudan önkoşullar:** (paket dosyasındaki `Önkoşullar` satırı)
 
-## Ön koşullar
+## Başlamadan önce
 
-- [ ] Bağımlı görevler tamamlandı: …
-- [ ] Gerekli ADR kararı verildi (varsa): …
+- [ ] Doğrudan önkoşulların her biri kabul edildi (`evidence/<ÖNKOŞUL>/<run_id>/decision.json` = PASS)
+- [ ] Paket dosyasının §2 kutuları sağlandı
+- [ ] İlgili açık karar/ADR (varsa) verildi veya güvenli varsayılan yazıldı
 - [ ] Ortam: CPU / GPU / PBX / İnsan
-
-## Bitti tanımı
-
-(`tasks.md` kaydından aynen kopyalayın)
 
 ## Kanıt
 
-- PoC PR: …
+- PoC PR (`paket/<ID>` dalı): …
 - Çalıştırılan testler: `pytest …`
+- Kanıt klasörü: `evidence/<ID>/<run_id>/`
 - Ölçüm raporu (varsa): `data/<aşama>/lab-report-….json`
-- Güncellenen `acceptance.md` satırları: …
+- Kapı kararları: `<ID>-G00` … (PASS / FAIL / HOLD / NOT_RUN)
 
 ## Notlar
 

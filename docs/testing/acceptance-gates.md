@@ -1,5 +1,7 @@
 # Kabul kapıları
 
+> **Paket planı notu (25.11.2026):** Yürütme kapıları artık paket kapıları (`<PAKET>-Gxx`), CORE_GATE, W2_GATE ve ürün aşamaları G2–G5 + PILOT'tur ([ana plan](../execution/master-plan.md)). Aşağıdaki dört aşamalı yapı karşılıkları: Aşama 1 → paket kabulleri ve [G2](../execution/stages/G2-entegrasyon.md); Aşama 2 → [G3](../execution/stages/G3-arayuz.md); Aşama 3 → [G4](../execution/stages/G4-sentetik-kabul.md); Aşama 4 → [G5](../execution/stages/G5-gercek-insan-sip.md). `acceptance.md` K tabloları ölçüm ölçütü olarak geçerliliğini korur.
+
 Her aşamanın `acceptance.md` dosyası dört aşamalı bir kapı tanımlar. Bu belge kapıları ve gerçek koşul laboratuvarının L0–L6 seviyelerini birleştirir.
 
 ## 1. Aşama kapıları (her katman için aynı yapı)
@@ -11,7 +13,7 @@ Her aşamanın `acceptance.md` dosyası dört aşamalı bir kapı tanımlar. Bu 
 | **Aşama 3** — Sentetik laboratuvar | Test, ablation, regresyon sprintleri | T-testleri çalıştırıldı; K tablosu ölçümle dolu; ablation yayımlandı; uçtan uca regresyon geçti |
 | **Aşama 4** — Gerçek koşul | Gerçek ses ve SIP sprintleri | İnsan sesi ve telefon hattı kanıtları |
 
-Bir katmanın `fN_pipeline_v2` bayrağı **Aşama 3** kapısı geçmeden varsayılan olarak açılmaz.
+Bir katmanın `fN_pipeline_v2` bayrağı canlıda yalnız [PILOT_DECISION](../execution/stages/PILOT-karari.md) kapsamında varsayılan olarak açılır; G4'te aday profiller yalnız laboratuvar yapılandırmasıyla seçilir.
 
 ## 2. Gerçek koşul laboratuvarı (L0–L6)
 

@@ -1,5 +1,7 @@
 # F2 — Görevler
 
+> **Yürütme notu (25.11.2026):** Bu dosya teknik görev ayrıntısıdır; **yürütme birimi değildir**. Ajan iş olarak paket alır ([yürütme planı](../../execution/README.md)). Bu aşamanın görevlerinin uygulandığı paketler: [M01](../../execution/packages/W1/M01-cekirdek-sozlesmeler.md), [M05](../../execution/packages/W1/M05-ortak-sozluk.md), [M06](../../execution/packages/W1/M06-gpu-zamanlayici.md), [M08](../../execution/packages/W1/M08-test-altyapisi.md), [F2-A](../../execution/packages/W2/F2-A-final-asr.md), [F2-B](../../execution/packages/W3/F2-B-baglamsal-duzeltme.md), [F2-C](../../execution/packages/W4/F2-C-akis-tanima.md), [G3](../../execution/stages/G3-arayuz.md), [G4](../../execution/stages/G4-sentetik-kabul.md), [G5](../../execution/stages/G5-gercek-insan-sip.md). Görev başına eşleme: [legacy-mapping.md](../../execution/legacy-mapping.md). Bu dosyadaki AIP, faz ve sprint atıfları eski plana aittir.
+
 Her görevin bir kimliği (`F2-Txx`), sprinti (`F2-Sxx`), dosyaları, bağımlılıkları ve "bitti" tanımı vardır. Kodlama ajanı görevi almadan önce [`spec.md`](spec.md) dosyasının ilgili bölümünü okur.
 
 **Boyut:** S = yarım gün veya daha az · M = 1–2 gün · L = 3 gün veya daha fazla

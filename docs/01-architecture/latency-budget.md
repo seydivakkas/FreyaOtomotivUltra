@@ -85,4 +85,4 @@ Endpoint profili tek başına 400–1 000 ms sürer. 1,2 s ancak şu yollarla ka
 - F6 T1–T6 noktaları ve istemci/PBX makbuzları (F6 §6).
 - Sentetik görüşme motoru etiketli konuşma sonu zamanını bilir; TTFA'nın başlangıcı bu etiketten alınır.
 - Telefon kanalında T5 için loopback düzeneği (MixMonitor veya softphone kaydı).
-- Uçtan uca hedefler her aşamanın regresyon sprintinde ve AIP-44'te ([master plan](../roadmap/master-plan.md)) ölçülür.
+- Uçtan uca hedefler sentetik olarak [G4](../execution/stages/G4-sentetik-kabul.md)'te, gerçek uçta [G5](../execution/stages/G5-gercek-insan-sip.md)'te ölçülür.

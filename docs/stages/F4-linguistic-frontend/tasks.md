@@ -1,5 +1,7 @@
 # F4 — Görevler
 
+> **Yürütme notu (25.11.2026):** Bu dosya teknik görev ayrıntısıdır; **yürütme birimi değildir**. Ajan iş olarak paket alır ([yürütme planı](../../execution/README.md)). Bu aşamanın görevlerinin uygulandığı paketler: [H01](../../execution/packages/W0/H01-guvenli-zemin.md), [M01](../../execution/packages/W1/M01-cekirdek-sozlesmeler.md), [M05](../../execution/packages/W1/M05-ortak-sozluk.md), [M08](../../execution/packages/W1/M08-test-altyapisi.md), [F4-A](../../execution/packages/W2/F4-A-normalizasyon-plan.md), [F5-A](../../execution/packages/W2/F5-A-sentez-cekirdegi.md), [F4-B](../../execution/packages/W3/F4-B-fonoloji-g2p.md), [F4-C](../../execution/packages/W4/F4-C-prozodi.md), [G3](../../execution/stages/G3-arayuz.md), [G4](../../execution/stages/G4-sentetik-kabul.md), [G5](../../execution/stages/G5-gercek-insan-sip.md). Görev başına eşleme: [legacy-mapping.md](../../execution/legacy-mapping.md). Bu dosyadaki AIP, faz ve sprint atıfları eski plana aittir.
+
 Her görevin bir kimliği (`F4-Txx`), sprinti (`F4-Sxx`), dosyaları, bağımlılıkları ve "bitti" tanımı vardır. Kodlama ajanı görevi almadan önce [`spec.md`](spec.md) dosyasının ilgili bölümünü okur.
 
 **Boyut:** S = yarım gün veya daha az · M = 1–2 gün · L = 3 gün veya daha fazla

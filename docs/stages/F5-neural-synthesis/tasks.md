@@ -1,5 +1,7 @@
 # F5 — Görevler
 
+> **Yürütme notu (25.11.2026):** Bu dosya teknik görev ayrıntısıdır; **yürütme birimi değildir**. Ajan iş olarak paket alır ([yürütme planı](../../execution/README.md)). Bu aşamanın görevlerinin uygulandığı paketler: [H01](../../execution/packages/W0/H01-guvenli-zemin.md), [M01](../../execution/packages/W1/M01-cekirdek-sozlesmeler.md), [M06](../../execution/packages/W1/M06-gpu-zamanlayici.md), [M08](../../execution/packages/W1/M08-test-altyapisi.md), [F5-A](../../execution/packages/W2/F5-A-sentez-cekirdegi.md), [F5-B](../../execution/packages/W3/F5-B-ses-profili-onbellek.md), [F5-C](../../execution/packages/W4/F5-C-ode-kimlik.md), [G3](../../execution/stages/G3-arayuz.md), [G4](../../execution/stages/G4-sentetik-kabul.md), [G5](../../execution/stages/G5-gercek-insan-sip.md), [F5-D](../../execution/packages/W5/F5-D-lora.md). Görev başına eşleme: [legacy-mapping.md](../../execution/legacy-mapping.md). Bu dosyadaki AIP, faz ve sprint atıfları eski plana aittir.
+
 Her görevin bir kimliği (`F5-Txx`), sprinti (`F5-Sxx`), dosyaları, bağımlılıkları ve "bitti" tanımı vardır. Kodlama ajanı görevi almadan önce [`spec.md`](spec.md) dosyasının ilgili bölümünü okur.
 
 **Boyut:** S = yarım gün veya daha az · M = 1–2 gün · L = 3 gün veya daha fazla
@@ -121,7 +123,7 @@ Her görevin bir kimliği (`F5-Txx`), sprinti (`F5-Sxx`), dosyaları, bağımlı
 
 ### F5-T16 · Ortak GPU yöneticisi · L
 - **Dosyalar:** `backend/runtime_resources/gpu_scheduler.py`, `memory_budget.py`, `priority_queue.py`, `cancellation.py`
-- **Bağımlılık:** F5-T01; F2-T07. F3-T33'ün LLM çağrı politikası yönetici kurulduktan sonra bağlanır (döngüsel bağımlılık kaldırıldı; [master plan](../../roadmap/master-plan.md) AIP-11).
+- **Bağımlılık:** F5-T01; F2-T07. F3-T33'ün LLM çağrı politikası yönetici kurulduktan sonra bağlanır (döngüsel bağımlılık kaldırıldı; [M06 paketi](../../execution/packages/W1/M06-gpu-zamanlayici.md)).
 - **İş:** P0–P7 öncelikleri; bağımlılık ve deadline; VRAM bütçesi; kabul denetimi; iptal semantiği; mevcut `stt_lock` / `lock` / `worker_lock` yerine tek yönetim.
 - **Bitti:** T28–T31 geçer; ortak katman belgesi güncellenir.
 

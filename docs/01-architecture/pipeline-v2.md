@@ -64,7 +64,7 @@ flowchart TD
 3. **Generation kapısı her katmanda.** F2 sonucu, F3 planı, F4 planı, F5 parçası ve F6 çerçevesi `generation_id` taşır; eski olan atılır ve sayılır.
 4. **Ham veri korunur.** F0 ham çerçeveyi, F2 ham transkripti, F4 kaynak metni, F5 ham sesi taşır. Hata ayıklama ve ablation için gereklidir.
 5. **Bilinmeyen değer `null`'dır.** Ölçülmemiş güven, SNR veya gecikme uydurulmaz.
-6. **Bayrak arkasında kademeli geçiş.** Her katmanın `fN_pipeline_v2` bayrağı vardır; legacy yol regresyon sprinti geçene kadar varsayılandır.
+6. **Bayrak arkasında kademeli geçiş.** Her katmanın `fN_pipeline_v2` bayrağı vardır; legacy yol varsayılan kalır; canlı varsayılan yalnız [PILOT_DECISION](../execution/stages/PILOT-karari.md) kapsamında değişir ([K-08](../execution/decisions.md#k-08--bayrak-varsayılanları)).
 
 ## 4. Çalışma kipleri
 

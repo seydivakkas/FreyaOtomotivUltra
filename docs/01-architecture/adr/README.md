@@ -10,6 +10,8 @@ Bir ADR, ölçüm veya kullanıcı kararı gerektiren bir mimari seçimi kayda g
 
 ## Dizin
 
+> "Sahibi" sütunundaki eski görev ve AIP kimliklerinin hangi pakette yapıldığı: [legacy-mapping.md](../../execution/legacy-mapping.md). Güncel karar listesi ve güvenli varsayılanlar: [ana plan §Açık kararlar](../../execution/master-plan.md#açık-kararlar).
+
 | ADR | Konu | Sahibi | Karar türü | Durum |
 | --- | --- | --- | --- | --- |
 | ADR-F0-01 | F0 DSP iç örnekleme hızı: `min(giriş, 16 kHz)`; parametreler ms/Hz cinsinden | F0-S02 (F0-T05/T06) | Ölçüm | Taslak (öneri [F0 §3.1](../../stages/F0-audio-acquisition/spec.md)) |
@@ -27,6 +29,7 @@ Bir ADR, ölçüm veya kullanıcı kararı gerektiren bir mimari seçimi kayda g
 | ADR-F6-03 | Sentez geciktiğinde telefon kanalına sessizlik / comfort noise çerçevesi | F6-T16 | Ölçüm | Ölçüm bekleniyor |
 | ADR-F6-04 | Web oynatma: `AudioBufferSourceNode` / AudioWorklet | F6-T21 | Ölçüm | Ölçüm bekleniyor |
 | ADR-X-01 | Üretim topolojisi: Freya (Windows) ve Asterisk (Linux) aynı makinede mi, ayrı mı; AudioSocket güvenliği | F6-T20 | **Kullanıcı** | Karar bekleniyor |
+| ADR-F3-02 | RAG gömme modeli (yerel yapıt ve lisans); karara kadar yalnız BM25 | F3-C | **Kullanıcı** + lisans | Karar bekleniyor |
 | ADR-X-02 | Ortak GPU yöneticisi: VRAM bütçesi, STT/TTS eşzamanlılığı, Ollama `num_gpu` katman sayısı ([gpu-resource-manager](../../cross-cutting/gpu-resource-manager.md) §4) | F5-T16 (AIP-11) | Ölçüm | Ölçüm bekleniyor |
 
 ## Kullanıcı kararı bekleyen sorular
@@ -38,3 +41,5 @@ Bunlar ölçümle değil tercihle çözülür. Karar verilene kadar ilgili göre
 3. **Telefon numarası okuma** (F4 spec §12): gruplu (0532 · 123 · 45 · 67) mı, rakam rakam mı? Öneri: gruplu; A/B dinlemeyle doğrulanır.
 4. **ADR-X-01:** Üretim topolojisi.
 5. **Sözlük onay yetkisi** (F4 spec §12): Hyundai gibi tartışmalı marka okunuşlarını kim onaylar? Sözlükteki `review_status = approved` alanını yalnızca bu kişi/rol değiştirebilir ([shared-lexicon](../../cross-cutting/shared-lexicon.md)).
+6. **Karşılamada yapay zekâ bildirimi** ([K-06](../../execution/decisions.md#k-06--yapay-zekâ-bildirimi-açık)): arayanın bir yapay zekâ ile konuştuğu karşılamada söylensin mi, metni ne olsun? Öneri: kısa bildirim; metin kullanıcı onayıyla. G5 ve pilot bu karar olmadan başlamaz.
+7. **RAG gömme modeli** (ADR-F3-02): yerel gömme modeli ve lisansı. Öneri: karara kadar yalnız BM25.

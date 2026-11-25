@@ -15,7 +15,7 @@
 | `f6_pipeline_v2` | `False` | F6-S26 |
 
 **Kurallar:**
-- Bayrak kapalıyken PoC davranışı değişmez (bayraktan bağımsız düzeltmeler hariç — [master plan](../roadmap/master-plan.md) Faz 0).
+- Bayrak kapalıyken PoC davranışı değişmez (bayraktan bağımsız düzeltmeler hariç — [H01 paketi](../execution/packages/W0/H01-guvenli-zemin.md)).
 - Bayraklar birbirinden bağımsız açılabilmelidir. Bir v2 katman legacy komşusuyla sözleşme adaptörü üzerinden konuşur ([pipeline-v2](../01-architecture/pipeline-v2.md) §4).
 - Etkin bayrak kümesi her telemetri olayına ve her laboratuvar raporuna yazılır.
 - Bayrak varsayılanı değiştiğinde `VERIFICATION.md` ve ilgili `acceptance.md` güncellenir.

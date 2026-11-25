@@ -97,7 +97,7 @@ Ortak yönetici tek bir yerde yazılır. Aşama görevleri onu kullanır:
 | F2-T07, F2-T27 | STT önceliklendirme ve entegrasyon |
 | F3-T33 | LLM çağrı politikası |
 | F1-T17 | Spekülatif STT (P5, barge-in'de P0) |
-| AIP-06, AIP-11 | Master plandaki ölçüm ve ortak temel paketleri ([master plan](../roadmap/master-plan.md) §6) |
+| M06 paketi | Ortak GPU zamanlayıcının uygulanması ([M06](../execution/packages/W1/M06-gpu-zamanlayici.md)); gerçek yük ölçümü G4'te |
 
 ## 7. Kabul
 

@@ -4,7 +4,7 @@
 
 Bu repo **yalnızca plan** içerir. Kod [`seydivakkas/FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC) reposunda yazılmaya devam eder. Buradaki belgeler, bir geliştiricinin veya kodlama ajanının PoC reposunda neyi, hangi sırayla ve hangi kabul kriterine göre yapacağını tanımlar.
 
-> **Kodlama ajanı mısınız?** [`CLAUDE.md`](CLAUDE.md) ile başlayın, sonra [`docs/roadmap/master-plan.md`](docs/roadmap/master-plan.md).
+> **Kodlama ajanı mısınız?** [`CLAUDE.md`](CLAUDE.md) ile başlayın, sonra [`docs/execution/README.md`](docs/execution/README.md).
 
 ## Hedef
 
@@ -18,12 +18,13 @@ Yerel çalışan, Türkçe konuşan, telefon ve mikrofon üzerinden otomotiv iş
 
 | Bölüm | İçerik |
 | --- | --- |
-| [`CLAUDE.md`](CLAUDE.md) | Kodlama ajanının çalışma kuralları |
+| [`CLAUDE.md`](CLAUDE.md) | Kodlama ajanının çalışma kuralları (tek kural kaynağı) |
+| [`docs/execution/`](docs/execution/README.md) | **Freya 2.0 yürütme planı:** [ana plan](docs/execution/master-plan.md) · [yürütme sırası](docs/execution/execution-order.md) · [paketler](docs/execution/packages/) · [ürün aşamaları G2–G5](docs/execution/stages/) · [kararlar](docs/execution/decisions.md) · [riskler](docs/execution/risks.md) · [kanıt kuralları](docs/execution/evidence.md) |
 | [`docs/00-overview/`](docs/00-overview/vision-and-scope.md) | [Vizyon ve kapsam](docs/00-overview/vision-and-scope.md) · [Mevcut durum ve bulgular](docs/00-overview/current-state.md) · [Kısıtlar](docs/00-overview/constraints.md) · [Sözlük](docs/00-overview/glossary.md) |
 | [`docs/01-architecture/`](docs/01-architecture/pipeline-v2.md) | [Hat v2](docs/01-architecture/pipeline-v2.md) · [Birleşik sözleşmeler](docs/01-architecture/interfaces.md) · [Kod düzeni](docs/01-architecture/code-layout.md) · [Gecikme bütçesi](docs/01-architecture/latency-budget.md) · [ADR dizini](docs/01-architecture/adr/README.md) |
 | [`docs/stages/`](#ses-işleme-hattı-f0f6) | Yedi katmanın `spec.md`, `tasks.md`, `acceptance.md` dosyaları |
 | [`docs/cross-cutting/`](docs/cross-cutting/README.md) | GPU yöneticisi, oturum ve durum, gözlemlenebilirlik, güvenlik ve KVKK, ortak sözlük, yapılandırma, hata kurtarma |
-| [`docs/roadmap/`](docs/roadmap/master-plan.md) | [**Freya 2.0 Master Development Plan**](docs/roadmap/master-plan.md) · [AP01–AP13 eşlemesi](docs/roadmap/roadmap.md) |
+| [`docs/roadmap/`](docs/roadmap/roadmap.md) | [AP01–AP13 eşlemesi](docs/roadmap/roadmap.md) · [eski AIP planı (emekli)](docs/roadmap/master-plan.md) |
 | [`docs/testing/`](docs/testing/measurement-plan.md) | [Ölçüm planı](docs/testing/measurement-plan.md) · [Veri kümeleri](docs/testing/datasets.md) · [Kabul kapıları](docs/testing/acceptance-gates.md) |
 | [`docs/migration/`](docs/migration/from-poc.md) | PoC'tan geçiş |
 
@@ -47,23 +48,24 @@ Her aşama klasöründe üç dosya bulunur:
 | Dosya | İçerik |
 | --- | --- |
 | `spec.md` | Amaç, kapsam, PoC'taki doğrulanmış durum ve bulgular, bileşenler, veri sözleşmeleri, PoC'tan taşıma |
-| `tasks.md` | Kimlikli görevler (`F0-T01`…), sprintler, dosyalar, bağımlılıklar, "bitti" tanımı |
+| `tasks.md` | Teknik görev ayrıntısı (`F0-T01`…). Yürütme birimi değildir; hangi pakette yapıldığı [`legacy-mapping.md`](docs/execution/legacy-mapping.md)'de |
 | `acceptance.md` | Kabul kriterleri, test senaryoları ve aşama kapıları |
 
 ## Uygulama sırası
 
-[Master plan](docs/roadmap/master-plan.md) 242 görevi 48 uygulama paketine (AIP) ve 8 faza böler:
+[Yürütme planı](docs/execution/master-plan.md) işi dalgalara ayrılmış **paketlere** böler; her paket tek oturumda bir ajanın uygulayacağı, kendi testleri ve kabul kapılarıyla kapanan birimdir. Sıra ve bağımlılıklar: [execution-order.md](docs/execution/execution-order.md).
 
-| Faz | İçerik |
+| Dalga | İçerik |
 | --- | --- |
-| 0 | Güvenlik açıkları ve canlı hatalar (bayraktan bağımsız), hermetik test, taban ölçümler |
-| 1 | Ortak temel: sözleşmeler, kimlikler, telemetri, GPU yöneticisi |
-| 2 | **Terim doğruluğu:** ortak sözlük, F2 Entity Resolver, F4 Türkçe telaffuz, tek sentez yolu |
-| 3 | Gecikme ve kesinti: F0/F1 düşük gecikme, semantic turn, pseudo-streaming STT, F5/F6 |
-| 4 | Diyalog orkestrasyonu (AP13) — Faz 2–3 ile paralel |
-| 5 | Studio arayüzleri |
-| 6 | Sentetik laboratuvar, ablation, uçtan uca regresyon |
-| 7 | Gerçek mikrofon, insan sesi, Asterisk/SIP kabulü |
+| W0 | M00 salt okunur envanter · H01 güvenli zemin (bayraktan bağımsız canlı hata ve güvenlik düzeltmeleri, hermetik test) |
+| W1 | Ortak çekirdek M01–M08 (sözleşmeler, oturum/iptal, yapılandırma, gözlem, otomotiv sözlüğü, GPU zamanlayıcı, güvenlik, test altyapısı) → CORE_GATE |
+| W2 | F0-A … F6-A uçtan uca dikey dilim → W2_GATE |
+| W3 | Söz kesme, oynatma kuyruğu, **otomotiv terim düzeltme**, onaylı işlem, **Türkçe fonoloji/G2P**, ses profili ve önbellek |
+| W4 | Uyarlanır DSP/AEC, akış tanıma, anlamsal tur sonu, çoklu niyet ve RAG, prozodi, ODE profilleri, gelişmiş render |
+| W5 | İsteğe bağlı chan_websocket aktarımı · LoRA araştırması (yalnız gerçek atfedilmiş hata varsa) |
+| G2 → G5 | Entegrasyon incelemesi → ortak kokpit arayüzü → sentetik ürün kabulü → gerçek insan sesi ve SIP kabulü → pilot kararı |
+
+Sayılar (görev/test/kapı) [`registry.json`](docs/execution/registry.json) içindedir ve **plan** sayısıdır; çalıştırılmış test sayısı değildir.
 
 ## Yol kuralı
 
@@ -77,8 +79,8 @@ Belgelerdeki dosya yolları:
 - Kabul kriterlerindeki değerler, test çalıştırılıp sonucu rapora yazılmadan "tamam" işaretlenmez.
 - İnsan değerlendirmesi gerektiren ölçümler (MOS, ABX) simüle edilerek başarılı gösterilmez.
 - Arayüzlerde gerçek ölçüm yokken "Ölçüm bekleniyor" gösterilir; temsili sinyaller açıkça etiketlenir.
-- Sentetik testlerin başarısı gerçek görüşmelerin başarısını tek başına kanıtlamaz; her aşama gerçek ses ve SIP kabulüyle kapanır.
+- Sentetik testlerin başarısı gerçek görüşmelerin başarısını tek başına kanıtlamaz; ürün G5 gerçek ses ve SIP kabulüyle kapanır.
 
 ## Kullanıcı kararı bekleyen sorular
 
-[ADR dizini](docs/01-architecture/adr/README.md#kullanıcı-kararı-bekleyen-sorular): özel kayıt okumada ikinci kimlik etkeni (ADR-F3-01), saat okuma biçimi (ADR-F4-02), telefon numarası okuma biçimi, sözlük onay yetkilisi, üretim topolojisi (ADR-X-01).
+[Ana plan §Açık kararlar](docs/execution/master-plan.md#açık-kararlar): özel kayıt okumada ikinci kimlik etkeni (ADR-F3-01), karşılamada yapay zekâ bildirimi (K-06), saat ve telefon numarası okuma biçimi, sözlük onay yetkilisi, üretim topolojisi (ADR-X-01), RAG gömme modeli.
