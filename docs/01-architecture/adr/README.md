@@ -23,7 +23,7 @@ Bir ADR, ölçüm veya kullanıcı kararı gerektiren bir mimari seçimi kayda g
 | [ADR-F3-01](ADR-F3-01-arayan-kimlik-dogrulama.md) | Arayan kimliği: arayan numarası + doğum yılı (yoksa plaka son 3–4 hanesi) — karar günlüğü ADR-001 | H01, M07, F3-A (F3-T05) | **Kullanıcı** | Kabul edildi (2026-11-26) |
 | ADR-F4-01 | Ara parça noktalaması (virgül / noktalamasız) — doğal devam tonlaması, büyük harf kuralıyla birlikte | F4-T24 | Akustik ölçüm | Ölçüm bekleniyor |
 | [ADR-F4-02](ADR-F4-02-saat-tarih-okuma.md) | Saat okuma: doğal Türkçe, gün dilimiyle — ADR-003 | F4-A (F4-T11) | **Kullanıcı** | Kabul edildi (2026-11-26) |
-| [ADR-F4-03](ADR-F4-03-telefon-numarasi-okuma.md) | Telefon okuma: ikişerli gruplar, baştaki 0 ayrı — ADR-004 | F4-A | **Kullanıcı** | Kabul edildi (2026-11-26) |
+| [ADR-F4-03](ADR-F4-03-telefon-numarasi-okuma.md) | Telefon okuma: `05xx xxx xx xx` (4-3-2-2) gruplama — ADR-004 | F4-A | **Kullanıcı** | Kabul edildi (revize, 2026-11-26) |
 | ADR-F5-01 | Speaker encoder seçimi ve lisansı (kimlik doğrulama, CPU) | F5-T22 | Ölçüm + lisans | Ölçüm bekleniyor |
 | ADR-F6-01 | Çıkış yeniden örnekleyicisi: soxr `ResampleStream` / durumlu polifaz | F6-T13 | Ölçüm | Ölçüm bekleniyor |
 | ADR-F6-02 | Hız kontrolü: F5 süre ölçekleme mi, F6 WSOLA mı (ikisi birden değil) | F6-T07 | Ölçüm | Ölçüm bekleniyor |
@@ -32,7 +32,7 @@ Bir ADR, ölçüm veya kullanıcı kararı gerektiren bir mimari seçimi kayda g
 | [ADR-X-01](ADR-X-01-asterisk-dagitim.md) | Asterisk dağıtımı: pilot aynı makine, üretim ayrı sunucu — ADR-006 | F6-A, F6-D, G5 (F6-T20) | **Kullanıcı** | Kabul edildi (2026-11-26) |
 | [ADR-X-03](ADR-X-03-yapay-zeka-bildirimi.md) | Karşılamada yapay zekâ bildirimi — ADR-002 | H01, F3-A, G5, PILOT | **Kullanıcı** | Kabul edildi (2026-11-26) |
 | [ADR-X-04](ADR-X-04-sozluk-okunus-onayi.md) | Sözlük okunuş onayı: ürün sahibi + iş birimi — ADR-005 | M05, F4-B | **Kullanıcı** | Kabul edildi (2026-11-26) |
-| [ADR-F3-02](ADR-F3-02-gomme-modeli.md) | RAG gömme modeli: multilingual-e5-large (alternatif bge-m3), CPU — ADR-007 | F3-C | **Kullanıcı** + lisans | Kabul edildi (2026-11-26) |
+| [ADR-F3-02](ADR-F3-02-gomme-modeli.md) | RAG gömme modeli: yalnız bge-m3, CPU — ADR-007 | F3-C | **Kullanıcı** + lisans | Kabul edildi (revize, 2026-11-26) |
 | ADR-X-02 | Ortak GPU yöneticisi: VRAM bütçesi, STT/TTS eşzamanlılığı, Ollama `num_gpu` katman sayısı ([gpu-resource-manager](../../cross-cutting/gpu-resource-manager.md) §4) | F5-T16 (AIP-11) | Ölçüm | Ölçüm bekleniyor |
 
 ## Kullanıcı kararları (2026-11-26)
@@ -49,4 +49,4 @@ Karar günlüğündeki yedi karar kabul edildi; özet ve etkilenen paketler: [an
 | ADR-006 Asterisk dağıtımı | [ADR-X-01](ADR-X-01-asterisk-dagitim.md) |
 | ADR-007 Gömme modeli | [ADR-F3-02](ADR-F3-02-gomme-modeli.md) |
 
-Kalan kullanıcı soruları: belge derlemi lisans ve inceleme yetkilisi; gerçek kaynak kısıtında küçük gömme modeli; telefon gruplamasında baştaki 0'ın ayrı okunmasının teyidi ([ana plan §Açık kararlar](../../execution/master-plan.md#açık-kararlar)).
+Kalan kullanıcı sorusu: belge derlemi lisans ve inceleme yetkilisi ([ana plan §Açık kararlar](../../execution/master-plan.md#açık-kararlar)).

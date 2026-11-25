@@ -94,10 +94,10 @@ Kullanıcı (ürün sahibi) kararları, 2026-11-26. Karar günlüğü numarası 
 | [ADR-F3-01](../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md) (ADR-001) — Arayan kimliği | Arayan numarası + doğum yılı; kayıtta yoksa plaka son 3–4 hanesi; görüşme başına en çok 3 deneme, sonra operatör | H01, M07, F3-A, F3-B |
 | [ADR-X-03](../01-architecture/adr/ADR-X-03-yapay-zeka-bildirimi.md) (ADR-002) — Yapay zekâ bildirimi | Her görüşmenin başında: "Merhaba, Freya yapay zekâ destekli müşteri temsilcisine ulaştınız." | H01, F3-A, G5, PILOT |
 | [ADR-F4-02](../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md) (ADR-003) — Saat okuma | Doğal Türkçe, gün dilimiyle: "sabah dokuz buçuk", "öğleden sonra iki", "akşam altı buçuk" | F4-A, F4-B, F2-B, F3-A |
-| [ADR-F4-03](../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md) (ADR-004) — Telefon okuma | İkişerli gruplar; 11 haneli numarada baştaki 0 ayrı okunur | F4-A, F2-B |
+| [ADR-F4-03](../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md) (ADR-004) — Telefon okuma | `05xx xxx xx xx` gruplaması: "sıfır beş yüz otuz iki, yüz yirmi üç, kırk beş, altmış yedi" | F4-A, F2-B |
 | [ADR-X-04](../01-architecture/adr/ADR-X-04-sozluk-okunus-onayi.md) (ADR-005) — Sözlük okunuş onayı | Ürün sahibi + ilgili iş birimi; ajan onaylamaz | M05, F4-B |
 | [ADR-X-01](../01-architecture/adr/ADR-X-01-asterisk-dagitim.md) (ADR-006) — Asterisk dağıtımı | Pilot/geliştirme aynı makine (WSL2/VM, loopback); üretim ayrı sunucu, özel ağ/şifreli tünel | F6-A, F6-D, G5, PILOT |
-| [ADR-F3-02](../01-architecture/adr/ADR-F3-02-gomme-modeli.md) (ADR-007) — Gömme modeli | `multilingual-e5-large` (alternatif `bge-m3`), CPU'da, yerel yapıt | F3-C, M03 |
+| [ADR-F3-02](../01-architecture/adr/ADR-F3-02-gomme-modeli.md) (ADR-007) — Gömme modeli | Yalnız `bge-m3`, CPU'da, yerel yapıt; model yoksa yalnız BM25 | F3-C, M03 |
 
 ## Açık kararlar
 
@@ -114,7 +114,5 @@ Kullanıcı (ürün sahibi) kararları, 2026-11-26. Karar günlüğü numarası 
 | ADR-F5-01 — Konuşmacı kodlayıcı (ECAPA) yerel yapıtı ve lisansı | Ölçüm + lisans | F5-C, F5-D, G4, G5 | Lisanslı yerel yapıt yoksa benzerlik null |
 | ADR-F6-01…04 — Yeniden örnekleyici, hız sahibi, sessizlik/konfor gürültüsü, web oynatma | Ölçüm | F6-A, F6-B, F6-C | Pakette ölçümle |
 | Belge derlemi lisans ve inceleme yetkilisi | Kullanıcı | F3-C, F5-D | Kurum içi rol |
-| Gerçek kaynak kısıtında küçük gömme modeli (ör. `multilingual-e5-base`) | Kullanıcı | F3-C | Karara kadar kaynak kısıtında yalnız BM25 ([ADR-F3-02](../01-architecture/adr/ADR-F3-02-gomme-modeli.md) notu) |
-| Telefon gruplamasında baştaki 0'ın ayrı okunması (ADR-F4-03 uygulama kuralı) | Kullanıcı teyidi | F4-A | 0 + ikişerli 10 hane; farklı biçim istenirse yalnız kural değişir |
 
 ADR dizini: [docs/01-architecture/adr/](../01-architecture/adr/README.md).

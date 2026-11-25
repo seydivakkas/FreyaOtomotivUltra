@@ -9990,7 +9990,7 @@
    "id": "LN24",
    "package": "F4-A",
    "title": "Telefon ve plaka benzeri sentetik giriş",
-   "expected": "Rakam kaybı yok; kimlik çıkarımı yok; telefon ADR-F4-03 ikili okunur (\"0532 123 45 67\" → \"sıfır, elli üç, yirmi bir, yirmi üç, kırk beş, altmış yedi\")"
+   "expected": "Rakam kaybı yok; kimlik çıkarımı yok; telefon ADR-F4-03 gruplamasıyla okunur (\"0532 123 45 67\" → \"sıfır beş yüz otuz iki, yüz yirmi üç, kırk beş, altmış yedi\"; sıfırla başlayan grup \"sıfır …\")"
   },
   {
    "id": "LN25",

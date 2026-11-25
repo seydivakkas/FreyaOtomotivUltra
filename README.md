@@ -90,9 +90,9 @@ Verilen kararlar (2026-11-26) — [ana plan §Verilen kararlar](docs/execution/m
 | Arayan kimliği | Arayan numarası + doğum yılı (yoksa plaka son 3–4 hanesi) |
 | Yapay zekâ bildirimi | Her görüşmenin başında |
 | Saat okuma | Doğal Türkçe ("öğleden sonra iki buçuk") |
-| Telefon okuma | İkişerli gruplar |
+| Telefon okuma | `05xx xxx xx xx` gruplaması ("sıfır beş yüz otuz iki, yüz yirmi üç, kırk beş, altmış yedi") |
 | Sözlük okunuş onayı | Ürün sahibi + ilgili iş birimi |
 | Asterisk | Pilot/geliştirme aynı makine; üretim ayrı sunucu |
-| Gömme modeli | `multilingual-e5-large` (alternatif `bge-m3`), CPU'da |
+| Gömme modeli | Yalnız `bge-m3`, CPU'da |
 
 Bekleyen kararlar ve ölçümle verilecek ADR'ler: [ana plan §Açık kararlar](docs/execution/master-plan.md#açık-kararlar).

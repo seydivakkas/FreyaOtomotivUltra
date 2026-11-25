@@ -2,9 +2,9 @@
 
 | Alan | Değer |
 | --- | --- |
-| Durum | Kabul edildi |
+| Durum | Kabul edildi (revize) |
 | Sahibi olan paket | F3-C (RAG), M03 (model kaydı) |
-| Tarih | 2026-11-26 |
+| Tarih | 2026-11-26 (ilk karar: multilingual-e5-large, alternatif bge-m3; aynı gün yalnız bge-m3 olarak revize edildi) |
 | Karar veren | Kullanıcı (ürün sahibi) |
 
 ## Bağlam
@@ -15,10 +15,10 @@ Bilgi tabanı ve RAG tabanlı belge aramada Türkçe performans kritik. F3-C bu 
 
 | Model | Parametre | Bağlam | Boyut | Lisans | Not |
 | --- | --- | --- | --- | --- | --- |
-| `intfloat/multilingual-e5-large` | ≈ 560M (XLM-RoBERTa-large tabanı) | 512 belirteç | 1024 | MIT | Sorgu `query: `, belge `passage: ` önekiyle kodlanmalı |
+| `intfloat/multilingual-e5-large` | ≈ 560M (XLM-RoBERTa-large tabanı) | 512 belirteç | 1024 | MIT | Sorgu `query: `, belge `passage: ` öneki gerekir |
 | `BAAI/bge-m3` | ≈ 568M (XLM-RoBERTa tabanı) | 8192 belirteç | 1024 | MIT | Yoğun + seyrek + çok vektörlü arama tek modelde; önek gerekmez |
 
-Kaynak: model kartları (Hugging Face, NVIDIA NIM). Değerler üretici beyanıdır; Freya donanımında ölçülmemiştir.
+Kaynak: model kartları (Hugging Face, NVIDIA NIM). Değerler üretici beyanıdır; Freya donanımında ölçülmemiştir. İki model aynı boyut sınıfındadır.
 
 ## Ölçüm
 
@@ -26,24 +26,22 @@ Henüz yok. F3-C laboratuvarında, Freya'nın kendi Türkçe otomotiv belge küm
 
 ## Karar
 
-- **Varsayılan:** `multilingual-e5-large`.
-- **Alternatif:** kaynak kısıtı olan ortamlarda `bge-m3` değerlendirilebilir.
+**Yalnız `BAAI/bge-m3`.** Başka gömme modeli kullanılmaz; alternatif model yoktur.
 
-Gerekçe: çok dilli içerikte güçlü performans; Türkçe sorgularda yüksek geri çağırma; RAG mimarilerinde yaygın kullanım.
-
-> **Ürün sahibine not:** Model kartlarına göre `bge-m3` (≈ 568M) ile `multilingual-e5-large` (≈ 560M) aynı boyut sınıfındadır; `bge-m3` kaynak tasarrufu sağlamaz. Asıl farkı uzun belge desteği (8192 belirteç) ve tek modelde yoğun + seyrek arama yapabilmesidir. Gerçek bir kaynak kısıtında seçenekler daha küçük bir model (ör. `multilingual-e5-base`, 12 katman, 768 boyut) veya yalnız BM25'tir. Bu alternatif ayrı karar ister; karar verilene kadar kaynak kısıtında yalnız BM25 kullanılır.
+Gerekçe: Türkçe dahil çok dilli güçlü geri çağırma; uzun belgeleri (8192 belirteç) parçalamadan işleyebilmesi; yoğun ve seyrek vektörü tek modelde üretmesi; MIT lisansı.
 
 ## Uygulama kuralları
 
-- **CPU'da çalışır.** Gömme modeli GPU'ya yüklenmez (GPU bütçesi 0 MB). Belge dizini çevrimdışı oluşturulur; canlı görüşmede yalnız sorgu kodlanır. GPU kullanımı ancak M06 ölçümü ve ayrı karar ile mümkündür.
+- **CPU'da çalışır.** Model GPU'ya yüklenmez (GPU bütçesi 0 MB). Belge dizini çevrimdışı oluşturulur; canlı görüşmede yalnız sorgu kodlanır. GPU kullanımı ancak M06 ölçümü ve ayrı karar ile mümkündür.
 - **İndirme yok.** Model yapıtı kullanıcı tarafından yerel olarak sağlanır; M03 model kaydına sürüm, SHA-256 ve lisans (MIT) ile girer. Ajan modeli internetten indirmez (CLAUDE.md kural 13).
-- **e5 önekleri:** sorgular `query: `, belgeler `passage: ` önekiyle kodlanır; önek eksikliği test edilir.
-- **Uzunluk:** e5 için 512 belirteç sınırı; belgeler bu sınıra göre parçalanır. Kesme sessiz yapılmaz, parça sayısı kaydedilir.
-- **Hibrit arama:** BM25 her zaman çalışır; yoğun arama onunla birleştirilir. Gömme modeli yüklenemezse sistem yalnız BM25 ile sürer ve bu durum `HOLD` olarak kaydedilir (yoğun arama yok, uydurma sonuç yok).
+- **Önek yok:** bge-m3 sorgu ve belgeleri öneksiz kodlar; e5 tipi önek eklenmez.
+- **Uzunluk:** azami 8192 belirteç; CPU gecikmesi için belge parça uzunluğu F3-C ölçümüyle seçilir ve kaydedilir. Kesme sessiz yapılmaz.
+- **Hibrit arama:** BM25 her zaman çalışır; bge-m3 yoğun vektörü onunla birleştirilir. bge-m3'ün seyrek (sözcük ağırlığı) çıktısının kullanılması F3-C ölçümüne bağlıdır.
+- **Model yoksa:** yapıt yerelde yoksa veya yüklenemezse sistem yalnız BM25 ile sürer ve yoğun arama `HOLD` kaydedilir. Başka bir modele geçilmez; uydurma sonuç üretilmez.
 - Erişim filtresi sıralamadan önce uygulanır; getirilen metin araç yetkisi taşımaz (F3-C kuralları).
 
 ## Sonuçlar
 
-- CLAUDE.md kural 4'e istisna notu eklendi: bu model GPU'ya yüklenmeyen, CPU'da çalışan, onaylı tek gömme modelidir.
-- Güncellenen belgeler: F3-C §2 ve §11, [constraints](../../00-overview/constraints.md) (değişiklik yok; CPU varsayımı korunur).
-- **Geri alma koşulu:** F3-C ölçümünde e5-large BM25'e göre anlamlı kazanç sağlamazsa veya CPU sorgu gecikmesi tur bütçesini aşarsa karar yeniden açılır.
+- CLAUDE.md kural 4'e istisna notu: bu model GPU'ya yüklenmeyen, CPU'da çalışan, onaylı tek gömme modelidir.
+- Güncellenen belgeler: F3-C §2 ve §11, ana plan §Verilen kararlar.
+- **Geri alma koşulu:** F3-C ölçümünde bge-m3 BM25'e göre anlamlı kazanç sağlamazsa veya CPU sorgu gecikmesi tur bütçesini aşarsa karar yeniden açılır.

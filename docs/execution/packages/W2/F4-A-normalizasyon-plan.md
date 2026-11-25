@@ -68,7 +68,7 @@ DialogueResponse ─► kabul (güvenilir kapsam, tekilleştirme) ─► revizyo
 | Saat / tarih | `14:30`, geçerli tipli tarih | Kesin anlamsal değer; belirsiz tarih tahmin edilmez; yetkili çözüm yoksa göreli tarihten takvim günü uydurulmaz. Okunuş: doğal Türkçe, gün dilimi her zaman söylenir ([ADR-F4-02](../../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md)) |
 | Motor / model kodu | `1.6 TDI`, `ID.4`, `C4`, `T10X` | Tipli ayrı değerler; `1.6` ≠ `1.5`; harf-rakam kodu genel sayıya zorlanmaz |
 | Arıza kodu | `P0300` | Baştaki sıfırlar dahil aynen |
-| Telefon / plaka benzeri | sentetik | Rakam kaybı yok; kimlik çıkarımı yok. Telefon okunuşu: baştaki 0 ayrı, kalan 10 hane ikişerli ([ADR-F4-03](../../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)) |
+| Telefon / plaka benzeri | sentetik | Rakam kaybı yok; kimlik çıkarımı yok. Telefon okunuşu `05xx xxx xx xx` (4-3-2-2) gruplarla ([ADR-F4-03](../../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)) |
 | İşaretli ondalık, sıcaklık, yüzde, aralık, birim | `−5 °C`, `%20`, `10–12 km` | İşaret, hassasiyet, uç noktalar, birim korunur |
 
 Örtüşmelerde (tutar+para birimi, model+sayı) açık öncelik ve üst-alt eşlemesi. Desteklenmeyen kritik sayı/aralık → ret veya F3'e güvenli yeniden sorma; keyfi sözcük yok. F3'ün tipli bilgisiyle kaynak metin çelişirse çelişkili iddia normalize edilmez. Tarayıcı sınırlı çalışır (düşmanca regex girdisine karşı).
@@ -82,7 +82,7 @@ Hedef seslendirme örnekleri (vizyon belgesinden; **kabul ölçütü değil**, m
 | Citroën C4 | Sitroen Ce dört |
 | 1.250.000 TL | Bir milyon iki yüz elli bin Türk lirası |
 | 14:30 | Öğleden sonra iki buçuk ([ADR-F4-02](../../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md); vizyon belgesindeki "saat on dört otuz" yerine) |
-| 0532 123 45 67 | Sıfır, elli üç, yirmi bir, yirmi üç, kırk beş, altmış yedi ([ADR-F4-03](../../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)) |
+| 0532 123 45 67 | Sıfır beş yüz otuz iki, yüz yirmi üç, kırk beş, altmış yedi ([ADR-F4-03](../../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)) |
 | 1.6 TDI | Bir nokta altı Te De İ |
 
 ### 5.3 Metin temsilleri ve eşleme
@@ -118,7 +118,7 @@ M02 generation kabulü atomik: kabulden önce iptal → gönderim yok; doğrulam
 | F4-A.07 | Öbek türleri ve tarayıcı | Yerel öbek/eşleme türleri; sınırlı tarayıcı; yarı açık aralıklar, kararlı öncelik | `PROTECTED_ATOM_SPEC.md` |
 | F4-A.08 | Kritik değer koruması | Belirsizlik politikası; kritik alanlar sessizce değişmez | `SEMANTIC_VALUE_MATRIX.csv`; LN20–LN34 |
 | F4-A.09 | Tek katı normalizasyon girişi | Çağrı grafiği; casus tam bir çağrıyı kanıtlar | `NORMALIZATION_CALL_GRAPH.md`; LN35–LN39 |
-| F4-A.10 | Sayı/para/tarih/saat/birim kuralları | Mevcut kuralların adaptasyonu; bayrak kapalıyken taban çıktısı korunur; `f4_pipeline_v2` açıkken saat ADR-F4-02 (gün dilimi + buçuk/çeyrek/geçe/var, zaman ekinde buçukta/kala) ve telefon ADR-F4-03 (0 + ikişerli) biçiminde | `NORMALIZATION_RULE_MATRIX.csv`; LN40–LN45 |
+| F4-A.10 | Sayı/para/tarih/saat/birim kuralları | Mevcut kuralların adaptasyonu; bayrak kapalıyken taban çıktısı korunur; `f4_pipeline_v2` açıkken saat ADR-F4-02 (gün dilimi + buçuk/çeyrek/geçe/var, zaman ekinde buçukta/kala) ve telefon ADR-F4-03 (`05xx xxx xx xx`, 4-3-2-2) biçiminde | `NORMALIZATION_RULE_MATRIX.csv`; LN40–LN45 |
 | F4-A.11 | Otomotiv tanımlayıcı/kısaltma | Korumalı model/motor/kod; incelenmemiş yeniden yazma yok | LN20–LN23 |
 | F4-A.12 | M05 telaffuz bağlama | Yalnız onaylı/eski kapsam | `LEXICON_MAPPING.csv`; LN46–LN50 |
 | F4-A.13 | Mevcut morfoloji adaptasyonu | Mevcut ek davranışı; yeni G2P/vurgu algoritması yok | LN51–LN53 |
@@ -161,7 +161,7 @@ M02 generation kabulü atomik: kabulden önce iptal → gönderim yok; doğrulam
 | LN21 | Motor tanımı 1.6 TDI ile 1.5 | Ayrı tipli değerler; ikame yok |
 | LN22 | ID.4, C4, T10X harf-rakam karışık | Tanımlayıcılar genel sayılara zorlanmaz |
 | LN23 | P0300 ve baştaki sıfırlar | Kod anlamsal eşlemede aynen korunur |
-| LN24 | Telefon ve plaka benzeri sentetik giriş | Rakam kaybı yok; kimlik çıkarımı yok; telefon ADR-F4-03 ikili okunur ("0532 123 45 67" → "sıfır, elli üç, yirmi bir, yirmi üç, kırk beş, altmış yedi") |
+| LN24 | Telefon ve plaka benzeri sentetik giriş | Rakam kaybı yok; kimlik çıkarımı yok; telefon ADR-F4-03 gruplamasıyla okunur ("0532 123 45 67" → "sıfır beş yüz otuz iki, yüz yirmi üç, kırk beş, altmış yedi"; sıfırla başlayan grup "sıfır …") |
 | LN25 | Para 1.250.000 TL | Kesin tutar ve birim |
 | LN26 | Para 2.500,50 TL | Kesir korunur; float yuvarlaması yok |
 | LN27 | İşaretli ondalık ve negatif sıcaklık | İşaret, hassasiyet politikası ve birim korunur |

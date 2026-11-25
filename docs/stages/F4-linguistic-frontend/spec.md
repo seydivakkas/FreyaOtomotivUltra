@@ -197,7 +197,7 @@ Tek normalizasyon otoritesidir. Mevcut `normalizer_rules.py` fonksiyonları alt 
 | `number_normalizer.py` | CARDINAL, DECIMAL, ORDINAL | "1,6" → **bir virgül altı**; "1. / 2." → **birinci / ikinci** |
 | `currency_normalizer.py` | CURRENCY | Mevcut davranış korunur |
 | `datetime_normalizer.py` | DATE, TIME | Doğal Türkçe saat: "09:05" → "sabah dokuzu beş geçe", "14:30'da" → "öğleden sonra iki buçukta" ([ADR-F4-02](../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md)); saat profili tek yerde |
-| `identifier_normalizer.py` | PHONE, LICENSE_PLATE, DTC_CODE | **Telefon ikişerli okunur** ([ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)): "0532 123 45 67" → "sıfır, elli üç, yirmi bir, yirmi üç, kırk beş, altmış yedi" (baştaki 0 ayrı; grup arası kısa duraklama); plaka mevcut biçim |
+| `identifier_normalizer.py` | PHONE, LICENSE_PLATE, DTC_CODE | **Telefon `05xx xxx xx xx` (4-3-2-2) gruplarla okunur** ([ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)): "0532 123 45 67" → "sıfır beş yüz otuz iki, yüz yirmi üç, kırk beş, altmış yedi" (grup arası kısa duraklama); plaka mevcut biçim |
 | `unit_normalizer.py` | SPEED, POWER, TEMPERATURE, UNIT | "120 km/h" → **saatte yüz yirmi kilometre**; "−5 °C" → **eksi beş santigrat derece**; Nm, kW, kWh |
 
 **F2 ile paylaşım:** Sayı okuma (değer → söz) F4'te, sayı ayrıştırma (söz → değer) F2'de (`turkish_normalizer`). İki yön **aynı tablo ve kurallardan** üretilir ve birbirinin tersi olduğu testle doğrulanır (§5.13).
@@ -530,7 +530,7 @@ Paralel çalışan yeni bir normalizasyon motoru oluşturulmaz. Mevcut özellikl
 | Sözlük birleştirmesi mevcut doğru okunuşları bozar | A0 ile karşılaştırma; `legacy_320_cases.json` regresyonu |
 | Ara parçada nokta kaldırmak sesi kalınlaştırır (L10) | ADR-F4-01 akustik testi; ölçülmeden değiştirilmez |
 | Sözlükteki okunuşlar yanlış | `review_status` ve `acoustic_status`; A/B Lab; uzman incelemesi |
-| İkişerli telefon okuması müşteriyi şaşırtır | G5 dinleme; F3 onay cümlelerinde test ([ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md) geri alma koşulu) |
+| Gruplu telefon okuması müşteriyi şaşırtır | G5 dinleme; F3 onay cümlelerinde test ([ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md) geri alma koşulu) |
 | Eğitim/çıkarım normalizer birleşmesi eski LoRA'ları etkiler | Mevcut adaptörlerle önce ölçüm; yeniden eğitim kararı F5'te |
 | F4 gecikmesi artar | p95 ≤ 50 ms hedefi; sözlük dizini önceden derlenir |
 
@@ -538,5 +538,5 @@ Paralel çalışan yeni bir normalizasyon motoru oluşturulmaz. Mevcut özellikl
 
 1. Ara parçalar virgülle mi, noktalamasız mı bitmeli? Büyük harf ara parçalarda da gerekli mi? (ADR-F4-01, akustik test)
 2. ~~Saat okuma biçimi~~ — **Karar verildi** ([ADR-F4-02](../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md)): doğal Türkçe ("sabah dokuz buçuk", "öğleden sonra iki").
-3. ~~Telefon numarası okuma~~ — **Karar verildi** ([ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)): ikişerli gruplar; baştaki 0 ayrı ("sıfır, elli üç, yirmi bir, …").
+3. ~~Telefon numarası okuma~~ — **Karar verildi** ([ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)): `05xx xxx xx xx` gruplaması ("sıfır beş yüz otuz iki, yüz yirmi üç, kırk beş, altmış yedi").
 4. ~~Tartışmalı okunuşların onayı~~ — **Karar verildi** ([ADR-X-04](../../01-architecture/adr/ADR-X-04-sozluk-okunus-onayi.md)): ürün sahibi + ilgili iş birimi.
