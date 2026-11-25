@@ -1,0 +1,16 @@
+{
+  "template_only": true,
+  "change_id": null,
+  "interfaces_md_section": null,
+  "old_version": null,
+  "new_version": null,
+  "producers": [],
+  "consumers": [],
+  "semantic_delta": null,
+  "compatibility_adapter": null,
+  "test_ids": [],
+  "gate_ids": [],
+  "plan_repo_pr": null,
+  "rollback": null,
+  "status": "NOT_RUN"
+}
