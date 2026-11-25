@@ -1,0 +1,21 @@
+{
+  "template_only": true,
+  "package": "F5-D",
+  "stage": "R1",
+  "residual_evidence_refs": [],
+  "attribution": {
+    "f3_value": null,
+    "f4_realization": null,
+    "f5_raw": null,
+    "vae": null,
+    "solver": null,
+    "f6_channel": null,
+    "evaluator": null
+  },
+  "non_training_alternatives_reviewed": [],
+  "rights_review_ref": null,
+  "decision": "NOT_RUN",
+  "allowed_decisions": ["ELIGIBLE_FOR_REVIEW", "NO_TRAINING_NEEDED", "HOLD"],
+  "independent_reviewer": null,
+  "user_approval_ref": null
+}

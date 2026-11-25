@@ -1,0 +1,36 @@
+{
+  "template_only": true,
+  "package": null,
+  "run_id": null,
+  "task_ids": [],
+  "started_at": null,
+  "finished_at": null,
+  "git": {
+    "branch": null,
+    "commit": null,
+    "parent_accepted_commit": null,
+    "changed_paths": [],
+    "dirty": null
+  },
+  "environment": {
+    "os": null,
+    "python": null,
+    "device": null,
+    "gpu_driver": null,
+    "cuda": null,
+    "models_present": []
+  },
+  "flags_and_profiles": {},
+  "commands": [],
+  "evidence_class": null,
+  "fixtures": [
+    {
+      "id": null,
+      "version": null,
+      "sha256": null,
+      "seed": null
+    }
+  ],
+  "reports": [],
+  "notes": null
+}

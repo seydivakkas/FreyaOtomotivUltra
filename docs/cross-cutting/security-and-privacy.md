@@ -20,7 +20,7 @@ Bu belge hukuki görüş değildir; KVKK uyumunun son kontrolü kurumun hukuk bi
 
 ### 2.1 Kimlik doğrulama (F3)
 - Genel bilgi (çalışma saatleri, fiyat listesi, genel teknik bilgi) kimlik gerektirmez.
-- **Özel kayıt okuma** (servis geçmişi, garanti, randevu durumu): arayan numarası + ikinci etken (ADR-F3-01).
+- **Özel kayıt okuma** (servis geçmişi, garanti, randevu durumu): arayan numarası + ikinci etken — doğum yılı, kayıtta yoksa plaka son 3–4 hanesi; görüşme başına en çok 3 deneme ([ADR-F3-01](../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md)).
 - **Yazma işlemleri** (randevu oluşturma/değiştirme/iptal): ikinci etken + sözlü onay (Confirmation Manager) + idempotency.
 - Doğrulama başarısızsa özel bilgi verilmez; operatöre aktarım önerilir.
 
@@ -52,4 +52,4 @@ Freya "randevunuz oluşturuldu", "aktarıldınız", "SMS gönderildi" gibi cüml
 | F3-T03 Çoklu araç idempotency | Faz 0 |
 | F6-T20 AudioSocket güvenliği | Telefon kabulünden önce |
 | F3-T29 Policy Engine merkezileştirme, F3-T30 hafıza ve saklama | Faz 4 |
-| ADR-F3-01, ADR-X-01 | Kullanıcı kararı |
+| [ADR-F3-01](../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md), [ADR-X-01](../01-architecture/adr/ADR-X-01-asterisk-dagitim.md), [ADR-X-03](../01-architecture/adr/ADR-X-03-yapay-zeka-bildirimi.md) | Kullanıcı kararı — kabul edildi (2026-11-26) |

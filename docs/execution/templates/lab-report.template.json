@@ -1,0 +1,49 @@
+{
+  "template_only": true,
+  "stage": null,
+  "package": null,
+  "report_id": null,
+  "created_at": null,
+  "evidence_class": null,
+  "input_origin": null,
+  "hardware": {
+    "device": null,
+    "vram_total_mib": null,
+    "competing_workload": null
+  },
+  "profile": {
+    "flags": {},
+    "model_revisions": {},
+    "seed": 9,
+    "warm": null,
+    "cache": null
+  },
+  "dataset": {
+    "id": null,
+    "version": null,
+    "split": null,
+    "manifest_sha256": null,
+    "items": null
+  },
+  "metrics": [
+    {
+      "name": null,
+      "unit": null,
+      "scope": null,
+      "n": null,
+      "failures": null,
+      "p50": null,
+      "p95": null,
+      "p99": null,
+      "value": null,
+      "denominator": null,
+      "baseline_value": null,
+      "paired_delta": null,
+      "ci": null,
+      "target": null,
+      "status": "NOT_RUN",
+      "null_reason": null
+    }
+  ],
+  "notes": null
+}

@@ -1,0 +1,34 @@
+{
+  "template_only": true,
+  "package": null,
+  "run_id": null,
+  "package_status": "NOT_RUN",
+  "gates": [
+    {
+      "id": null,
+      "status": "NOT_RUN",
+      "reason": null,
+      "test_ids": [],
+      "evidence_refs": []
+    }
+  ],
+  "test_counts": {
+    "planned": null,
+    "executed": null,
+    "pass": null,
+    "fail": null,
+    "hold": null,
+    "not_run": null,
+    "deferred": null
+  },
+  "known_baseline_failures": [],
+  "open_decisions": [],
+  "deferred_scope": [],
+  "rollback_verified": null,
+  "reviewer": {
+    "independent": null,
+    "name_or_session": null,
+    "reviewed_at": null
+  },
+  "next_package_started": false
+}

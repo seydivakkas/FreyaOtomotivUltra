@@ -4,7 +4,10 @@
 | --- | --- |
 | **AEC** (Acoustic Echo Cancellation) | Freya'nın kendi sesinin mikrofondan geri dönen kısmını, F6'nın oynatma referansıyla bastırma (F0.02) |
 | **AGC** | Otomatik kazanç kontrolü; düşük mikrofon seviyesini hedef seviyeye çeker (F0.06) |
-| **AIP** (Agent Implementation Package) | Kodlama ajanına tek seferde verilen, bağımlılıkları tamamlanmış görev paketi ([master plan](../roadmap/master-plan.md) §6) |
+| **AIP** (Agent Implementation Package) | Eski plandaki uygulama paketi (AIP-01…48); emekliye ayrıldı, yerini **paket** aldı ([legacy-mapping](../execution/legacy-mapping.md)) |
+| **Paket** | Kodlama ajanının tek oturumda uyguladığı, kendi görev, test ve kabul kapılarıyla kapanan iş birimi (M00, H01, M01…M08, F0-A…F6-D); dalgalar W0–W5 ([yürütme planı](../execution/README.md)) |
+| **CORE_GATE / W2_GATE** | Ortak çekirdek (W1) ve uçtan uca dikey dilim (W2) sonrası bağımsız incelenen entegrasyon kapıları |
+| **G2–G5, PILOT** | Ürün aşamaları: entegrasyon incelemesi, kokpit arayüzü, sentetik kabul, gerçek insan ve SIP kabulü, pilot kararı |
 | **AMI / ARI** | Asterisk Manager Interface (arama, olay, aktarım) / Asterisk REST Interface (kanal ve bridge yaşam döngüsü) |
 | **AP01–AP13** | Proje açıklamasındaki geliştirme modülleri; AP13 (Dialogue Orchestration) bu planda eklendi ([roadmap](../roadmap/roadmap.md)) |
 | **ASRResult** | F2'nin F3'e verdiği yapılandırılmış tanıma sonucu (ham/normalize/kanonik metin, düzeltmeler, varlıklar, karar) |

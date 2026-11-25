@@ -99,7 +99,7 @@ Toplu (batched) sentez yolu da (`backend/batched_ode.py`) kendi `normalize` / `c
 | **1,6 litre** | **bir nokta altı litre** | Bir virgül altı litre | ✗ |
 | 1.250.000 TL | bir milyon iki yüz elli bin Türk lirası | aynı | ✓ |
 | 150,50 TL | yüz elli lira elli kuruş | aynı | ✓ |
-| 14:30 | on dört otuz | aynı | ✓ |
+| 14:30 | on dört otuz | Öğleden sonra iki buçuk ([ADR-F4-02](../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md)) | ✗ |
 | 24.11.2026 | yirmi dört kasım iki bin yirmi altı | aynı | ✓ |
 | %18 | yüzde on sekiz | aynı | ✓ |
 | **120 km/h** | **yüz yirmi kilometre/h** | Saatte yüz yirmi kilometre | ✗ `/h` kalıyor |
@@ -110,7 +110,7 @@ Toplu (batched) sentez yolu da (`backend/batched_ode.py`) kendi `normalize` / `c
 | Peugeot'ya / Qashqai'nin / Volkswagen'de | Pejoya / kaşkayın / Folksvagende | aynı | ✓ |
 | **ABS'nin** | **ABSın** | A Be Senin | ✗ ünlü uyumu ve kısaltma |
 | **DSG'li** | **DSGli** | De Se Geli | ✗ |
-| 14:30'da / 2.000 TL'ye | on dört otuzda / iki bin Türk lirasına | aynı | ✓ |
+| 14:30'da / 2.000 TL'ye | on dört otuzda / iki bin Türk lirasına | Öğleden sonra iki buçukta / iki bin Türk lirasına | ✗ (saat) |
 | **Togg T10X** | **Tog T10Ks** | Tog Te on iks | ✗ |
 | **Hyundai i20** | **Hunday i20** | doğrulanmış varyant | ✗ rakam kalıyor |
 | **EcoBoost** | **EcoBoost** | Eko Bust | ✗ |
@@ -118,7 +118,7 @@ Toplu (batched) sentez yolu da (`backend/batched_ode.py`) kendi `normalize` / `c
 | Kısaltmalar | "ESP" → e se pe; **"ABS", "DSG", "ADAS" olduğu gibi** | Tutarlı okunuş | ✗ tutarsız |
 | Telefon | Rakam rakam, gruplama yok ("sıfır beş üç iki bir iki üç…") | Gruplu okuma | ✗ telefonda takibi zor |
 | e-208 / ID.4 | e-iki yüz sekiz / ID.dört | sözlükten | ✗ |
-| Planın birleşik örneği | "iki bin yirmi model Pejo üç bin sekiz için on dört otuzda iki bin beş yüz Türk lirası tutarında randevu." | aynı | ✓ |
+| Planın birleşik örneği | "iki bin yirmi model Pejo üç bin sekiz için on dört otuzda iki bin beş yüz Türk lirası tutarında randevu." | "… için öğleden sonra iki buçukta …" | ✗ (saat) |
 
 **L12 — Üçüncü bir normalizer ve prozodi planlayıcısı milestone paketinde duruyor (genel belgeler hazırlanırken eklendi).**
 `automotive_voice/nlp/normalizer.TurkishAutomotiveNormalizer` ve `automotive_voice/prosody/planner.ProsodyClausePlanner` yalnızca `backend/milestones.py` (milestone uçları) tarafından kullanılıyor; canlı yolda değiller. Doğrudan çalıştırma sonuçları:
@@ -127,7 +127,7 @@ Toplu (batched) sentez yolu da (`backend/batched_ode.py`) kendi `normalize` / `c
 | --- | --- | --- |
 | Peugeot 3008 için 2.500 TL. | Peugeot 3008 için iki bin beş yüz Türk lirası. | Evet · `unexpanded_numeric_token` |
 | Nissan Qashqai 2020 model | Nissan Qashqai iki bin yirmi model | Evet · `unsupported_freya_characters` |
-| Saat 14:30, 1.6 TDI | Saat on dört otuz, bir nokta altı TDI | Hayır |
+| Saat 14:30, 1.6 TDI | Öğleden sonra iki buçuk, bir nokta altı TDI (ADR-F4-02) | Hayır |
 | Citroën C4 −5 °C | (değişmeden) | Evet · iki uyarı |
 | 1. seçenek 25 Kasım 10.00 | (değişmeden) | Evet · `ambiguous_numeric_notation` |
 
@@ -196,8 +196,8 @@ Tek normalizasyon otoritesidir. Mevcut `normalizer_rules.py` fonksiyonları alt 
 | --- | --- | --- |
 | `number_normalizer.py` | CARDINAL, DECIMAL, ORDINAL | "1,6" → **bir virgül altı**; "1. / 2." → **birinci / ikinci** |
 | `currency_normalizer.py` | CURRENCY | Mevcut davranış korunur |
-| `datetime_normalizer.py` | DATE, TIME | "9:05" → ADR ile seçilen biçim ("dokuz sıfır beş" veya "dokuzu beş geçe"); saat profili tek yerde |
-| `identifier_normalizer.py` | PHONE, LICENSE_PLATE, DTC_CODE | **Telefon gruplu okunur:** "sıfır beş yüz otuz iki, yüz yirmi üç, kırk beş, altmış yedi" (grup arası kısa duraklama); plaka mevcut biçim |
+| `datetime_normalizer.py` | DATE, TIME | Doğal Türkçe saat: "09:05" → "sabah dokuzu beş geçe", "14:30'da" → "öğleden sonra iki buçukta" ([ADR-F4-02](../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md)); saat profili tek yerde |
+| `identifier_normalizer.py` | PHONE, LICENSE_PLATE, DTC_CODE | **Telefon `05xx xxx xx xx` (4-3-2-2) gruplarla okunur** ([ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)): "0532 123 45 67" → "sıfır beş yüz otuz iki, yüz yirmi üç, kırk beş, altmış yedi" (grup arası kısa duraklama); plaka mevcut biçim |
 | `unit_normalizer.py` | SPEED, POWER, TEMPERATURE, UNIT | "120 km/h" → **saatte yüz yirmi kilometre**; "−5 °C" → **eksi beş santigrat derece**; Nm, kW, kWh |
 
 **F2 ile paylaşım:** Sayı okuma (değer → söz) F4'te, sayı ayrıştırma (söz → değer) F2'de (`turkish_normalizer`). İki yön **aynı tablo ve kurallardan** üretilir ve birbirinin tersi olduğu testle doğrulanır (§5.13).
@@ -256,7 +256,7 @@ Tek normalizasyon otoritesidir. Mevcut `normalizer_rules.py` fonksiyonları alt 
 | Volkswagen'de | gen | Folksvagende |
 | ABS'nin | se | A Be Senin |
 | DSG'li | ge | De Se Geli |
-| 14:30'da | otuz | On dört otuzda |
+| 14:30'da | buçuk | Öğleden sonra iki buçukta |
 | 2.000 TL'ye | lira(sı) | İki bin Türk lirasına |
 
 - Morfem ayrıştırma çıktısı (kök, yapım/çekim ekleri) `phonetic_guide`'a yazılır; `model_text`'i değiştirmez.
@@ -331,7 +331,7 @@ Mevcut `MorphologicalPreChecker` clitic öncesine 35 ms mikro duraklama öneriyo
 ### 5.11 F4.11 — Semantic Chunking Engine (`semantic_chunker.py`, `protected_atoms.py`)
 
 **Bölme kuralları:**
-1. **Korunan öbekler hiç bölünmez:** marka + model, motor kodu, para miktarı, tarih, saat, **tarih + saat ("yarın saat on dört otuz")**, plaka, telefon numarası grubu, olumsuzluk, kritik işlem koşulu. Mevcut `protected_atoms()` genişletilir.
+1. **Korunan öbekler hiç bölünmez:** marka + model, motor kodu, para miktarı, tarih, saat, **tarih + saat ("yarın öğleden sonra iki buçuk")**, plaka, telefon numarası grubu, olumsuzluk, kritik işlem koşulu. Mevcut `protected_atoms()` genişletilir.
 2. Bölme noktası önceliği: cümle sonu > noktalı virgül/iki nokta > virgül > bağlaç ("ve", "ama", "çünkü") > öbek sınırı.
 3. **Ara parçalar cümle sonu noktalaması almaz (L2).** Devam eden parça virgülle veya noktalamasız biter. Hangi biçimin modelde doğal devam tonlaması verdiği ADR-F4-01 ile akustik olarak seçilir. Büyük harf kuralı (L10) uygulanmaya devam eder; bu kuralın ara parçalarda gerekip gerekmediği de aynı ADR'de test edilir.
 4. **İlk parça kısa tutulur** (ilk ses gecikmesi için) ama **en kısa parça sınırının** altına inmez: varsayılan ≥ 3 sözcük ve ≥ 16 karakter. Kısa parçalar noktalamasından bağımsız olarak komşusuyla birleştirilir (L11).
@@ -530,13 +530,13 @@ Paralel çalışan yeni bir normalizasyon motoru oluşturulmaz. Mevcut özellikl
 | Sözlük birleştirmesi mevcut doğru okunuşları bozar | A0 ile karşılaştırma; `legacy_320_cases.json` regresyonu |
 | Ara parçada nokta kaldırmak sesi kalınlaştırır (L10) | ADR-F4-01 akustik testi; ölçülmeden değiştirilmez |
 | Sözlükteki okunuşlar yanlış | `review_status` ve `acoustic_status`; A/B Lab; uzman incelemesi |
-| Telefon gruplu okuma müşteriyi şaşırtır | A/B dinleme; F3 onay cümlelerinde test |
+| Gruplu telefon okuması müşteriyi şaşırtır | G5 dinleme; F3 onay cümlelerinde test ([ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md) geri alma koşulu) |
 | Eğitim/çıkarım normalizer birleşmesi eski LoRA'ları etkiler | Mevcut adaptörlerle önce ölçüm; yeniden eğitim kararı F5'te |
 | F4 gecikmesi artar | p95 ≤ 50 ms hedefi; sözlük dizini önceden derlenir |
 
 ## 12. Açık sorular
 
 1. Ara parçalar virgülle mi, noktalamasız mı bitmeli? Büyük harf ara parçalarda da gerekli mi? (ADR-F4-01, akustik test)
-2. "9:05" gibi saatler "dokuz sıfır beş" mi, "dokuzu beş geçe" mi okunacak? Kurumsal tercih gerekiyor.
-3. Telefon numarası gruplu mu (0532 · 123 · 45 · 67), rakam rakam mı okunacak? A/B dinleme ile karar verilecek.
-4. `Hyundai` ve benzeri tartışmalı markaların okunuşunu kim onaylayacak?
+2. ~~Saat okuma biçimi~~ — **Karar verildi** ([ADR-F4-02](../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md)): doğal Türkçe ("sabah dokuz buçuk", "öğleden sonra iki").
+3. ~~Telefon numarası okuma~~ — **Karar verildi** ([ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)): `05xx xxx xx xx` gruplaması ("sıfır beş yüz otuz iki, yüz yirmi üç, kırk beş, altmış yedi").
+4. ~~Tartışmalı okunuşların onayı~~ — **Karar verildi** ([ADR-X-04](../../01-architecture/adr/ADR-X-04-sozluk-okunus-onayi.md)): ürün sahibi + ilgili iş birimi.

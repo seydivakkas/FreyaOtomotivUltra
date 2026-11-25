@@ -8,7 +8,7 @@ Freya 2.0 PoC'u sıfırdan yazmaz. Bu belge, aşama `spec.md` dosyalarının "Po
 2. **Bayrak arkasında geçiş.** Yeni yol `fN_pipeline_v2` bayrağıyla seçilir; legacy yol aynı sürümde çalışmaya devam eder.
 3. **Önce karakterizasyon testi.** Taşınan her modülün mevcut davranışı önce test olarak kaydedilir (her aşamanın T01'i). Davranış değişikliği bu testin gerekçeli güncellenmesiyle yapılır.
 4. **Milestone paketinden yararlan.** `automotive_voice/` altında canlı yolda kullanılmayan ama tasarlanmış ve test edilmiş yapılar (çekirdek kimlikler, iptal, olay yolu, kuyruk, sahte transport, şemalar) yeni paketlerin temelidir.
-5. **Tek yerde uygulama.** Birden fazla yerde yapılan iş (normalizasyon, duraklama, pacing, pre-roll, GPU kilitleri) taşınırken tekilleştirilir ([master plan](../roadmap/master-plan.md) §6).
+5. **Tek yerde uygulama.** Birden fazla yerde yapılan iş (normalizasyon, duraklama, pacing, pre-roll, GPU kilitleri) taşınırken tekilleştirilir ([ownership.md §Tekilleştirilmiş bileşenler](../execution/ownership.md#tekilleştirilmiş-bileşenler)).
 
 ## 2. Modül eşlemesi (özet)
 

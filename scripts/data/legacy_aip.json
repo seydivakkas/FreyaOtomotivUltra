@@ -1,0 +1,486 @@
+{
+ "AIP-01": {
+  "name": "Hermetik test altyapısı (LLM ve Freya sahteleri, pytest işaretleri, ağır içe aktarmaların tembelleştirilmesi — bulgu X8)",
+  "tasks": [
+   "F3-T01",
+   "F5-T07"
+  ]
+ },
+ "AIP-02": {
+  "name": "Karakterizasyon testleri",
+  "tasks": [
+   "F0-T01",
+   "F1-T01",
+   "F2-T03",
+   "F3-T02",
+   "F4-T01",
+   "F5-T02",
+   "F6-T01"
+  ]
+ },
+ "AIP-03": {
+  "name": "Güvenlik düzeltmeleri",
+  "tasks": [
+   "F3-T05",
+   "F3-T03"
+  ]
+ },
+ "AIP-04": {
+  "name": "Giriş ve tur hata düzeltmeleri",
+  "tasks": [
+   "F1-T03",
+   "F1-T05",
+   "F0-T14"
+  ]
+ },
+ "AIP-05": {
+  "name": "Çıkış hata düzeltmeleri",
+  "tasks": [
+   "F4-T04",
+   "F4-T05",
+   "F5-T11",
+   "F5-T17*",
+   "F6-T03"
+  ]
+ },
+ "AIP-06": {
+  "name": "GPU taban ölçümleri ve Leyla referans kümesi",
+  "tasks": [
+   "F5-T01",
+   "F5-T03",
+   "F5-T05",
+   "F2-T01",
+   "F2-T02"
+  ]
+ },
+ "AIP-07": {
+  "name": "CPU taban ölçümleri ve ölçülmemiş iddiaların temizlenmesi",
+  "tasks": [
+   "F0-T02",
+   "F3-T04",
+   "F4-T03",
+   "F5-T04",
+   "F6-T02"
+  ]
+ },
+ "AIP-08": {
+  "name": "Oturum ve kimlik çekirdeği",
+  "tasks": [
+   "CC-T01",
+   "CC-T02"
+  ]
+ },
+ "AIP-09": {
+  "name": "Sözleşmeler ve JSON şemaları",
+  "tasks": [
+   "F0-T04",
+   "F1-T04",
+   "F2-T04",
+   "F3-T06",
+   "F4-T06",
+   "F5-T06",
+   "F6-T04"
+  ]
+ },
+ "AIP-10": {
+  "name": "Gözlemlenebilirlik",
+  "tasks": [
+   "CC-T03",
+   "CC-T04"
+  ]
+ },
+ "AIP-11": {
+  "name": "Ortak GPU yöneticisi",
+  "tasks": [
+   "F5-T16",
+   "F2-T07"
+  ]
+ },
+ "AIP-12": {
+  "name": "Ortak otomotiv sözlüğü",
+  "tasks": [
+   "F4-T02",
+   "F4-T13",
+   "F4-T14",
+   "F2-T08",
+   "F4-T15"
+  ]
+ },
+ "AIP-13": {
+  "name": "Whisper adaptörü, bağlamsal hotword, kalibrasyon/test ayrımı",
+  "tasks": [
+   "F2-T05",
+   "F2-T06",
+   "F2-T09",
+   "F2-T30",
+   "F2-T33"
+  ]
+ },
+ "AIP-14": {
+  "name": "Türkçe ASR normalizer ve mapper",
+  "tasks": [
+   "F2-T10",
+   "F2-T11",
+   "F2-T12",
+   "F2-T13"
+  ]
+ },
+ "AIP-15": {
+  "name": "Phonetic Entity Resolver ve varlık çıkarımı",
+  "tasks": [
+   "F2-T14",
+   "F2-T15",
+   "F2-T16",
+   "F2-T17"
+  ]
+ },
+ "AIP-16": {
+  "name": "Güven, belirsizlik kapısı, sahte metin koruması",
+  "tasks": [
+   "F2-T18",
+   "F2-T19",
+   "F2-T20",
+   "F2-T21",
+   "F2-T22"
+  ]
+ },
+ "AIP-17": {
+  "name": "F4 tek normalizasyon otoritesi",
+  "tasks": [
+   "F4-T07",
+   "F4-T08",
+   "F4-T09",
+   "F4-T10",
+   "F4-T11",
+   "F4-T12"
+  ]
+ },
+ "AIP-18": {
+  "name": "Morfoloji, fonoloji, G2P, vurgu, ulama",
+  "tasks": [
+   "F4-T16",
+   "F4-T17",
+   "F4-T18",
+   "F4-T19",
+   "F4-T20",
+   "F4-T21"
+  ]
+ },
+ "AIP-19": {
+  "name": "Prozodi, bölümleme, Freya uyumluluğu, kalite kapısı",
+  "tasks": [
+   "F4-T22",
+   "F4-T23",
+   "F4-T24",
+   "F4-T25",
+   "F4-T26",
+   "F4-T28"
+  ]
+ },
+ "AIP-20": {
+  "name": "Tek sentez yolu (sorumluluk göçü)",
+  "tasks": [
+   "F5-T08",
+   "F4-T27",
+   "F5-T09",
+   "F6-T05",
+   "F6-T06",
+   "F6-T08"
+  ]
+ },
+ "AIP-21": {
+  "name": "Terim doğruluğu ölçümü (ara)",
+  "tasks": [
+   "F0-T03",
+   "F2-T31",
+   "F2-T32",
+   "F4-T33*"
+  ]
+ },
+ "AIP-22": {
+  "name": "F0/F1/F5 test derlemleri",
+  "tasks": [
+   "F0-T29",
+   "F1-T02",
+   "F5-T28"
+  ]
+ },
+ "AIP-23": {
+  "name": "F0 giriş yolu ve düşük gecikmeli çerçeve",
+  "tasks": [
+   "F0-T05",
+   "F0-T06",
+   "F0-T07",
+   "F0-T08",
+   "F0-T19",
+   "F0-T21",
+   "F0-T22",
+   "F0-T23",
+   "F0-T24"
+  ]
+ },
+ "AIP-24": {
+  "name": "F0 DSP zinciri",
+  "tasks": [
+   "F0-T09",
+   "F0-T10",
+   "F0-T11",
+   "F0-T12",
+   "F0-T13",
+   "F0-T15",
+   "F0-T16",
+   "F0-T25",
+   "F0-T26"
+  ]
+ },
+ "AIP-25": {
+  "name": "F1 VAD çekirdeği ve gecikme kararı",
+  "tasks": [
+   "F1-T06",
+   "F1-T07",
+   "F1-T08",
+   "F1-T09",
+   "F1-T10",
+   "F1-T11"
+  ]
+ },
+ "AIP-26": {
+  "name": "Endpointing, semantic turn, pseudo-streaming STT",
+  "tasks": [
+   "F1-T12",
+   "F1-T13",
+   "F1-T14",
+   "F1-T15",
+   "F1-T16",
+   "F1-T17",
+   "F2-T23",
+   "F2-T24",
+   "F2-T25",
+   "F2-T26",
+   "F2-T27"
+  ]
+ },
+ "AIP-27": {
+  "name": "F5 sentez çekirdeği",
+  "tasks": [
+   "F5-T10",
+   "F5-T12",
+   "F5-T13",
+   "F5-T14",
+   "F5-T15",
+   "F5-T17",
+   "F5-T18",
+   "F5-T19",
+   "F5-T20",
+   "F5-T21"
+  ]
+ },
+ "AIP-28": {
+  "name": "F6 rendering zinciri",
+  "tasks": [
+   "F6-T07",
+   "F6-T09",
+   "F6-T10",
+   "F6-T11",
+   "F6-T12",
+   "F6-T13",
+   "F6-T14",
+   "F6-T15",
+   "F6-T16"
+  ]
+ },
+ "AIP-29": {
+  "name": "Oynatma kuyruğu ve F5→F6 akışı",
+  "tasks": [
+   "F6-T17",
+   "F6-T19",
+   "F6-T21",
+   "F5-T25",
+   "F5-T26"
+  ]
+ },
+ "AIP-30": {
+  "name": "Barge-in 2.0",
+  "tasks": [
+   "F1-T18",
+   "F1-T19",
+   "F1-T20",
+   "F1-T21",
+   "F1-T22",
+   "F6-T18"
+  ]
+ },
+ "AIP-31": {
+  "name": "AEC ve RNNoise",
+  "tasks": [
+   "F0-T17",
+   "F0-T18",
+   "F0-T20"
+  ]
+ },
+ "AIP-32": {
+  "name": "Transport: AudioSocket, chan_websocket, telemetri, AMI/ARI",
+  "tasks": [
+   "F6-T20",
+   "F6-T22",
+   "F6-T23",
+   "F6-T24"
+  ]
+ },
+ "AIP-33": {
+  "name": "Ses kimliği doğrulama",
+  "tasks": [
+   "F5-T22",
+   "F5-T23",
+   "F5-T24"
+  ]
+ },
+ "AIP-34": {
+  "name": "Bağlam, slot ve durum makinesi",
+  "tasks": [
+   "F3-T07",
+   "F3-T08",
+   "F3-T09",
+   "F3-T10",
+   "F3-T11"
+  ]
+ },
+ "AIP-35": {
+  "name": "Senaryo kümesi, hibrit router, görev planlayıcı",
+  "tasks": [
+   "F3-T40",
+   "F3-T12",
+   "F3-T13",
+   "F3-T14",
+   "F3-T15",
+   "F3-T16"
+  ]
+ },
+ "AIP-36": {
+  "name": "Tool Gateway, onay, policy, hafıza",
+  "tasks": [
+   "F3-T26",
+   "F3-T27",
+   "F3-T28",
+   "F3-T29",
+   "F3-T30"
+  ]
+ },
+ "AIP-37": {
+  "name": "Yanıt doğrulama ve yol bazında gecikme",
+  "tasks": [
+   "F3-T31",
+   "F3-T32",
+   "F3-T33"
+  ]
+ },
+ "AIP-38": {
+  "name": "Uzman ajanlar",
+  "tasks": [
+   "F3-T17",
+   "F3-T18",
+   "F3-T19",
+   "F3-T24",
+   "F3-T25"
+  ]
+ },
+ "AIP-39": {
+  "name": "RAG ve teknik bilgi ajanı",
+  "tasks": [
+   "F3-T20",
+   "F3-T21",
+   "F3-T22",
+   "F3-T23"
+  ]
+ },
+ "AIP-40": {
+  "name": "Studio API'leri",
+  "tasks": [
+   "F0-T27",
+   "F1-T23",
+   "F2-T28",
+   "F3-T34"
+  ]
+ },
+ "AIP-41": {
+  "name": "Studio arayüzleri",
+  "tasks": [
+   "F0-T28",
+   "F1-T24",
+   "F1-T25",
+   "F2-T29",
+   "F3-T35",
+   "F4-T29",
+   "F5-T27",
+   "F6-T25"
+  ]
+ },
+ "AIP-42": {
+  "name": "Laboratuvar testleri",
+  "tasks": [
+   "F4-T30",
+   "F0-T30",
+   "F0-T31",
+   "F1-T26",
+   "F1-T27",
+   "F3-T36",
+   "F4-T31",
+   "F5-T29",
+   "F6-T26"
+  ]
+ },
+ "AIP-43": {
+  "name": "Ablation deneyleri",
+  "tasks": [
+   "F2-T34",
+   "F3-T37",
+   "F4-T32",
+   "F5-T30",
+   "F6-T27"
+  ]
+ },
+ "AIP-44": {
+  "name": "Uçtan uca regresyon ve bayrak açılışı",
+  "tasks": [
+   "F0-T32",
+   "F1-T28",
+   "F2-T35",
+   "F3-T38",
+   "F3-T39",
+   "F5-T31",
+   "F6-T28"
+  ]
+ },
+ "AIP-45": {
+  "name": "Gerçek mikrofon ve insan sesi kabulü",
+  "tasks": [
+   "F0-T33",
+   "F0-T34",
+   "F1-T29",
+   "F1-T30",
+   "F2-T36",
+   "F2-T37"
+  ]
+ },
+ "AIP-46": {
+  "name": "Asterisk ve SIP kabulü",
+  "tasks": [
+   "F6-T29",
+   "F6-T30",
+   "F3-T41"
+  ]
+ },
+ "AIP-47": {
+  "name": "İnsan dinleme değerlendirmesi",
+  "tasks": [
+   "F4-T33",
+   "F5-T32"
+  ]
+ },
+ "AIP-48": {
+  "name": "(İsteğe bağlı) Kontrollü LoRA deneyi",
+  "tasks": [
+   "F5-T33"
+  ]
+ }
+}

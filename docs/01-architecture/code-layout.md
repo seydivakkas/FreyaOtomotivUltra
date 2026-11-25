@@ -1,5 +1,7 @@
 # Hedef kod düzeni (PoC reposu)
 
+> **Paket planı notu (25.11.2026):** Ortak çekirdek paketleri bu ağaca şu dizinleri ekler: M01 `backend/core/contracts/` (kanonik sözleşmeler; aşama paketlerindeki `contracts.py` dosyaları bunları yeniden dışa aktarır), M02 `backend/core/runtime/` (oturum, generation, iptal — aşağıdaki `session_state/` hedefinin karşılığı), M03 `backend/core/configuration/` + `backend/core/model_registry/`, M04 `backend/observability/`, M05 `backend/shared_lexicon/` + `config/linguistics/` (tek otorite; birden çok dosya olabilir), M06 `backend/runtime_resources/`, M07 `backend/supervisor/security/`. Paket → dizin → tek yetki tablosu: [ownership.md](../execution/ownership.md).
+
 Tüm yollar [`FreyaTTS_Automotive_PoC`](https://github.com/seydivakkas/FreyaTTS_Automotive_PoC) reposundadır. Dosya adları aşama `spec.md` bölümlerinde geçen adlarla aynıdır. Mevcut modüller silinmez; yeni paketler onları uyumluluk sarmalayıcısıyla kullanır.
 
 ```text

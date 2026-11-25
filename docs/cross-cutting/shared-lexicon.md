@@ -26,11 +26,11 @@ Projenin en büyük sorunu otomotiv terim doğruluğudur (%48,04, hedef %95). Ay
 | `canonical`, `category`, `brand`, `lexicon_version` | Ortak | F2, F3, F4 |
 | `asr_variants`, `ambiguous_with_common_word` | F2 | F2 hotword, mapper, resolver |
 | `synth_text`, `suffix_base`, `phonetic_guide`, `stress` | F4 | F4 normalizer, morfoloji, G2P |
-| `review_status`, `pronunciation_source` | Sözlük onay yetkilisi | Studio, F4 kalite kapısı |
+| `review_status`, `pronunciation_source` | Ürün sahibi + ilgili iş birimi ([ADR-X-04](../01-architecture/adr/ADR-X-04-sozluk-okunus-onayi.md)) | Studio, F4 kalite kapısı |
 | `acoustic_status` | Laboratuvar | F4-T33 (FreyaTTS gerçekten doğru okuyor mu) |
 | `recognition_status` (öneri — yeni alan) | Laboratuvar | F2 benchmark (Whisper bu terimi doğru tanıyor mu) |
 
-**Onay akışı:** `review_status = approved` yalnızca onay yetkilisi tarafından ve mevcut `PronunciationReviewStore` kanıt kuralıyla (kayıt + transkripsiyon + lisans kapsamı) verilir. Onay kaydı `approved_lexicon_rule` şemasındaki `reviewer`, `evidence`, `source_ref` alanlarını taşır. Onay yetkilisinin kim olduğu kullanıcı kararıdır ([ADR dizini](../01-architecture/adr/README.md), soru 5).
+**Onay akışı:** `review_status = approved` yalnızca ürün sahibi ve ilgili iş birimi onayıyla ([ADR-X-04](../01-architecture/adr/ADR-X-04-sozluk-okunus-onayi.md)) ve mevcut `PronunciationReviewStore` kanıt kuralıyla (kayıt + transkripsiyon + lisans kapsamı) verilir. Onay kaydı `approved_lexicon_rule` şemasındaki `reviewer`, `evidence`, `source_ref` alanlarını taşır. Onay yetkilisinin kim olduğu kullanıcı kararıdır ([ADR dizini](../01-architecture/adr/README.md), soru 5).
 
 **Sürümleme:** `lexicon_version` değiştiğinde:
 - F4 `plan_id` değişir → F5 önbelleği kendiliğinden geçersizleşir (F4 T36).
