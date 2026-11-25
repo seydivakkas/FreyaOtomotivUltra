@@ -19,6 +19,7 @@ Bu repo Freya'nın **kodudur**. Ne yapılacağı, hangi sırayla yapılacağı v
 2. Plan reposundaki `CLAUDE.md` dosyasını baştan sona okuyun. **Tek kural kaynağı odur.**
 3. Size verilen paketin dosyasını okuyun: `FreyaOtomotivUltra/docs/execution/packages/<dalga>/<ID>-*.md` (veya aşamalar için `docs/execution/stages/`). Giriş noktası: `docs/execution/README.md`.
 4. Plan reposuna erişemiyorsanız **kod yazmayın**; durun ve bunu bildirin.
+5. Plan belgelerinde `docs/` ile başlayan yollar **plan reposunu** gösterir. Bu repodaki `docs/` klasörü PoC'un mevcut belgeleridir (mimari, doğrulama raporu); paket kanıtı buraya değil `evidence/` altına yazılır.
 
 ## Plan okunamazsa bile geçerli olan asgari kurallar
 
@@ -32,3 +33,7 @@ Bu repo Freya'nın **kodudur**. Ne yapılacağı, hangi sırayla yapılacağı v
 - Dal `paket/<ID>`; commit başlığı görev kimliğiyle başlar (`F2-B.07: …`); `main`'e doğrudan push yok.
 - Yeni dosyalara "ÖZEL LİSANS — TÜM HAKLAR SAKLIDIR" başlığı eklenir.
 - Kişisel veri: kimlik doğrulamasız özel kayıt paylaşılmaz; LLM bağlamına yalnız gerekli alanlar girer.
+
+---
+
+**ÖZEL LİSANS — TÜM HAKLAR SAKLIDIR** · Telif Hakkı (c) 2026 Seydi Eryılmaz. Ayrıntı: PoC reposundaki `LICENSE` dosyası.
