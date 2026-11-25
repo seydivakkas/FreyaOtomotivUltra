@@ -501,4 +501,4 @@ Mevcut `dsp.py`, `audio.py`, `audiosocket_server.py`, `telephony.py` ve AMI öze
 2. Hız değişimini F5 mi (süre ölçekleme), F6 mı (WSOLA) uygulayacak? (ADR-F6-02)
 3. Sentez geciktiğinde telefon kanalına sessizlik çerçevesi gönderilecek mi? (ADR-F6-03)
 4. Web oynatma AudioWorklet'e taşınacak mı? (ADR-F6-04)
-5. Üretim topolojisi: Freya ve Asterisk aynı makinede mi (WSL/VM), ayrı makinelerde mi? AudioSocket güvenliği buna göre kurulur.
+5. ~~Üretim topolojisi~~ — **Karar verildi** ([ADR-X-01](../../01-architecture/adr/ADR-X-01-asterisk-dagitim.md)): pilot ve geliştirmede aynı makine (WSL2/VM, loopback); üretimde ayrı sunucular, AudioSocket trafiği özel ağ veya şifreli tünelde.

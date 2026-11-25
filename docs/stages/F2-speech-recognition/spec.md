@@ -300,7 +300,7 @@ Her müdahale `hallucination_flags` alanına gerekçesiyle yazılır. Metin sili
 ### 5.8 F2.08 — Turkish ASR Normalizer (`turkish_normalizer.py`)
 
 - Türkçe büyük/küçük harf (İ/ı) ve kesme işaretleri (mevcut `normalize_apostrophes`, `tr_lower` yardımcıları).
-- **Tek ortak sayı ayrıştırıcı** (§3.4'teki dört ayrıştırıcının yerini alır): rakam ↔ sözlü sayı, yıl ("iki bin yirmi" → 2020), saat ("saat iki", "on dört otuz"), kilometre, telefon haneleri, plaka grupları.
+- **Tek ortak sayı ayrıştırıcı** (§3.4'teki dört ayrıştırıcının yerini alır): rakam ↔ sözlü sayı, yıl ("iki bin yirmi" → 2020), saat ("saat iki", "on dört otuz" ve Freya'nın kendi okuduğu doğal biçimler: "öğleden sonra iki buçuk", "sabah ona çeyrek var" — [ADR-F4-02](../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md); gün dilimsiz "iki buçuk" belirsiz işaretlenir), kilometre, telefon haneleri (ikili, üçlü veya rakam rakam — [ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)), plaka grupları.
 - Kısaltmalar (TDI, ABS, ESP) ve harf okunuşları ("te de i" → TDI).
 - Çıktı: `normalized_transcript` + karakter aralığı eşlemesi (ham ↔ normalize). Varlıkların ham metindeki yerini göstermek için gerekir.
 

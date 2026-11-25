@@ -25,7 +25,8 @@ Sentetik kanıt, gerçek bir müşterinin telefon hattında yaşadığını kan�
 - [ ] Kullanıcının **ayrı** G5 izni: profil matrisi, bütçe, roller, uç izin listesi, çağrı sınırı, acil durdurma, geri dönüş.
 - [ ] Gizlilik incelemesi: hukuki dayanak, ayrı bilgilendirme, amaç bazlı açık rıza, geri çekilme; operatör bilgilendirilmiş.
 - [ ] Kısıtlı yerel depo: erişim kontrolü, takma adlandırma, saklama süresi, silme defteri. Bulut yükleme veya dış transkripsiyon yok.
-- [ ] Açık karar K-06 (karşılamada yapay zekâ bildirimi) kullanıcı tarafından karara bağlanmış.
+- [ ] Yapay zekâ bildirimi ([ADR-X-03](../../01-architecture/adr/ADR-X-03-yapay-zeka-bildirimi.md), kabul edildi) uygulanmış: H01 HF16 PASS. Kimlik doğrulama [ADR-F3-01](../../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md) yöntemiyle çalışıyor (HF18 PASS).
+- [ ] Topoloji [ADR-X-01](../../01-architecture/adr/ADR-X-01-asterisk-dagitim.md): Asterisk aynı makinede (WSL2/VM), AudioSocket yalnız loopback'te; ölçümler bu topoloji için geçerlidir.
 
 ## 3. Kapsam
 

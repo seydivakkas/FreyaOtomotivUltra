@@ -81,6 +81,18 @@ Belgelerdeki dosya yolları:
 - Arayüzlerde gerçek ölçüm yokken "Ölçüm bekleniyor" gösterilir; temsili sinyaller açıkça etiketlenir.
 - Sentetik testlerin başarısı gerçek görüşmelerin başarısını tek başına kanıtlamaz; ürün G5 gerçek ses ve SIP kabulüyle kapanır.
 
-## Kullanıcı kararı bekleyen sorular
+## Kullanıcı kararları
 
-[Ana plan §Açık kararlar](docs/execution/master-plan.md#açık-kararlar): özel kayıt okumada ikinci kimlik etkeni (ADR-F3-01), karşılamada yapay zekâ bildirimi (K-06), saat ve telefon numarası okuma biçimi, sözlük onay yetkilisi, üretim topolojisi (ADR-X-01), RAG gömme modeli.
+Verilen kararlar (2026-11-26) — [ana plan §Verilen kararlar](docs/execution/master-plan.md#verilen-kararlar):
+
+| Konu | Karar |
+| --- | --- |
+| Arayan kimliği | Arayan numarası + doğum yılı (yoksa plaka son 3–4 hanesi) |
+| Yapay zekâ bildirimi | Her görüşmenin başında |
+| Saat okuma | Doğal Türkçe ("öğleden sonra iki buçuk") |
+| Telefon okuma | İkişerli gruplar |
+| Sözlük okunuş onayı | Ürün sahibi + ilgili iş birimi |
+| Asterisk | Pilot/geliştirme aynı makine; üretim ayrı sunucu |
+| Gömme modeli | `multilingual-e5-large` (alternatif `bge-m3`), CPU'da |
+
+Bekleyen kararlar ve ölçümle verilecek ADR'ler: [ana plan §Açık kararlar](docs/execution/master-plan.md#açık-kararlar).

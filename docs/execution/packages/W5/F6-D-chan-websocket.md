@@ -257,7 +257,7 @@ Seçim **yan etkiden önce** yapılır; isteğe bağlı profil yoksa yetkili Aud
 ## 11. Devir
 
 - **G5:** gerçek Asterisk sürümüyle yetenek doğrulaması, SIP/PBX kabul testleri, gerçek uç duyulur kesme ölçümü.
-- **Açık karar:** ADR-X-01 (üretim topolojisi) etkinleştirme kararını etkiler.
+- **Topoloji ([ADR-X-01](../../../01-architecture/adr/ADR-X-01-asterisk-dagitim.md), kabul edildi):** pilot aynı makinede AudioSocket ile yapılır; üretimde Asterisk ayrı sunucuda olacağından TLS destekli WebSocket medya kanalı, şifreli tünel üzerinden AudioSocket'e alternatif olarak değerlendirilir. F6-D'nin üretimde etkinleştirilmesi ayrı yeterlilik ister.
 
 ## 12. Başlatma komutu
 

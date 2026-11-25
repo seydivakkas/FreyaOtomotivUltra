@@ -29,7 +29,7 @@ FreyaTTS ağırlıkları değiştirilmez. Kontrollü LoRA denemesi yalnızca F5-
 | Python | `>=3.11,<3.12` (PoC `pyproject.toml`) — `audioop` 3.13'te kaldırıldığı için codec laboratuvarı kendi G.711 uygulamasını kullanır |
 | Backend | FastAPI, SQLAlchemy 2, Alembic, pydantic-settings, numpy, scipy, soxr |
 | Frontend | React (Vite), TypeScript |
-| İşletim sistemi | Windows (CUDA). Asterisk Linux'ta (aynı makinede WSL/VM veya ayrı makine — F6 spec §13 soru 5) |
+| İşletim sistemi | Windows (CUDA). Asterisk Linux'ta: pilot ve geliştirmede aynı makinede (WSL2/VM, loopback), üretimde ayrı sunucuda ([ADR-X-01](../01-architecture/adr/ADR-X-01-asterisk-dagitim.md)) |
 | Telefoni | Asterisk AudioSocket (ana yol; 8 kHz slin16, 20 ms, 320 B), chan_websocket (aday; Asterisk 20.16 / 21.11 / 22.6 / 23.0 ve sonrası), AMI/ARI |
 
 ## Çalışma ilkeleri

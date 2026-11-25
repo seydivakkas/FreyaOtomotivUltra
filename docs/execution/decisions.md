@@ -44,9 +44,9 @@ Bundle kanıtı PoC reposunda `docs/freya2/...` ve `evidence/<küçük harf>/...
 
 Bundle'daki M01 sözleşme adları ile plan reposundaki [interfaces.md](../01-architecture/interfaces.md) adları farklıydı. Karar: `interfaces.md` tek kaynaktır; §7'ye paket planı ad eşlemesi eklendi (ör. bundle `ResponsePlan` = `DialogueResponse.segments`; yeni `ToolReceipt` sözleşmesi C15). Sözleşme değişikliği önce plan reposunda, ayrı PR ile.
 
-## K-06 — Yapay zekâ bildirimi (açık)
+## K-06 — Yapay zekâ bildirimi
 
-Teknik rapor, arayanın bir yapay zekâ ile konuştuğunu karşılamada bilmesini öneriyor. Bu bir ürün ve hukuk kararıdır; H01 güvenli varsayılanı (kısa bildirim metni bayrakla) hazırlar ama metni ve etkinleştirmeyi kullanıcı onaylar. G5 ve PILOT bu karar verilmeden başlamaz.
+**Kabul edildi (2026-11-26):** [ADR-X-03](../01-architecture/adr/ADR-X-03-yapay-zeka-bildirimi.md). Her görüşmenin başında bildirim yapılır ("Merhaba, Freya yapay zekâ destekli müşteri temsilcisine ulaştınız."). H01.14 koşulsuz uygulanır; G5 ve PILOT bildirimin uygulanmış ve test edilmiş olmasını (HF16) ister.
 
 ## K-07 — G2 ve PILOT kontrol listeleri
 
@@ -65,3 +65,10 @@ Paket dosyalarındaki satırlar **plan** sayısıdır; çalıştırılmış test
 - Bundle'ın orkestratör istemi, birleşik yürütme politikası ve kayıt JSON'ları ayrı belge olarak taşınmadı; içerikleri master plan, yürütme sırası, kararlar, sahiplik ve riskler belgelerine dağıtıldı.
 - Bundle'daki tarihsel arşivler (`90_ORIGINAL_ARCHIVES`) ve SHA-256 listeleri taşınmadı.
 - Bundle'daki İngilizce "ajan rolü" girişleri ("You are the senior …") yerine her paketin sonunda kısa Türkçe başlatma komutu var.
+
+## K-11 — Kullanıcı kararları (2026-11-26)
+
+Ana plandaki açık kararların yedisi kullanıcı tarafından karara bağlandı ve ADR olarak kaydedildi ([master-plan §Verilen kararlar](master-plan.md#verilen-kararlar)). Kullanıcının karar günlüğündeki numaralar (ADR-001…007) mevcut ADR kimlikleriyle eşlendi; her ADR dosyasının başlığında iki numara da var. Kararları uygulanabilir kılmak için eklenen kurallar ADR'lerin "Uygulama kuralları" bölümündedir ve kararı değiştirmez. Kullanıcı teyidine bırakılan iki ayrıntı: telefon numarasında baştaki 0'ın ayrı okunması (11 hane ikişerli bölünemediği için) ve `bge-m3`'ün kaynak tasarrufu sağlamaması (iki model de ≈ 560M parametre).
+
+Bu kararlar CLAUDE.md kural 4'e bir istisna getirir: ADR-F3-02 gömme modeli GPU'ya yüklenmeyen, CPU'da çalışan, yerel olarak sağlanan tek onaylı ek modeldir.
+

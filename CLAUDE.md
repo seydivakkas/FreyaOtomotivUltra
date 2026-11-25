@@ -33,7 +33,7 @@ workspace/
 | 1 | **Mevcut testler her görevden sonra geçer:** `pytest tests/ experimental/tests/ -q -m "not llm and not gpu and not pbx"`. (H01 hermetik test minimumunu kurana kadar bazı test dosyaları torch olmadan toplanamaz — bulgu X8; o zamana kadar torch kurulu ortamda çalıştırın.) Davranış değişikliği gerektiren test güncellemesi gerekçeyle yapılır; test silinmez. |
 | 2 | **Yeni hat bayrak arkasındadır** (`f0_pipeline_v2` … `f6_pipeline_v2` ve paketlerin M03 profilleri). Bayrak kapalıyken PoC davranışı değişmez. |
 | 3 | **İstisna:** H01 paketindeki düzeltmeler bayraktan bağımsızdır. |
-| 4 | **Yeni ağır model yüklenmez.** Whisper, Qwen ve FreyaTTS'in tek örneği kullanılır. RTX 4070 Laptop 8 GB sınırı ([`constraints.md`](docs/00-overview/constraints.md)). Model indirme yok. |
+| 4 | **Yeni ağır model yüklenmez.** Whisper, Qwen ve FreyaTTS'in tek örneği kullanılır. RTX 4070 Laptop 8 GB sınırı ([`constraints.md`](docs/00-overview/constraints.md)). Model indirme yok. Tek istisna: [ADR-F3-02](docs/01-architecture/adr/ADR-F3-02-gomme-modeli.md) gömme modeli — yalnız CPU'da, kullanıcının yerelde sağladığı yapıtla. |
 | 5 | **GPU işi ortak yöneticiden geçer** (`backend/runtime_resources/`, M06). Doğrudan `torch.cuda` veya kilitsiz `to_thread` çağrısı eklenmez. |
 | 6 | **Sözleşmeler [`interfaces.md`](docs/01-architecture/interfaces.md) ile birebir uyumludur.** Sözleşme değişikliği önce plan reposunda (ayrı PR), sonra kodda. |
 | 7 | **FreyaTTS ağırlıkları değiştirilmez.** Leyla kimliği: seed 9; seed hiçbir yolda sessizce değişmez. |
@@ -86,7 +86,7 @@ Paket → dizin → tek yetki: [`ownership.md`](docs/execution/ownership.md). Ay
 - Önkoşul eksik veya bir giriş kutusu sağlanmıyorsa: kod yazmadan durun, nedeni ve eksik kanıtı bildirin.
 - Spec ile mevcut kod çelişiyorsa: kodu değiştirmeden önce çelişkiyi PR açıklamasına veya plan reposuna issue olarak yazın.
 - Karar ADR gerektiriyorsa ([`adr/README.md`](docs/01-architecture/adr/README.md)): ölçümü yapın, ADR taslağını yazın, kararı kullanıcıya bırakın. ADR "Kabul edildi" olmadan ilgili kapı `HOLD` kalır.
-- Kullanıcı kararı bekleyen konular: [master plan §Açık kararlar](docs/execution/master-plan.md#açık-kararlar).
+- Verilmiş kullanıcı kararları ADR dosyalarındadır ([master plan §Verilen kararlar](docs/execution/master-plan.md#verilen-kararlar)); paket dosyası ile kabul edilmiş ADR çelişirse ADR geçerlidir ve çelişki bildirilir. Bekleyen konular: [§Açık kararlar](docs/execution/master-plan.md#açık-kararlar).
 
 ## 10. Plan reposunu değiştirirken
 

@@ -296,7 +296,7 @@ Dağınık iş kuralları tek yerde toplanır. Mevcut `policy.py` (WRITE_GUARDS,
 
 **Kimlik doğrulama politikası (P4 çözümü):**
 - Arayan numarası yalnızca **eşleştirme ipucudur**, kimlik doğrulaması değildir.
-- Özel kayıt okuma (servis geçmişi, garanti, randevu durumu) için ikinci bir etken gerekir: plaka + ad soyad eşleşmesi veya kayıtlı numaraya gönderilen tek kullanımlık kod. Hangi etkenin kullanılacağı ADR-F3-01'de kararlaştırılır.
+- Özel kayıt okuma (servis geçmişi, garanti, randevu durumu) için ikinci bir etken gerekir: **doğum yılı**, kayıtta yoksa **plaka son 3–4 hanesi**; görüşme başına en çok 3 deneme, sonra operatör ([ADR-F3-01](../../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md), kabul edildi 2026-11-26).
 - Geleneksel yoldaki garanti ve geçmiş bakım yanıtları bu politikaya bağlanır (bayraktan bağımsız güvenlik düzeltmesi, F3-T05).
 
 ### 5.7 F3.04 — Tool Gateway 2.0 (`gateway.py`, `tools/`)
@@ -536,14 +536,14 @@ Planın sırası korunur. Her adımın geçiş kapısı vardır:
 | Multi-agent gecikmeyi artırır | FAST/STANDARD yolları LLM'siz; ablation ile ölçüm |
 | Refactor sırasında legacy davranış bozulur | Adaptör + regresyon + shadow karşılaştırması |
 | LLM şemalı çıktıyı bozar | Pydantic doğrulama; geçersizse kurallara/açıklama sorusuna dön (T23) |
-| Kimlik doğrulama müşteriyi yorar | Yalnızca özel okuma ve yazma işlemlerinde; ADR-F3-01 |
+| Kimlik doğrulama müşteriyi yorar | Yalnızca özel okuma ve yazma işlemlerinde; tek soru (doğum yılı); [ADR-F3-01](../../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md) |
 | RAG telifli belgelerle beslenir | Lisans kontrolü ingestion öncesi |
 | Shadow modu tüm kanallara açılınca yük artar | Shadow kararları arka planda, yanıt yolunu bloklamadan |
 | Onay kurallarının sıkılaşması mevcut akışları kırar | Outbound akışı ayrı değerlendirilir; regresyon testleri |
 
 ## 11. Açık sorular
 
-1. Özel kayıt okumada ikinci doğrulama etkeni ne olacak: plaka + ad, tek kullanımlık kod, ya da ikisi birden? (ADR-F3-01)
+1. ~~Özel kayıt okumada ikinci doğrulama etkeni~~ — **Karar verildi** ([ADR-F3-01](../../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md)): arayan numarası + doğum yılı; kayıtta yoksa plaka son 3–4 hanesi.
 2. Giden aramalarda (outbound) randevu teyidi için "tamam" gibi gevşek onaylar kabul edilmeye devam edecek mi? Yazma olmayan teyitler için kabul edilebilir.
 3. A05 Workshop Operations müşteriyle konuşan bir ajan mı, yalnızca diğer ajanların kullandığı bir iç servis mi?
 4. RAG için hangi belgeler, hangi kullanım hakkıyla sağlanacak?

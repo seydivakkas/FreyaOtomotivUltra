@@ -78,10 +78,10 @@
 - **Geçme koşulu:** "24.11.2026" ve "24 Kasım" doğru; tarih öbeği bölünmez.
 
 #### ☐ T09 — Saat normalizasyonu
-- **Geçme koşulu:** "14:30", "10:00", "9:05", "14:30'da" ADR-F4-02 kararına uygun; "yarın saat 14:30" tek öbek.
+- **Geçme koşulu:** "14:30" → "öğleden sonra iki buçuk", "10:00" → "sabah on", "9:05" → "sabah dokuzu beş geçe", "14:30'da" → "öğleden sonra iki buçukta" ([ADR-F4-02](../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md)); "yarın saat 14:30" → "yarın öğleden sonra iki buçuk", tek öbek.
 
 #### ☐ T10 — Telefon numarası
-- **Geçme koşulu:** Seçilen gruplama; grup arası duraklama planda; K01 (tersine ayrıştırma 11 hane).
+- **Geçme koşulu:** İkişerli gruplama, baştaki 0 ayrı: "0532 123 45 67" → "sıfır, elli üç, yirmi bir, yirmi üç, kırk beş, altmış yedi"; "+90 532 …" ulusal biçime getirilir ([ADR-F4-03](../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md)); grup arası duraklama planda; K01 (tersine ayrıştırma 11 hane).
 
 #### ☐ T11 — Türkiye araç plakası
 - **Geçme koşulu:** "61 ABC 123" → "altmış bir A Be Ce yüz yirmi üç"; 2–4 haneli gruplar; K01.
@@ -145,7 +145,7 @@
 
 #### ☐ T30 — Uzun metin ve cümlecik bölme
 - **Girdi:** spec §3.2 L2'deki uzun cümle ve F3 şablonları.
-- **Geçme koşulu:** Ara parçalar ADR-F4-01 biçiminde (K16); "yarın saat on dört otuz" bölünmez; K14.
+- **Geçme koşulu:** Ara parçalar ADR-F4-01 biçiminde (K16); "yarın öğleden sonra iki buçuk" bölünmez; K14.
 
 #### ☐ T31 — Çok kısa cümlecik kontrolü
 - **Geçme koşulu:** K19 = 0; "Bir." / "Evet." gibi parçalar komşusuyla birleşir.

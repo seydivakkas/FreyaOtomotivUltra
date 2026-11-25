@@ -85,18 +85,26 @@ Eski davranış → gölge (yan etkisiz) → korumalı salt okunur → korumalı
 - **Sözleşme değişikliği:** Önce plan reposunda [interfaces.md](../01-architecture/interfaces.md) güncellenir (ayrı PR), sonra kod.
 - Ayrıntılı gerekçeler: [decisions.md](decisions.md).
 
+## Verilen kararlar
+
+Kullanıcı (ürün sahibi) kararları, 2026-11-26. Karar günlüğü numarası parantez içinde.
+
+| Karar | Özet | Etkilediği paket |
+| --- | --- | --- |
+| [ADR-F3-01](../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md) (ADR-001) — Arayan kimliği | Arayan numarası + doğum yılı; kayıtta yoksa plaka son 3–4 hanesi; görüşme başına en çok 3 deneme, sonra operatör | H01, M07, F3-A, F3-B |
+| [ADR-X-03](../01-architecture/adr/ADR-X-03-yapay-zeka-bildirimi.md) (ADR-002) — Yapay zekâ bildirimi | Her görüşmenin başında: "Merhaba, Freya yapay zekâ destekli müşteri temsilcisine ulaştınız." | H01, F3-A, G5, PILOT |
+| [ADR-F4-02](../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md) (ADR-003) — Saat okuma | Doğal Türkçe, gün dilimiyle: "sabah dokuz buçuk", "öğleden sonra iki", "akşam altı buçuk" | F4-A, F4-B, F2-B, F3-A |
+| [ADR-F4-03](../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md) (ADR-004) — Telefon okuma | İkişerli gruplar; 11 haneli numarada baştaki 0 ayrı okunur | F4-A, F2-B |
+| [ADR-X-04](../01-architecture/adr/ADR-X-04-sozluk-okunus-onayi.md) (ADR-005) — Sözlük okunuş onayı | Ürün sahibi + ilgili iş birimi; ajan onaylamaz | M05, F4-B |
+| [ADR-X-01](../01-architecture/adr/ADR-X-01-asterisk-dagitim.md) (ADR-006) — Asterisk dağıtımı | Pilot/geliştirme aynı makine (WSL2/VM, loopback); üretim ayrı sunucu, özel ağ/şifreli tünel | F6-A, F6-D, G5, PILOT |
+| [ADR-F3-02](../01-architecture/adr/ADR-F3-02-gomme-modeli.md) (ADR-007) — Gömme modeli | `multilingual-e5-large` (alternatif `bge-m3`), CPU'da, yerel yapıt | F3-C, M03 |
+
 ## Açık kararlar
 
 Ölçüm gerektirenler ilgili pakette ölçülür ve ADR taslağı yazılır; tercih gerektirenler kullanıcıya aittir. Karar verilene kadar paket güvenli varsayılanla ilerler ama ilgili kapı `HOLD` kalır.
 
 | Karar | Tür | Etkilediği paket | Öneri / güvenli varsayılan |
 | --- | --- | --- | --- |
-| ADR-F3-01 — Özel kayıt okumada ikinci kimlik etkeni (müşteri kimlik doğrulama yöntemi) | Kullanıcı | H01, M07, F3-A, F3-B | Plaka + ad soyad; yüksek riskli değişiklikte ek tek kullanımlık kod. Karara kadar: ikinci etken yoksa özel kayıt paylaşılmaz, operatör önerilir |
-| K-06 — Karşılamada yapay zekâ bildirimi | Kullanıcı | H01, G5, PILOT | Karşılamada kısa bildirim; metin kullanıcı onayıyla |
-| ADR-F4-02 — "9:05" okuması | Kullanıcı | F4-A | "dokuz sıfır beş" |
-| Telefon numarası okuma biçimi | Kullanıcı | F4-A | Gruplu (0532 · 123 · 45 · 67); G5'te A/B dinleme |
-| Sözlük onay yetkilisi | Kullanıcı | M05, F4-B | Kurum içi uzman rolü; `review_status = approved` yalnız bu rol |
-| ADR-X-01 — Üretim topolojisi (Freya Windows / Asterisk Linux) | Kullanıcı | F6-A, F6-D, G5 | Önce aynı makinede (WSL/VM) loopback; ayrı makinede özel ağ/tünel |
 | ADR-X-02 — VRAM bütçesi ve Ollama `num_gpu` | Ölçüm | M06 | M06 ölçümüyle |
 | ADR-F1-01 — Silero VAD oturum izolasyonu | Ölçüm | H01, F1-A | Oturum başına durum ayrımı; kanıt yoksa HOLD |
 | ADR-F1-02 — F0 çerçeve boyu ve söz kesme bütçesi | Ölçüm + kullanıcı | F0-A, F1-B | Ölçümle seçenek A–D |
@@ -105,7 +113,8 @@ Eski davranış → gölge (yan etkisiz) → korumalı salt okunur → korumalı
 | ADR-F2-01 — N-best desteği | Ölçüm | F2-B | Desteklenmiyorsa tek hipotez + alternatif çözme |
 | ADR-F5-01 — Konuşmacı kodlayıcı (ECAPA) yerel yapıtı ve lisansı | Ölçüm + lisans | F5-C, F5-D, G4, G5 | Lisanslı yerel yapıt yoksa benzerlik null |
 | ADR-F6-01…04 — Yeniden örnekleyici, hız sahibi, sessizlik/konfor gürültüsü, web oynatma | Ölçüm | F6-A, F6-B, F6-C | Pakette ölçümle |
-| ADR-F3-02 — RAG gömme modeli | Kullanıcı + lisans | F3-C | Karara kadar yalnız BM25 |
 | Belge derlemi lisans ve inceleme yetkilisi | Kullanıcı | F3-C, F5-D | Kurum içi rol |
+| Gerçek kaynak kısıtında küçük gömme modeli (ör. `multilingual-e5-base`) | Kullanıcı | F3-C | Karara kadar kaynak kısıtında yalnız BM25 ([ADR-F3-02](../01-architecture/adr/ADR-F3-02-gomme-modeli.md) notu) |
+| Telefon gruplamasında baştaki 0'ın ayrı okunması (ADR-F4-03 uygulama kuralı) | Kullanıcı teyidi | F4-A | 0 + ikişerli 10 hane; farklı biçim istenirse yalnız kural değişir |
 
 ADR dizini: [docs/01-architecture/adr/](../01-architecture/adr/README.md).

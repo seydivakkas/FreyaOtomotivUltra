@@ -4,12 +4,12 @@
  "totals": {
   "documents": 39,
   "tasks": 800,
-  "tests": 2877,
+  "tests": 2878,
   "gates": 677,
   "mandatory": {
    "documents": 37,
    "tasks": 752,
-   "tests": 2667,
+   "tests": 2668,
    "gates": 637
   }
  },
@@ -75,7 +75,7 @@
    "file": "docs/execution/packages/W0/H01-guvenli-zemin.md",
    "counts": {
     "tasks": 16,
-    "tests": 17,
+    "tests": 18,
     "gates": 6
    }
   },
@@ -1119,7 +1119,7 @@
   {
    "id": "H01.03",
    "package": "H01",
-   "title": "Kimliksiz özel kayıt kapatma"
+   "title": "Arayan kimlik doğrulaması"
   },
   {
    "id": "H01.04",
@@ -5123,8 +5123,8 @@
   {
    "id": "HF03",
    "package": "H01",
-   "title": "Doğrulanmamış arayan garanti/bakım geçmişi sorar",
-   "expected": "Özel içerik söylenmez; aktarım/şube önerisi"
+   "title": "Doğrulanmamış veya yanlış ikinci bilgi veren arayan garanti/bakım geçmişi sorar",
+   "expected": "Özel içerik söylenmez; ipucu yok; kayıtlı değer okunmaz; aktarım/şube önerisi"
   },
   {
    "id": "HF04",
@@ -5166,7 +5166,7 @@
    "id": "HF10",
    "package": "H01",
    "title": "\"1. seçenek 25 Kasım 10:00.\"",
-   "expected": "\"Birinci seçenek yirmi beş Kasım saat on.\" tek parça; \"Bir.\" parçası yok"
+   "expected": "\"Birinci seçenek yirmi beş Kasım …\" tek parça; \"Bir.\" parçası yok (saat okuması H01'de mevcut biçimde kalır; doğal saat ADR-F4-02 ile F4-A'da)"
   },
   {
    "id": "HF11",
@@ -5201,14 +5201,20 @@
   {
    "id": "HF16",
    "package": "H01",
-   "title": "Karşılama metni (K-06 kabul edildiyse)",
-   "expected": "Yapay zekâ bildirimi içerir; önbellekten çalınır"
+   "title": "Gelen, giden ve web karşılaması",
+   "expected": "ADR-X-03 bildirim metnini içerir; önbellekten çalınır; önbellek kaydı seed 9"
   },
   {
    "id": "HF17",
    "package": "H01",
    "title": "Arka uç LLM hatası sırasında metin turu",
    "expected": "Arayüz yanıt üretmez; hata mesajı gösterir"
+  },
+  {
+   "id": "HF18",
+   "package": "H01",
+   "title": "Doğru telefon + doğum yılı; kayıtta doğum yılı yok → plaka son hanesi; 3 yanlış deneme",
+   "expected": "Doğru bilgiyle özel kayıt okunur; doğum yılı yoksa plaka sorulur; 3. yanlıştan sonra o görüşmede özel kayıt kapanır ve operatör önerilir; değerler LLM bağlamında ve günlükte yok"
   },
   {
    "id": "CI01",
@@ -9984,7 +9990,7 @@
    "id": "LN24",
    "package": "F4-A",
    "title": "Telefon ve plaka benzeri sentetik giriş",
-   "expected": "Rakam kaybı yok; kimlik çıkarımı yok"
+   "expected": "Rakam kaybı yok; kimlik çıkarımı yok; telefon ADR-F4-03 ikili okunur (\"0532 123 45 67\" → \"sıfır, elli üç, yirmi bir, yirmi üç, kırk beş, altmış yedi\")"
   },
   {
    "id": "LN25",
@@ -10007,8 +10013,8 @@
   {
    "id": "LN28",
    "package": "F4-A",
-   "title": "14:30 saati",
-   "expected": "Kesin anlamsal saat korunur"
+   "title": "14:30, 09:05, 09:45, 12:30, 23:00 ve \"yarın saat 14:30'da\"",
+   "expected": "Kesin anlamsal saat korunur; ADR-F4-02 okunuşu: \"öğleden sonra iki buçuk\", \"sabah dokuzu beş geçe\", \"sabah ona çeyrek var\", \"öğlen on iki buçuk\", \"gece on bir\", \"yarın öğleden sonra iki buçukta\""
   },
   {
    "id": "LN29",
@@ -12161,8 +12167,8 @@
   {
    "id": "AE39",
    "package": "F2-B",
-   "title": "Para, negatif ondalık, tarih/saat",
-   "expected": "İşaret, büyüklük ve anlamsal temsil korunur"
+   "title": "Para, negatif ondalık, tarih/saat (doğal saat biçimleri dahil)",
+   "expected": "İşaret, büyüklük ve anlamsal temsil korunur; \"öğleden sonra iki buçuk\" → 14:30; gün dilimsiz \"iki buçuk\" belirsiz kalır"
   },
   {
    "id": "AE40",
@@ -22388,7 +22394,7 @@
    "id": "H01-G02",
    "package": "H01",
    "title": "Güvenlik",
-   "condition": "HF03, HF04, HF05 PASS; doğrulanmamış arayana özel kayıt içeriği hiçbir yoldan söylenmiyor"
+   "condition": "HF03, HF04, HF05, HF18 PASS; doğrulanmamış arayana özel kayıt içeriği hiçbir yoldan söylenmiyor"
   },
   {
    "id": "H01-G03",
@@ -22399,8 +22405,8 @@
   {
    "id": "H01-G04",
    "package": "H01",
-   "title": "Ölçüm dürüstlüğü",
-   "condition": "HF14, HF15, HF17 PASS"
+   "title": "Ölçüm dürüstlüğü ve şeffaflık",
+   "condition": "HF14, HF15, HF16, HF17 PASS"
   },
   {
    "id": "H01-G05",

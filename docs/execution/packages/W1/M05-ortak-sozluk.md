@@ -94,7 +94,7 @@ Veri tek otoritedir ama birden çok dosyaya bölünür (bildirim dosyası hepsin
 
 ### 5.4 Revizyon, inceleme ve yayın
 
-İçerik → kanonik bildirim → SHA-256 `lexicon_revision`. İnceleme durumu içerik özetinden ayrı bir bildirimde tutulur (`review_manifest.json`). Yayın: aday görüntü doğrulanır → onaylı ise atomik olarak etkin olur; geçersiz aday son iyi revizyonu bozmaz. Sabitlenmiş revizyonlar saklama sınırı içinde korunur; geri dönüş yalnızca onaylı revizyona. Sözlük onay yetkilisi açık karardır ([master-plan §Açık kararlar](../../master-plan.md#açık-kararlar)); karar verilene kadar `STAGED` girdiler etkinleşmez.
+İçerik → kanonik bildirim → SHA-256 `lexicon_revision`. İnceleme durumu içerik özetinden ayrı bir bildirimde tutulur (`review_manifest.json`). Yayın: aday görüntü doğrulanır → onaylı ise atomik olarak etkin olur; geçersiz aday son iyi revizyonu bozmaz. Sabitlenmiş revizyonlar saklama sınırı içinde korunur; geri dönüş yalnızca onaylı revizyona. Onay [ADR-X-04](../../../01-architecture/adr/ADR-X-04-sozluk-okunus-onayi.md)'e göredir: `review_manifest.json` her girdi için `product_owner` ve `business_unit` onay kayıtlarını (rol, onaylayan başvurusu, tarih, revizyon) tutar; **iki onay da** olmadan girdi `APPROVED` olmaz ve yayımlanmaz. Ajan hiçbir girdiyi onaylı yapamaz; önerileri `STAGED` ekler.
 
 ### 5.5 Aşama adaptörleri
 
@@ -227,7 +227,7 @@ Göç yıkıcı değildir; eski sözlük dosyaları yerinde kalır. Geri dönü�
 - **F3-A / F3-B:** `catalog_adapter` opak başvuru; doğrulama F3'te.
 - **F4-A / F4-B:** `tts_adapter` ile telaffuz varyantı + revizyon; normalizasyon F4'te tek geçiş.
 - **M06:** sözlük CPU işidir; GPU kuyruğuna girmez.
-- **Açık karar:** sözlük onay yetkilisi kim? (Karar verilene kadar `STAGED` girdiler etkinleşmez.)
+- **Karar verildi:** sözlük okunuş onayı ürün sahibi + ilgili iş birimi ([ADR-X-04](../../../01-architecture/adr/ADR-X-04-sozluk-okunus-onayi.md)); onaysız `STAGED` girdiler etkinleşmez.
 
 ## 12. Başlatma komutu
 

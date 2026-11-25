@@ -23,7 +23,7 @@
 
 - [ ] W2_GATE PASS (`w2_vertical_slice_accepted` gerçek WG kanıtıyla); F3-B kabul; onay. İzin yoksa yalnız planlama.
 - [ ] Mevcut Supervisor, araç rotaları, DB, müşteri hafızası, arama/bilgi kodu izlenmiş; eşdeğer bilgi adaptörü varsa yeniden kullanılır; politikayı atlayan eski uç nokta katı etkinleştirmeyi engeller.
-- [ ] **Model kuralı:** yerelde onaylı bir gömme modeli yoksa yoğun arama `HOLD`; yalnız BM25 kullanılır. Yeni gömme modeli eklemek CLAUDE.md kural 4'e göre ayrı bir ADR ve kullanıcı kararı gerektirir ([master-plan §Açık kararlar](../../master-plan.md#açık-kararlar): ADR-F3-02 "RAG gömme modeli").
+- [ ] **Model kuralı ([ADR-F3-02](../../../01-architecture/adr/ADR-F3-02-gomme-modeli.md), kabul edildi):** varsayılan gömme modeli `multilingual-e5-large` (alternatif `bge-m3`), **CPU'da**; yapıt kullanıcı tarafından yerelde sağlanır ve M03 kaydına sürüm, SHA-256 ve lisansla girer (indirme yok). Yapıt yoksa veya yüklenemezse yoğun arama `HOLD`, yalnız BM25. e5 için sorgu `query: `, belge `passage: ` öneki; 512 belirteç sınırına göre parçalama.
 - [ ] Belge kaynağı ve lisans kaydı (eski F3-T20) için kullanıcının sağladığı belgeler; internetten içerik çekilmez.
 
 ## 3. Kapsam
@@ -257,13 +257,13 @@ Arayan numarası veya plaka tek başına geçmiş okumaz (varlık ifşası yok);
 
 - **G2:** tam katman bütünleşmesi; RAG ve çoklu niyet yalnız onaylı profillerde.
 - **G3:** belge kaydı/inceleme ve iş akışı görünümü için arayüz (Studio) — salt okunur izdüşümlerden.
-- **Açık kararlar:** RAG için yeni yerel gömme modeli (ayrı ADR; karar verilene kadar yalnız BM25); belge lisans/inceleme yetkilisi.
+- **Kararlar:** gömme modeli [ADR-F3-02](../../../01-architecture/adr/ADR-F3-02-gomme-modeli.md) (e5-large, CPU). **Açık:** belge lisans/inceleme yetkilisi; gerçek kaynak kısıtında küçük model (ör. `multilingual-e5-base`) kullanımı ayrı karar ister.
 
 ## 12. Başlatma komutu
 
 ```
 F3-C paketini uygula: docs/execution/packages/W4/F3-C-coklu-niyet-rag.md.
-Kuralları CLAUDE.md'den oku; W2_GATE ve F3-B kabulünü doğrula; yerel gömme modeli yoksa yoğun aramayı HOLD bırak.
+Kuralları CLAUDE.md'den oku; W2_GATE ve F3-B kabulünü doğrula; ADR-F3-02 gömme modeli (multilingual-e5-large, CPU) yerelde yoksa yoğun aramayı HOLD bırak.
 F3-B Supervisor'ı içinde incelenmiş yerel korpus, ACL ön filtreli BM25(+yerel yoğun) hibrit arama, iddia–kaynak doğrulaması,
 çoklu niyet grafiği, sınırlı paralel okumalar ve tek tek onaylı sıralı yazmaları kur; internet ve model indirme yok.
 RW01–RW112'yi çalıştır, F3-C-G00…G19'u değerlendir, paket/F3-C dalında PR aç ve dur.

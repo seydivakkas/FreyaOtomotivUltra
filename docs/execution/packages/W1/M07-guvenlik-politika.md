@@ -53,7 +53,7 @@ Kalıcı idempotency ve denetim için mevcut veritabanına **ekleme** yapılır 
 
 1. **Tek politika/geçit yolu.** Yönetilen kipte korunan her okuma, yazma ve dış yan etki aynı karar ve zorlama noktasından geçer; zorlama etkinin hemen önünde yapılır.
 2. Mevcut meşru davranış, durum kodları, yanıt biçimleri ve rotalar korunur; mevcut kip varsayılanları değişmez. Yeni korumalı özellikler uyum ve güvenlik kapıları geçene kadar isteğe bağlıdır. `OFF` eski yönlendirmedir, zorunlu kontrolleri atlama izni değildir.
-3. **Kimlik bilgisi olmayanlar:** arayan numarası, telefon, plaka, araç adı, ses seed'i, transkript, müşteri adı, jeton benzeri metin, LLM beyanı, RAG metni, araç çıktısı. Arayüzde görünürlük ve geçerli bir AudioSocket UUID'si iş yetkisi kanıtı değildir.
+3. **Kimlik bilgisi olmayanlar:** arayan numarası, telefon, plaka, araç adı, ses seed'i, transkript, müşteri adı, jeton benzeri metin, LLM beyanı, RAG metni, araç çıktısı. Arayüzde görünürlük ve geçerli bir AudioSocket UUID'si iş yetkisi kanıtı değildir. **Tek kabul edilmiş müşteri doğrulama yöntemi** [ADR-F3-01](../../../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md)'dir: arayan numarasıyla eşleşen kayıtta M07 doğrulama adımıyla sorulan doğum yılı (kayıtta yoksa plaka son 3–4 hanesi) deterministik olarak karşılaştırılır; görüşme başına en çok 3 yanlış deneme (sınır M03'te), sonra o görüşmede korunan okuma/yazma kapanır ve operatör önerilir. Konuşmada kendiliğinden söylenen plaka/ad doğrulama değildir. Doğrulama sonucu yalnız o görüşmede geçerlidir; değerler LLM bağlamına, M04 telemetrisine ve denetim kaydının açık alanlarına girmez (denetim yalnız sonuç ve deneme sayısını yazar). İletişim bilgisi değişikliği gibi yüksek riskli işlemler otomatik yapılmaz, operatöre aktarılır.
 4. **Varsayılan red:** eksik/bilinmeyen izin, bayat/uyuşmayan kapsam, süresi dolmuş onay, geçersiz argüman, belirsiz kimlik, erişilemez politika veya denetim deposu. Genel bilgiler onaylı genel yoldan sunulabilir.
 5. **FINAL ASR gerekli ama yeterli değildir.** `PARTIAL` ve `STABLE_PREFIX` yalnızca geçici bağlamı günceller. Kimliği doğrulanmış arayüz eylemleri kendi güvenilir istek/onay yolunu kullanır; sahte ASR finali üretilmez.
 6. **Onay dardır:** eylem + doğrulanmış kanonik yük + kesin aktör/kaynak kapsamı + durum/önkoşul revizyonu + onay sorusu + son geçerlilik + uygun tur bağı. Saat, araç, hizmet, fiyat, müşteri değişirse yeni onay gerekir.
@@ -238,7 +238,7 @@ Kip `OFF`'a alınır. Yeni tablolar eklemelidir; geri dönüşte **operasyon def
 - **F3-B:** onay soruları ve bağlamsal onay; operasyon özeti değişince yeni onay.
 - **F3-C / G5:** gerçek sağlayıcı, gerçek doğrulama yöntemi ve SIP aktarımı; burada yalnızca sahte.
 - **M08:** geçici DB, sahte sağlayıcı ve sahte doğrulayıcı fikstürleri.
-- **Açık karar:** müşteri kimlik doğrulama yöntemi (ör. DTMF PIN, SMS kodu) — karar verilene kadar doğrulama noktası "yok" döner ve korunan okuma/yazma kapalı kalır.
+- **Karar verildi:** müşteri kimlik doğrulama yöntemi [ADR-F3-01](../../../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md) (§5 madde 3). Kayıtta ikinci bilgi yoksa doğrulama noktası "yok" döner ve korunan okuma/yazma kapalı kalır.
 
 ## 12. Başlatma komutu
 

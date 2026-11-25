@@ -35,11 +35,11 @@ Her paket dosyasının sonundaki **§12 Başlatma komutu** ajana doğrudan veril
 
 | Dosya | Ne için |
 | --- | --- |
-| [master-plan.md](master-plan.md) | Hedef, dalgalar, aşamalar, hedef metrikler, yönetişim, açık kararlar |
+| [master-plan.md](master-plan.md) | Hedef, dalgalar, aşamalar, hedef metrikler, yönetişim, verilen ve açık kararlar |
 | [execution-order.md](execution-order.md) | Seri sıra, bağımlılık grafiği, ortam gereksinimi |
 | [packages/](packages/) | 34 paket dosyası (W0–W5): 32 iş paketi + 2 kapı paketi (CORE_GATE, W2_GATE) |
 | [stages/](stages/) | Ürün aşamaları G2, G3, G4, G5, PILOT |
-| [decisions.md](decisions.md) | Bundle'a göre yapılan değişikliklerin gerekçeleri (K-01…K-10) |
+| [decisions.md](decisions.md) | Bundle'a göre yapılan değişikliklerin gerekçeleri ve kullanıcı kararları (K-01…K-11) |
 | [ownership.md](ownership.md) | Paket → dizin → tek yetki; sözleşme sınırları |
 | [risks.md](risks.md) | Entegrasyon (IR01–IR48), aşamalar arası (CS01–CS18) ve program riskleri |
 | [evidence.md](evidence.md) | Kanıt yolları, zorunlu dosyalar, kanıt sınıfları, ölçüm dürüstlüğü |

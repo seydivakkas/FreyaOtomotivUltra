@@ -23,8 +23,8 @@ Bundle planında ilk kod değişikliği M01'de başlar ve kritik hataların bir 
 
 - [ ] M00 kabul edilmiş (veya en az HOLD; ama M00-G00 ve M00-G07 PASS olmalı).
 - [ ] M00 `RISK_REGISTER.md` içinde aşağıdaki bulguların durumu (`CONFIRMED` / `NOT_REPRODUCED`) okunmuş. `NOT_REPRODUCED` olan bulgu için ilgili görev yapılmaz, nedeniyle `DEFERRED` yazılır.
-- [ ] ADR-F3-01 (ikinci kimlik etkeni) kararı verilmemiş olabilir: güvenli varsayılan uygulanır (aşağıda H01.03).
-- [ ] K-06 kararı (karşılamada yapay zekâ bildirimi) [decisions.md](../../decisions.md)'de "Kabul" değilse H01.14 yapılmaz.
+- [ ] [ADR-F3-01](../../../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md) (kabul edildi): M00 envanterinde PoC veritabanında doğum yılı ve plaka alanlarının varlığı okunmuş.
+- [ ] [ADR-X-03](../../../01-architecture/adr/ADR-X-03-yapay-zeka-bildirimi.md) (yapay zekâ bildirimi, kabul edildi) okunmuş; H01.14 koşulsuz yapılır.
 
 ## 3. Kapsam
 
@@ -38,12 +38,12 @@ Bundle planında ilk kod değişikliği M01'de başlar ve kritik hataların bir 
 | --- | --- |
 | Değişecek | `backend/sft_leyla.py`, `backend/routers/text_speech.py`, `tests/conftest.py`, `backend/dialogue.py`, `backend/caller_memory.py`, `backend/models.py`, `backend/session.py`, `noise_estimator.py` (kalibrasyon), `backend/text.py`, `backend/normalizer_rules.py`, `backend/batched_ode.py`, `backend/audiosocket_server.py`, `backend/websocket_adapter.py`, `backend/main.py`, `backend/ab_testing.py` (yalnız H01.14), `frontend/src/tabs/LabTab.tsx`, `frontend/src/tabs/VoiceTab.tsx`, `frontend/src/CarDenoiserPanel.tsx`, `frontend/src/CockpitHeader.tsx` |
 | Yeni | `tests/fakes/fake_llm.py`, `tests/h01/test_*.py` |
-| Plan reposunda | `docs/01-architecture/adr/ADR-F1-01-vad-isolation.md` (H01.06), `ADR-F3-01` taslağı (H01.03) |
+| Plan reposunda | `docs/01-architecture/adr/ADR-F1-01-vad-isolation.md` (H01.06); ADR-F3-01 ve ADR-X-03 kabul edilmiş durumda (değişiklik yok) |
 
 ## 5. Tasarım ve sözleşmeler
 
 1. **Hermetik test minimumu (bulgu X8, P8).** `sft_leyla.py` modül düzeyinde `import torch` yaptığı için `backend.main`'i içe aktaran 43 test dosyası torch olmadan toplanamıyor. torch içe aktarması fonksiyon içine taşınır; SFT router'ı yalnızca SFT uçları çağrıldığında yükler. `pytest.ini`/`pyproject` içine `gpu`, `llm`, `pbx` işaretleri tanımlanır. Canlı Ollama gerektiren testler senaryo bazında JSON döndüren sahte LLM'e geçirilir. Tam test altyapısı (sahte saat, sahte çıkarım motoru, altın senaryolar) M08'dedir.
-2. **Kimliksiz özel kayıt (P4, P5).** Garanti ve geçmiş bakım gibi özel kayıtlar, arayan numarasıyla bulunan profilden **okunmaz**. Arayan numarası yalnızca eşleştirme ipucudur. ADR-F3-01 kararı verilene kadar güvenli varsayılan: ikinci etken yoksa özel kayıt içeriği söylenmez; operatöre aktarım veya şubeye başvuru önerilir. Arama başında otomatik profil oluşturma kaldırılır.
+2. **Kimliksiz özel kayıt (P4, P5).** Garanti ve geçmiş bakım gibi özel kayıtlar, arayan numarasıyla bulunan profilden **okunmaz**. Arayan numarası yalnızca eşleştirme ipucudur. Özel kayıt ancak [ADR-F3-01](../../../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md) doğrulamasından sonra okunur: arayan numarasıyla eşleşen kayıtta **doğum yılı** (kayıtta yoksa **plaka son 3–4 hanesi**) sorulur ve deterministik kodla karşılaştırılır. Görüşme başına en çok 3 yanlış deneme; sonra o görüşmede özel kayıt kapanır, operatör veya şube önerilir. Yanlış yanıtta ipucu verilmez; kayıtlı değer hiç okunmaz; değer LLM bağlamına ve günlüğe girmez. Kayıtta ikinci bilgi yoksa özel kayıt okunmaz. Arama başında otomatik profil oluşturma kaldırılır. (Genel politika ve denetim kaydı M07'de genelleştirilir.)
 3. **Çoklu araç idempotency (P7).** Önce mevcut test ikinci aracın onayına kadar uzatılarak hata doğrulanır. Doğrulanırsa her araç işlemine ayrı idempotency anahtarı verilir. Aynı onayın tekrarı ikinci kayıt üretmez.
 4. **VAD oturum yalıtımı (S1).** Paylaşılan Silero durumu yerine oturum başına durum; `models.vad.reset_states()` çağrısı kaldırılır. İki seçenek ADR-F1-01'de tartışılır: (A) oturum başına model kopyası, (B) paylaşılan ağırlık + oturum başına durum tensörü. Bellek ölçümü yoksa B tercih edilir.
 5. **Bölüm iptali (S5).** Yeni konuşma bölümü geldiğinde önceki tur henüz F3'e iletilmediyse iki bölüm **birleştirilir**; `self.task.cancel()` ile atılmaz. Tam Utterance Manager F1-B'dedir.
@@ -64,7 +64,7 @@ Her düzeltme ayrı commit'tir. Önce testi yaz (hatayı gösteren), sonra düze
 | --- | --- | --- | --- |
 | H01.01 | Hermetik test minimumu | torch içe aktarmasını tembelleştir; `gpu`/`llm`/`pbx` işaretlerini tanımla; `tests/fakes/fake_llm.py` ve conftest bağlantısı; canlı Ollama isteyen testleri sahteye geçir. | HF01, HF02 geçer |
 | H01.02 | Karakterizasyon notu | Değiştirilecek her davranış için bugünkü davranışı gösteren testi yaz (düzeltme sonrası beklenen davranışla güncellenecek). | Her düzeltme görevinin "önce" testi var |
-| H01.03 | Kimliksiz özel kayıt kapatma | Tasarım 2. Güvenli varsayılan + otomatik profil oluşturmanın kaldırılması; ADR-F3-01 taslağı plan reposuna. | HF03, HF04 geçer |
+| H01.03 | Arayan kimlik doğrulaması | Tasarım 2: doğrulamasız özel kayıt okumanın kapatılması, ADR-F3-01 doğrulama adımı (doğum yılı / plaka son 3–4 hane, 3 deneme), otomatik profil oluşturmanın kaldırılması. | HF03, HF04, HF18 geçer |
 | H01.04 | Çoklu araç idempotency | Tasarım 3. Önce doğrula, sonra düzelt. | HF05 geçer |
 | H01.05 | Bölüm iptalinin kaldırılması | Tasarım 5. | HF06 geçer |
 | H01.06 | VAD oturum yalıtımı | Tasarım 4; ADR-F1-01. | HF07 geçer |
@@ -75,7 +75,7 @@ Her düzeltme ayrı commit'tir. Önce testi yaz (hatayı gösteren), sonra düze
 | H01.11 | İptal filtresi | Tasarım 10. | HF12 geçer |
 | H01.12 | Ağ yazma zaman aşımı | Tasarım 11; okumayı durduran sahte istemciyle test. | HF13 geçer |
 | H01.13 | Ölçülmemiş iddiaların temizlenmesi | Tasarım 12; `test_voice_path_honesty.py` kapsamının genişletilmesi. | HF14, HF15 geçer |
-| H01.14 | Karşılamada yapay zekâ bildirimi | Yalnızca K-06 kabul edildiyse: karşılama şablonlarına kısa bildirim ("Ben Freya, yapay zekâ destekli randevu asistanıyım."); önbellek ısıtma listesinin güncellenmesi. | HF16 geçer veya görev DEFERRED |
+| H01.14 | Karşılamada yapay zekâ bildirimi | [ADR-X-03](../../../01-architecture/adr/ADR-X-03-yapay-zeka-bildirimi.md): tüm karşılama şablonlarına bildirim ("Merhaba, Freya yapay zekâ destekli müşteri temsilcisine ulaştınız."); metin yapılandırmada tek yerde; önbellekteki karşılamanın seed 9 ile yeniden üretilmesi; önbellek ısıtma listesinin güncellenmesi. | HF16 geçer |
 | H01.15 | Arayüzde uydurma yanıtın kaldırılması | Tasarım 13. | HF17 geçer |
 | H01.16 | Kapanış | Tüm test paketini `-m "not llm and not gpu and not pbx"` ile torch/Ollama olmadan çalıştır; GPU'lu makinede kısa duman testi (bir görüşme); sonuçları kanıta yaz. | H01-G00…G05 değerlendirilmiş |
 
@@ -85,21 +85,22 @@ Her düzeltme ayrı commit'tir. Önce testi yaz (hatayı gösteren), sonra düze
 | --- | --- | --- |
 | HF01 | Torch/CUDA/Ollama olmayan ortamda test toplama | Toplama hatası 0 |
 | HF02 | `pytest -m "not llm and not gpu and not pbx"` | Tamamı geçer; canlı servis çağrısı 0 |
-| HF03 | Doğrulanmamış arayan garanti/bakım geçmişi sorar | Özel içerik söylenmez; aktarım/şube önerisi |
+| HF03 | Doğrulanmamış veya yanlış ikinci bilgi veren arayan garanti/bakım geçmişi sorar | Özel içerik söylenmez; ipucu yok; kayıtlı değer okunmaz; aktarım/şube önerisi |
 | HF04 | Yeni arayan için arama başında profil oluşturulmaz | Profil tablosunda yeni satır yok |
 | HF05 | İki araçlı randevu, iki ayrı onay; aynı onayın tekrarı | İki randevu oluşur; tekrar ikinci kayıt üretmez |
 | HF06 | "Benim aracım" [450 ms] "2021 model Passat" | İki bölümün sözcükleri de F3'e ulaşır |
 | HF07 | İki eşzamanlı oturum; birinde yeni görüşme başlar | Diğer oturumun VAD durumu değişmez |
 | HF08 | Kalibrasyon sırasında söylenen cümle | STT çıktısında görünür |
 | HF09 | "−5 °C", "Mégane", "Coupé", "Town & Country" | Seslendirilebilir metin; yanıt düşmez; atılan karakter olay olarak kayıtlı |
-| HF10 | "1. seçenek 25 Kasım 10:00." | "Birinci seçenek yirmi beş Kasım saat on." tek parça; "Bir." parçası yok |
+| HF10 | "1. seçenek 25 Kasım 10:00." | "Birinci seçenek yirmi beş Kasım …" tek parça; "Bir." parçası yok (saat okuması H01'de mevcut biçimde kalır; doğal saat ADR-F4-02 ile F4-A'da) |
 | HF11 | Profil seed'i 9 dışı (deney profili) veya `None` | Seed sessizce 9'a dönmez; değişim olay olarak kaydedilir |
 | HF12 | Söz kesmeden sonra kuyruktaki eski generation öğeleri | Yığına alınmaz; sentez çağrısı yapılmaz |
 | HF13 | Okumayı durduran sahte AudioSocket/WebSocket istemcisi | Zaman aşımında kontrollü kapanış; süresiz bekleme yok |
 | HF14 | Kaynakta doğrulanmamış performans iddiası taraması | `batched_ode.py` ve arayüzde etiketsiz ölçüm iddiası yok |
 | HF15 | Ses laboratuvarı ve kokpit ölçümsüz açılış | Sabit sayı yerine `—`; model adı FreyaTTS; süre gerçek örnekleme hızından |
-| HF16 | Karşılama metni (K-06 kabul edildiyse) | Yapay zekâ bildirimi içerir; önbellekten çalınır |
+| HF16 | Gelen, giden ve web karşılaması | ADR-X-03 bildirim metnini içerir; önbellekten çalınır; önbellek kaydı seed 9 |
 | HF17 | Arka uç LLM hatası sırasında metin turu | Arayüz yanıt üretmez; hata mesajı gösterir |
+| HF18 | Doğru telefon + doğum yılı; kayıtta doğum yılı yok → plaka son hanesi; 3 yanlış deneme | Doğru bilgiyle özel kayıt okunur; doğum yılı yoksa plaka sorulur; 3. yanlıştan sonra o görüşmede özel kayıt kapanır ve operatör önerilir; değerler LLM bağlamında ve günlükte yok |
 
 ## 8. Kabul kapıları
 
@@ -107,9 +108,9 @@ Her düzeltme ayrı commit'tir. Önce testi yaz (hatayı gösteren), sonra düze
 | --- | --- | --- |
 | H01-G00 | Kapsam | Yalnızca §4'teki dosyalar değişti; yeni mimari dizini yok; değişiklik listesi kanıtta |
 | H01-G01 | Hermetiklik | HF01, HF02 PASS (torch/CUDA/Ollama olmayan ortamda kanıtla) |
-| H01-G02 | Güvenlik | HF03, HF04, HF05 PASS; doğrulanmamış arayana özel kayıt içeriği hiçbir yoldan söylenmiyor |
+| H01-G02 | Güvenlik | HF03, HF04, HF05, HF18 PASS; doğrulanmamış arayana özel kayıt içeriği hiçbir yoldan söylenmiyor |
 | H01-G03 | Canlı hat | HF06–HF13 PASS (DEFERRED olanlar gerekçeli) |
-| H01-G04 | Ölçüm dürüstlüğü | HF14, HF15, HF17 PASS |
+| H01-G04 | Ölçüm dürüstlüğü ve şeffaflık | HF14, HF15, HF16, HF17 PASS |
 | H01-G05 | Regresyon | M00 `REGRESSION_MATRIX.csv` kapsamındaki mevcut testler geçiyor; yeni başarısızlık 0 |
 
 ## 9. Kanıt

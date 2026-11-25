@@ -64,7 +64,7 @@ F2-A ham sonuç (FINAL) ─► bağlam izdüşümü (yalnız aynı oturumun önc
 ### 5.3 Metin ve korumalı öbekler
 
 - Ham metin harfi harfine; eski izdüşüm ayrı. Türkçe noktalı/noktasız I doğru kapsamda. NFC birleşik/ayrışık (Škoda/Citroën) geçerli kaynak aralıklarıyla. Kesme işareti varyantları ve birleşen işaretlerde kök/ek eşlemesi; grafem bölünmez. Fikstür: `"nissan kaş kay"` içinde `kaş kay` aralığı `[7,14)`.
-- Sıradan bir sözcüğün içindeki marka alt dizgisi zorla değiştirilmez. Baştaki sıfırlı telefon grubu, belirsiz plaka/VIN (korunur + netleştirme), `P0300`/`P0301`, `1.6 TDI`/`1.5 TDI`, `ID.4`/`T10X`/`C4`/`3008`, para/negatif ondalık/tarih-saat korunur. Örtüşmede belirlenimci koruma önceliği; çift düzenleme yok. "değil", "hayır" kutupluluğu ve açıkça yeni bahis korunur. Bilinmeyen konuşulan rakam yorumu uydurulmaz → netleştirme.
+- Sıradan bir sözcüğün içindeki marka alt dizgisi zorla değiştirilmez. Baştaki sıfırlı telefon grubu, belirsiz plaka/VIN (korunur + netleştirme), `P0300`/`P0301`, `1.6 TDI`/`1.5 TDI`, `ID.4`/`T10X`/`C4`/`3008`, para/negatif ondalık/tarih-saat korunur. Örtüşmede belirlenimci koruma önceliği; çift düzenleme yok. "değil", "hayır" kutupluluğu ve açıkça yeni bahis korunur. Bilinmeyen konuşulan rakam yorumu uydurulmaz → netleştirme. Ortak ayrıştırıcı, Freya'nın kendi okuduğu biçimleri de geri çözer: doğal saat ([ADR-F4-02](../../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md); "öğleden sonra iki buçuk" → 14:30, "sabah ona çeyrek var" → 09:45) ve telefon numarası hangi gruplamayla söylenirse söylensin ([ADR-F4-03](../../../01-architecture/adr/ADR-F4-03-telefon-numarasi-okuma.md); ikili, üçlü, rakam rakam). Gün dilimi söylenmemiş saat ("iki buçuk") tipli belirsiz değer olarak F3'e gider; tahmin edilmez.
 
 ### 5.4 Adaylar, sıralama, güven
 
@@ -153,7 +153,7 @@ Belirsiz aday F3'e ulaşır ve genel "evet" gelse bile netleştirme gerekir; yet
 | AE36 | `P0300` ile `P0301` | Kod ikamesi yok |
 | AE37 | `1.6 TDI` ile `1.5 TDI` | Sayı ve birim korunur; yalnız kesin kapsamlı terim |
 | AE38 | `ID.4`, `T10X`, `C4`, model `3008` | Harfi harfine kod/rakam; belirsizlik korunur |
-| AE39 | Para, negatif ondalık, tarih/saat | İşaret, büyüklük ve anlamsal temsil korunur |
+| AE39 | Para, negatif ondalık, tarih/saat (doğal saat biçimleri dahil) | İşaret, büyüklük ve anlamsal temsil korunur; "öğleden sonra iki buçuk" → 14:30; gün dilimsiz "iki buçuk" belirsiz kalır |
 | AE40 | Motor kodu/ondalık ve takma ad örtüşmesi | Belirlenimci koruma önceliği; çift düzenleme yok |
 | AE41 | Olumsuzluk ve düzeltme "değil", "hayır" | Kutupluluk ve açık yeni bahis korunur |
 | AE42 | Bilinmeyen konuşulan rakam yorumu | Uydurma tipli değer yok; netleştirme |

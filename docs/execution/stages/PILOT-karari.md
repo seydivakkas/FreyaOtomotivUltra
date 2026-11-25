@@ -23,7 +23,8 @@ Pilot; G5'te ölçülen profilin gerçek kullanımda sınırlı ve geri alınabi
 
 - [ ] G5 gerçek kabul; pilot profili G5'te kabul edilen profille **birebir** aynı (model, sözlük, çözücü, aktarım, bayraklar).
 - [ ] Kullanıcının yazılı pilot kararı: kapsam, süre, hatlar, çağrı sınırı, izleme sorumlusu.
-- [ ] Açık karar K-06 (karşılamada yapay zekâ bildirimi) ve kimlik doğrulama yöntemi (ADR-F3-01) karara bağlanmış.
+- [ ] Yapay zekâ bildirimi ([ADR-X-03](../../01-architecture/adr/ADR-X-03-yapay-zeka-bildirimi.md)) ve kimlik doğrulama ([ADR-F3-01](../../01-architecture/adr/ADR-F3-01-arayan-kimlik-dogrulama.md)) kararları verildi (2026-11-26); G5'te uygulanmış ve doğrulanmış.
+- [ ] Pilot topolojisi [ADR-X-01](../../01-architecture/adr/ADR-X-01-asterisk-dagitim.md): Asterisk ve Freya aynı makinede.
 
 ## 3. Kapsam
 
@@ -76,7 +77,7 @@ Acil durdurma anahtarı pilotu hemen kapatır; baz profile dönülür; bilinmeye
 
 ## 11. Devir
 
-Pilot sonucu ayrı bir değerlendirmedir; genişletme veya genel yayın yeni bir kullanıcı kararı ister.
+Pilot sonucu ayrı bir değerlendirmedir; genişletme veya genel yayın yeni bir kullanıcı kararı ister. Üretim, [ADR-X-01](../../01-architecture/adr/ADR-X-01-asterisk-dagitim.md) gereği Asterisk ve Freya'yı **ayrı sunuculara** taşır; bu topoloji için G5 uç gecikme, söz kesme ve yeniden bağlanma ölçümleri yeniden yapılır (pilot ölçümleri üretime aktarılmaz).
 
 ## 12. Başlatma komutu
 

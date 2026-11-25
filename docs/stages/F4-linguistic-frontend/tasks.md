@@ -79,7 +79,7 @@ Her görevin bir kimliği (`F4-Txx`), sprinti (`F4-Sxx`), dosyaları, bağımlı
 
 ### F4-T11 · Tarih ve saat · M
 - **Dosyalar:** `datetime_normalizer.py`, `docs/01-architecture/adr/ADR-F4-02-time-reading.md`
-- **İş:** Tarih ve saat; "yarın saat 14:30" öbeği; saat okuma biçimi kararı (spec §12 soru 2).
+- **İş:** Tarih ve saat; "yarın saat 14:30" öbeği; doğal Türkçe saat okuması ([ADR-F4-02](../../01-architecture/adr/ADR-F4-02-saat-tarih-okuma.md), kabul edildi).
 - **Bitti:** T08 ve T09 geçer.
 
 ## F4-S06 — Telefon, plaka ve teknik kodlar
